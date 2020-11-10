@@ -1,0 +1,67 @@
+/* GENERAL SETTINGS */
+* {
+  box-sizing: border-box;
+}
+
+body{
+  background: #000;
+  color: #fff;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.mainContainer{
+  border: 1px solid #fff;
+  width: 99vw;
+  height: 98vh;
+}
+
+/* Overview */
+.mainProgress{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border: 1px solid #fff;
+  height: 5rem;
+  width: auto;
+}
+
+.progressRemaining{
+  height: 100%;
+  width: 57.5%;
+  background: mediumseagreen;
+}
+
+.progressElapsed{
+  height: 100%;
+  width: 42.5%;
+  background: magenta;
+}
+
+.mainStats{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  border: 1px solid #fff;
+  height: 2rem;
+  width: auto;
+}
+
+.mainVisualization{
+  display: flex;
+  flex-direction: row;
+  width: auto;
+}
+
+.unit{
+  border: 1px solid #fff;
+  height: 1rem;
+  width: 1rem;
+  margin: 2px;
+}

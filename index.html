@@ -3,9 +3,35 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://kit.fontawesome.com/4b83083c38.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/reusable.css">
   <title>Life Perspective</title>
 </head>
 <body>
-  
+  <div class="mainContainer">
+    <div id="mainProgress" class="mainProgress my-1 mx-1">
+      <div id="progressRemaining" class="progressRemaining"></div>
+      <div id="progressElapsed" class="progressElapsed"></div>
+    </div>
+    <div id="mainStats" class="mainStats my-1 mx-1">
+      <form>
+        <label for="statsDOB">Birth</label>
+        <output name=statsDOB id="statsDOB">31.1.1986</output>
+        <label for="statsExpectancy">Life Expectancy</label>
+        <output name=statsExpectancy id="statsExpectancy">80 years</output>
+        <label for="statsExpirationDate">Expiration</label>
+        <output name=statsExpirationDate id="statsExpirationDate">1.2.2066</output>
+      </form>
+    </div>
+    <div id="mainVisualization" class="mainVisualization my-1 mx-1">
+      <div class="unit"></div>
+      <div class="unit"></div>
+      <div class="unit"></div>
+      <div class="unit"></div>
+      <div class="unit"></div>
+    </div>
+  </div>
+  <script src="js/main.js"></script>
 </body>
 </html>
