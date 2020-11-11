@@ -35,12 +35,20 @@ body{
   height: 100%;
   width: 57.5%;
   background: mediumseagreen;
+  text-align: end;
+  line-height: 5rem;
+  font-size: 2rem;
+  padding-right: 0.5rem;
 }
 
 .progressElapsed{
   height: 100%;
   width: 42.5%;
   background: magenta;
+  text-align: start;
+  line-height: 5rem;
+  font-size: 2rem;
+  padding-left: 0.5rem;
 }
 
 .mainStats{
