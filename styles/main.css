@@ -64,13 +64,23 @@ body{
 .mainVisualization{
   display: flex;
   flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-start;
   width: auto;
   flex-wrap: wrap;
 }
 
 .day{
   border: 1px solid #fff;
-  height: 1rem;
-  width: 1rem;
+  height: 1.5rem;
+  width: 1.5rem;
   margin: 2px;
+}
+
+.yearLabel{
+  border: 1px solid #fff;
+  height: 1.5rem;
+  width: 100%;
+  margin: 2px;
+  line-height: 1.5rem;
 }
