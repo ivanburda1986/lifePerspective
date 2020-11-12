@@ -16,7 +16,6 @@ body{
 }
 
 .mainContainer{
-  border: 1px solid #fff;
   width: 99vw;
   height: 98vh;
 }
@@ -25,8 +24,7 @@ body{
 .mainProgress{
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  border: 1px solid #fff;
+  justify-content: center;
   height: 5rem;
   width: auto;
 }
