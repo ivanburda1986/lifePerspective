@@ -57,6 +57,11 @@ function visualizeDays(days){
   data.days = [];
 }
 
+//Highlight today
+function highlightToday(){
+
+}
+
 (function appInit(){
   createDaysDataObjects(data.expiration, data.dob);
   visualizeDays(data.days);
