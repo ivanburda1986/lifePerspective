@@ -44,15 +44,26 @@ function visualizeDays(days){
       document.getElementById('mainVisualization').appendChild(yearLabel);
     }
 
+    if (day.getDate() === 1){
+      let monthLabel = document.createElement("div");
+      monthLabel.innerText = day.getMonth()+1;
+      monthLabel.classList.add('day');
+      monthLabel.classList.add('monthLabel');
+      document.getElementById('mainVisualization').appendChild(monthLabel);
+    }
+
     //Appened the day to DOM
     domDay.id = `${day.getFullYear()}-${day.getMonth()+1}-${day.getDate()}`;
     domDay.classList.add('day');
     document.getElementById('mainVisualization').appendChild(domDay);
+    domDay.innerText = day.getDate();
 
     //Attach data attributes to the day
     domDay.setAttribute("data-year", day.getFullYear());
     domDay.setAttribute("data-month", day.getMonth()+1);
     domDay.setAttribute("data-day", day.getDate());
+
+    
   })
 
   data.days = [];
