@@ -12,6 +12,7 @@ function Day(){
 }
 
 // LOGICS
+//Create data objects for individual days
 function createDaysDataObjects(expiration, dob){
   data.days.push(new Date(dob));
   let numberOfDays = (expiration-dob)/1000/3600/24;
@@ -22,8 +23,8 @@ function createDaysDataObjects(expiration, dob){
   }
 };
 
+//Visualize all individual days
 function visualizeDays(days){
-
   //Append first year label
   let yearLabel = document.createElement("div");
   yearLabel.innerText = days[0].getFullYear();
@@ -59,10 +60,53 @@ function visualizeDays(days){
 
 //Highlight today
 function highlightToday(){
+  let today = new Date();
+  today = `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`;
+  let domPositionOfToday = document.getElementById(today).offsetTop;
+  window.scrollTo(0, domPositionOfToday - window.innerHeight/2);
+  document.getElementById(today).classList.add('today');
+}
+
+//Open the modal to crud a day entry
+function displayModal(input){
+  document.getElementById('dayEntryModal').classList.add('visible');
+  document.getElementById('dayEntryModal').setAttribute("data-day",input.clickedDayId);
+  document.getElementById('entry-date').innerText = `${input.day}. ${input.month}. ${input.year}`;
 
 }
 
+function hideModal(){
+  document.getElementById('dayEntryModal').classList.remove('visible');
+}
+
+
+
+
+//EVENTS
+//Add a day entry - open modal
+function attachActionToDays(){
+  Array.from(document.querySelectorAll('.day')).forEach(item=>{
+    item.addEventListener('click',()=>{
+    let clickedDayId = `${item.getAttribute('data-year')}-${item.getAttribute('data-month')}-${item.getAttribute('data-day')}`;
+    displayModal({clickedDayId:clickedDayId, year:item.getAttribute('data-year'), month: item.getAttribute('data-month'), day: item.getAttribute('data-day')});
+    })
+  });
+}
+
+
+
+//Close the modal
+document.getElementById('dayEntryModal-close').addEventListener('click',(e)=>{
+  hideModal();
+});
+
+
+
+
+//Init the app
 (function appInit(){
   createDaysDataObjects(data.expiration, data.dob);
   visualizeDays(data.days);
+  highlightToday();
+  attachActionToDays();
 })();

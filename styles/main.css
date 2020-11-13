@@ -73,6 +73,11 @@ body{
   height: 1.5rem;
   width: 1.5rem;
   margin: 2px;
+  background: blue;
+}
+
+.today{
+  background: red;
 }
 
 .yearLabel{
@@ -82,3 +87,71 @@ body{
   margin: 2px;
   line-height: 1.5rem;
 }
+
+.dayEntryModal{
+  position: fixed;
+  width: 100vw;
+  height: 100%;
+  margin: 0;
+  background: rgba(0,0,0,1);
+  z-index: 3;
+  top: 0;
+  left: 0;
+  display: none;
+}
+
+#dayEntryModal.visible{
+  display: block;
+}
+
+.dayEntryModal header{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 100vw;
+  height: 20vh;
+}
+
+.dayEntryModal h1{
+font-size: 2.5rem;
+}
+
+.btn-close{
+  position: absolute;
+  display: block;
+  right: 4rem;
+  top: 2rem;
+  background: none;
+  color: #fff;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+textarea{
+  background: #000;
+  color: #fff;
+  border: 1px solid #fff;
+  resize: none;
+  width: 60vw;
+  font-size: 1.2rem;
+  margin: 1.5rem 0;
+}
+
+.dayEntryModal .btn{
+  background: none;
+  color: #fff;
+  border: 1px solid #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.25em 0.5em;
+}
+
+
+@media(max-width: 500px){
+  textarea{
+    width: 90vw;
+  }
+}
+
