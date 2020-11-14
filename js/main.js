@@ -2,12 +2,8 @@
 const data = {
   dob: new Date(1986,0,31),
   expiration: new Date(2066,1,1),
-  days:[]
-
-}
-
-// OBJECTS
-function Day(){
+  days:[],
+  dayEntries: {}
 
 }
 
@@ -44,6 +40,7 @@ function visualizeDays(days){
       document.getElementById('mainVisualization').appendChild(yearLabel);
     }
 
+    //If this is the first day of a month then att a month label before it
     if (day.getDate() === 1){
       let monthLabel = document.createElement("div");
       monthLabel.innerText = day.getMonth()+1;
@@ -66,6 +63,7 @@ function visualizeDays(days){
     
   })
 
+  //Get rid of the day-data because it is not needed any longer
   data.days = [];
 }
 
@@ -83,13 +81,34 @@ function displayModal(input){
   document.getElementById('dayEntryModal').classList.add('visible');
   document.getElementById('dayEntryModal').setAttribute("data-day",input.clickedDayId);
   document.getElementById('entry-date').innerText = `${input.day}. ${input.month}. ${input.year}`;
+  document.getElementById('dayEntryForm').value = getDayEntryFromLocalStorage (input.clickedDayId).message;
 
 }
 
+//Close the modal
 function hideModal(){
   document.getElementById('dayEntryModal').classList.remove('visible');
 }
 
+//Save day entry to local storage
+function saveDayEntryToLocalStorage (dayId, content) {
+  localStorage.setItem(
+    dayId,
+     JSON.stringify({message:content})
+  );
+}
+
+//Get day entry from local storage
+
+
+function getDayEntryFromLocalStorage (dayId) {
+  let content = JSON.parse(localStorage.getItem(dayId));
+  if (content === null) {
+    return "Type some message";
+  } else {
+    return content;
+  }
+}
 
 
 
@@ -104,10 +123,17 @@ function attachActionToDays(){
   });
 }
 
-
-
-//Close the modal
+//Trigger closing the modal
 document.getElementById('dayEntryModal-close').addEventListener('click',(e)=>{
+  hideModal();
+});
+
+//Trigger saving of the day entry
+document.getElementById('submitDayEntry').addEventListener('click', (e)=>{
+  e.preventDefault();
+  let dayId = document.getElementById('dayEntryModal').getAttribute('data-day');
+  let content = document.getElementById('dayEntryForm').value;
+  saveDayEntryToLocalStorage(dayId, content);
   hideModal();
 });
 
