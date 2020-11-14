@@ -1,11 +1,21 @@
+//SELECTORS
+const ui = {
+  dayEntryModal: document.getElementById('dayEntryModal'),
+  dayEntryDate: document.getElementById('dayEntryDate'),
+  dayEntryForm: document.getElementById('dayEntryForm'),
+  dayEntrySubmit: document.getElementById('dayEntrySubmit'),
+  dayEntryDelete: document.getElementById('dayEntryDelete'),
+  dayEntryModalClose: document.getElementById('dayEntryModalClose'),
+  mainVisualization: document.getElementById('mainVisualization'),
+}
+
 // DATA
 const data = {
   dob: new Date(1986,0,31),
   expiration: new Date(2066,1,1),
   days:[],
-  dayEntries: {}
-
 }
+
 
 // LOGICS
 //Create data objects for individual days
@@ -25,34 +35,34 @@ function visualizeDays(days){
   let yearLabel = document.createElement("div");
   yearLabel.innerText = days[0].getFullYear();
   yearLabel.classList.add('yearLabel');
-  document.getElementById('mainVisualization').appendChild(yearLabel);
+  ui.mainVisualization.appendChild(yearLabel);
 
   //Add all days of life
   days.forEach(day => {
     //Create a day DOM element
     let domDay = document.createElement("div");
 
-    //If this is the first day of the year add the year label before it
+    //If this is the first day of the year add a year label before it
     if (day.getMonth() === 0 && day.getDate() === 1){
       let yearLabel = document.createElement("div");
       yearLabel.innerText = day.getFullYear();
       yearLabel.classList.add('yearLabel');
-      document.getElementById('mainVisualization').appendChild(yearLabel);
+      ui.mainVisualization.appendChild(yearLabel);
     }
 
-    //If this is the first day of a month then att a month label before it
+    //If this is the first day of a month add a month label before it
     if (day.getDate() === 1){
       let monthLabel = document.createElement("div");
       monthLabel.innerText = day.getMonth()+1;
       monthLabel.classList.add('day');
       monthLabel.classList.add('monthLabel');
-      document.getElementById('mainVisualization').appendChild(monthLabel);
+      ui.mainVisualization.appendChild(monthLabel);
     }
 
     //Appened the day to DOM
     domDay.id = `${day.getFullYear()}-${day.getMonth()+1}-${day.getDate()}`;
     domDay.classList.add('day');
-    document.getElementById('mainVisualization').appendChild(domDay);
+    ui.mainVisualization.appendChild(domDay);
     domDay.innerText = day.getDate();
 
     //Attach data attributes to the day
@@ -60,7 +70,6 @@ function visualizeDays(days){
     domDay.setAttribute("data-month", day.getMonth()+1);
     domDay.setAttribute("data-day", day.getDate());
 
-    
   })
 
   //Get rid of the day-data because it is not needed any longer
@@ -76,21 +85,21 @@ function highlightToday(){
   document.getElementById(today).classList.add('today');
 }
 
-//Open the modal to crud a day entry
+//Displaying of day-entry modal
 function displayModal(input){
-  document.getElementById('dayEntryModal').classList.add('visible');
-  document.getElementById('dayEntryModal').setAttribute("data-day",input.clickedDayId);
-  document.getElementById('entry-date').innerText = `${input.day}. ${input.month}. ${input.year}`;
-  document.getElementById('dayEntryForm').value = getDayEntryFromLocalStorage (input.clickedDayId).message;
+  ui.dayEntryModal.classList.add('visible');
+  ui.dayEntryModal.setAttribute("data-day",input.clickedDayId);
+  ui.dayEntryDate.innerText = `${input.day}. ${input.month}. ${input.year}`;
+  ui.dayEntryForm.value = getDayEntryFromLocalStorage (input.clickedDayId);
 
 }
 
-//Close the modal
+//Closing day-entry modal
 function hideModal(){
-  document.getElementById('dayEntryModal').classList.remove('visible');
+ ui.dayEntryModal.classList.remove('visible');
 }
 
-//Save day entry to local storage
+//Saving day-entry to local storage
 function saveDayEntryToLocalStorage (dayId, content) {
   localStorage.setItem(
     dayId,
@@ -98,22 +107,23 @@ function saveDayEntryToLocalStorage (dayId, content) {
   );
 }
 
-//Get day entry from local storage
-
-
+//Getting day-entry from local storage
 function getDayEntryFromLocalStorage (dayId) {
   let content = JSON.parse(localStorage.getItem(dayId));
   if (content === null) {
-    return "Type some message";
+    return "";
   } else {
-    return content;
+    return content.message;
   }
 }
 
-
+//Deleting day-entry from local storage
+function deleteDayEntryFromLocalStorage(dayId){
+  localStorage.removeItem(dayId);
+}
 
 //EVENTS
-//Add a day entry - open modal
+//Click: Open day-entry modal
 function attachActionToDays(){
   Array.from(document.querySelectorAll('.day')).forEach(item=>{
     item.addEventListener('click',()=>{
@@ -123,21 +133,27 @@ function attachActionToDays(){
   });
 }
 
-//Trigger closing the modal
-document.getElementById('dayEntryModal-close').addEventListener('click',(e)=>{
+//Click: Close day-entry modal
+ui.dayEntryModalClose.addEventListener('click',(e)=>{
   hideModal();
 });
 
-//Trigger saving of the day entry
-document.getElementById('submitDayEntry').addEventListener('click', (e)=>{
+//Click: Save day-entry text and close the modal
+ui.dayEntrySubmit.addEventListener('click', (e)=>{
   e.preventDefault();
-  let dayId = document.getElementById('dayEntryModal').getAttribute('data-day');
-  let content = document.getElementById('dayEntryForm').value;
+  let dayId = ui.dayEntryModal.getAttribute('data-day');
+  let content = ui.dayEntryForm.value;
   saveDayEntryToLocalStorage(dayId, content);
   hideModal();
 });
 
-
+//Click: Delete day-entry modal
+ui.dayEntryDelete.addEventListener('click',(e)=>{
+  e.preventDefault();
+  let dayId = ui.dayEntryModal.getAttribute('data-day');
+  deleteDayEntryFromLocalStorage(dayId);
+  hideModal();
+});
 
 
 //Init the app
