@@ -85,6 +85,9 @@ function highlightToday(){
   document.getElementById(today).classList.add('today');
 }
 
+//Mark all days that have an entry
+
+
 //Displaying of day-entry modal
 function displayModal(input){
   ui.dayEntryModal.classList.add('visible');
