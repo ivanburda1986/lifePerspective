@@ -88,6 +88,16 @@ body{
 }
 
 .monthLabel{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  line-height: 0.7rem;
+  border: 1px solid #fff;
+  height: 1.5rem;
+  width: 1.5rem;
+  margin: 2px;
+  font-size: 0.7rem;
   background: orange;
   color: black;
 }

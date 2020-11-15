@@ -54,7 +54,7 @@ function visualizeDays(days){
     if (day.getDate() === 1){
       let monthLabel = document.createElement("div");
       monthLabel.innerText = day.getMonth()+1;
-      monthLabel.classList.add('day');
+      //monthLabel.classList.add('day');
       monthLabel.classList.add('monthLabel');
       ui.mainVisualization.appendChild(monthLabel);
     }
