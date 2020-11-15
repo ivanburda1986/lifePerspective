@@ -105,6 +105,11 @@ function saveDayEntryToLocalStorage (dayId, content) {
     dayId,
      JSON.stringify({message:content})
   );
+  if(content !== ""){
+    document.getElementById(dayId).classList.add('hasEntry');
+  } else{
+    document.getElementById(dayId).classList.remove('hasEntry');
+  }
 }
 
 //Getting day-entry from local storage
@@ -120,6 +125,7 @@ function getDayEntryFromLocalStorage (dayId) {
 //Deleting day-entry from local storage
 function deleteDayEntryFromLocalStorage(dayId){
   localStorage.removeItem(dayId);
+  document.getElementById(dayId).classList.remove('hasEntry');
 }
 
 //EVENTS

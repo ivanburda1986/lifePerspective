@@ -87,6 +87,10 @@ body{
   background: red;
 }
 
+.hasEntry{
+  border: 2px solid red;
+}
+
 .monthLabel{
   display: flex;
   justify-content: center;
