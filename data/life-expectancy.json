@@ -1,0 +1,1402 @@
+[
+  {
+    "rating": 1,
+    "country": "Hong Kong",
+    "both": 85.29,
+    "females": 88.17,
+    "males": 82.38
+  },
+  {
+    "rating": 2,
+    "country": "Japan",
+    "both": 85.03,
+    "females": 88.09,
+    "males": 81.91
+  },
+  {
+    "rating": 3,
+    "country": "Macao",
+    "both": 84.68,
+    "females": 87.62,
+    "males": 81.73
+  },
+  {
+    "rating": 4,
+    "country": "Switzerland",
+    "both": 84.25,
+    "females": 86.02,
+    "males": 82.42
+  },
+  {
+    "rating": 5,
+    "country": "Singapore",
+    "both": 84.07,
+    "females": 86.15,
+    "males": 82.06
+  },
+  {
+    "rating": 6,
+    "country": "Italy",
+    "both": 84.01,
+    "females": 85.97,
+    "males": 81.9
+  },
+  {
+    "rating": 7,
+    "country": "Spain",
+    "both": 83.99,
+    "females": 86.68,
+    "males": 81.27
+  },
+  {
+    "rating": 8,
+    "country": "Australia",
+    "both": 83.94,
+    "females": 85.8,
+    "males": 82.08
+  },
+  {
+    "rating": 9,
+    "country": "Channel Islands",
+    "both": 83.6,
+    "females": 85.31,
+    "males": 81.82
+  },
+  {
+    "rating": 10,
+    "country": "Iceland",
+    "both": 83.52,
+    "females": 84.9,
+    "males": 82.15
+  },
+  {
+    "rating": 11,
+    "country": "South Korea",
+    "both": 83.5,
+    "females": 86.42,
+    "males": 80.46
+  },
+  {
+    "rating": 12,
+    "country": "Israel",
+    "both": 83.49,
+    "females": 84.91,
+    "males": 81.98
+  },
+  {
+    "rating": 13,
+    "country": "Sweden",
+    "both": 83.33,
+    "females": 84.97,
+    "males": 81.69
+  },
+  {
+    "rating": 14,
+    "country": "Martinique",
+    "both": 83.13,
+    "females": 86.1,
+    "males": 79.85
+  },
+  {
+    "rating": 14,
+    "country": "France",
+    "both": 83.13,
+    "females": 85.82,
+    "males": 80.32
+  },
+  {
+    "rating": 15,
+    "country": "Malta",
+    "both": 83.06,
+    "females": 84.68,
+    "males": 81.37
+  },
+  {
+    "rating": 16,
+    "country": "Canada",
+    "both": 82.96,
+    "females": 84.74,
+    "males": 81.15
+  },
+  {
+    "rating": 17,
+    "country": "Norway",
+    "both": 82.94,
+    "females": 84.78,
+    "males": 81.11
+  },
+  {
+    "rating": 18,
+    "country": "Ireland",
+    "both": 82.81,
+    "females": 84.32,
+    "males": 81.29
+  },
+  {
+    "rating": 19,
+    "country": "Greece",
+    "both": 82.8,
+    "females": 85.08,
+    "males": 80.52
+  },
+  {
+    "rating": 19,
+    "country": "New Zealand",
+    "both": 82.8,
+    "females": 84.38,
+    "males": 81.2
+  },
+  {
+    "rating": 20,
+    "country": "Luxembourg",
+    "both": 82.79,
+    "females": 84.76,
+    "males": 80.83
+  },
+  {
+    "rating": 21,
+    "country": "Netherlands",
+    "both": 82.78,
+    "females": 84.35,
+    "males": 81.2
+  },
+  {
+    "rating": 22,
+    "country": "Guadeloupe",
+    "both": 82.74,
+    "females": 85.94,
+    "males": 79.16
+  },
+  {
+    "rating": 23,
+    "country": "Portugal",
+    "both": 82.65,
+    "females": 85.28,
+    "males": 79.79
+  },
+  {
+    "rating": 24,
+    "country": "Finland",
+    "both": 82.48,
+    "females": 85.14,
+    "males": 79.82
+  },
+  {
+    "rating": 25,
+    "country": "Belgium",
+    "both": 82.17,
+    "females": 84.31,
+    "males": 80
+  },
+  {
+    "rating": 26,
+    "country": "Austria",
+    "both": 82.05,
+    "females": 84.19,
+    "males": 79.88
+  },
+  {
+    "rating": 27,
+    "country": "Germany",
+    "both": 81.88,
+    "females": 84.14,
+    "males": 79.62
+  },
+  {
+    "rating": 28,
+    "country": "Slovenia",
+    "both": 81.85,
+    "females": 84.44,
+    "males": 79.26
+  },
+  {
+    "rating": 29,
+    "country": "United Kingdom",
+    "both": 81.77,
+    "females": 83.28,
+    "males": 80.22
+  },
+  {
+    "rating": 30,
+    "country": "Réunion",
+    "both": 81.55,
+    "females": 84.45,
+    "males": 78.52
+  },
+  {
+    "rating": 31,
+    "country": "Cyprus",
+    "both": 81.51,
+    "females": 83.45,
+    "males": 79.55
+  },
+  {
+    "rating": 32,
+    "country": "Denmark",
+    "both": 81.4,
+    "females": 83.27,
+    "males": 79.54
+  },
+  {
+    "rating": 33,
+    "country": "U.S. Virgin Islands",
+    "both": 81.17,
+    "females": 83.52,
+    "males": 78.64
+  },
+  {
+    "rating": 34,
+    "country": "Taiwan",
+    "both": 81.04,
+    "females": 83.64,
+    "males": 78.49
+  },
+  {
+    "rating": 35,
+    "country": "Costa Rica",
+    "both": 80.94,
+    "females": 83.39,
+    "males": 78.53
+  },
+  {
+    "rating": 36,
+    "country": "Guam",
+    "both": 80.74,
+    "females": 83.98,
+    "males": 77.63
+  },
+  {
+    "rating": 36,
+    "country": "Chile",
+    "both": 80.74,
+    "females": 82.8,
+    "males": 78.54
+  },
+  {
+    "rating": 37,
+    "country": "Qatar",
+    "both": 80.73,
+    "females": 82.49,
+    "males": 79.78
+  },
+  {
+    "rating": 38,
+    "country": "Puerto Rico",
+    "both": 80.69,
+    "females": 83.92,
+    "males": 77.27
+  },
+  {
+    "rating": 39,
+    "country": "French Guiana",
+    "both": 80.53,
+    "females": 83.38,
+    "males": 77.8
+  },
+  {
+    "rating": 40,
+    "country": "Maldives",
+    "both": 79.89,
+    "females": 81.58,
+    "males": 78.53
+  },
+  {
+    "rating": 41,
+    "country": "Czech Republic (Czechia)",
+    "both": 79.85,
+    "females": 82.35,
+    "males": 77.33
+  },
+  {
+    "rating": 41,
+    "country": "Mayotte",
+    "both": 79.85,
+    "females": 83.24,
+    "males": 76.62
+  },
+  {
+    "rating": 42,
+    "country": "Barbados",
+    "both": 79.64,
+    "females": 80.85,
+    "males": 78.36
+  },
+  {
+    "rating": 43,
+    "country": "Curaçao",
+    "both": 79.41,
+    "females": 82.08,
+    "males": 76.42
+  },
+  {
+    "rating": 44,
+    "country": "Poland",
+    "both": 79.27,
+    "females": 82.98,
+    "males": 75.51
+  },
+  {
+    "rating": 44,
+    "country": "Lebanon",
+    "both": 79.27,
+    "females": 81.17,
+    "males": 77.53
+  },
+  {
+    "rating": 45,
+    "country": "Estonia",
+    "both": 79.18,
+    "females": 83.06,
+    "males": 74.98
+  },
+  {
+    "rating": 45,
+    "country": "Cuba",
+    "both": 79.18,
+    "females": 81.12,
+    "males": 77.25
+  },
+  {
+    "rating": 46,
+    "country": "United States",
+    "both": 79.11,
+    "females": 81.65,
+    "males": 76.61
+  },
+  {
+    "rating": 47,
+    "country": "Panama",
+    "both": 79.1,
+    "females": 82.2,
+    "males": 76.14
+  },
+  {
+    "rating": 48,
+    "country": "Croatia",
+    "both": 79.02,
+    "females": 82.02,
+    "males": 75.95
+  },
+  {
+    "rating": 49,
+    "country": "Albania",
+    "both": 78.96,
+    "females": 80.48,
+    "males": 77.48
+  },
+  {
+    "rating": 50,
+    "country": "Oman",
+    "both": 78.58,
+    "females": 80.94,
+    "males": 76.9
+  },
+  {
+    "rating": 51,
+    "country": "United Arab Emirates",
+    "both": 78.46,
+    "females": 79.8,
+    "males": 77.79
+  },
+  {
+    "rating": 52,
+    "country": "Turkey",
+    "both": 78.45,
+    "females": 81.21,
+    "males": 75.57
+  },
+  {
+    "rating": 53,
+    "country": "Uruguay",
+    "both": 78.43,
+    "females": 81.88,
+    "males": 74.75
+  },
+  {
+    "rating": 54,
+    "country": "French Polynesia",
+    "both": 78.23,
+    "females": 80.41,
+    "males": 76.23
+  },
+  {
+    "rating": 55,
+    "country": "New Caledonia",
+    "both": 78.16,
+    "females": 80.89,
+    "males": 75.61
+  },
+  {
+    "rating": 56,
+    "country": "Slovakia",
+    "both": 78,
+    "females": 81.35,
+    "males": 74.59
+  },
+  {
+    "rating": 57,
+    "country": "Bosnia and Herzegovina",
+    "both": 77.93,
+    "females": 80.32,
+    "males": 75.48
+  },
+  {
+    "rating": 58,
+    "country": "Colombia",
+    "both": 77.87,
+    "females": 80.54,
+    "males": 75.18
+  },
+  {
+    "rating": 59,
+    "country": "Thailand",
+    "both": 77.74,
+    "females": 81.34,
+    "males": 74.16
+  },
+  {
+    "rating": 60,
+    "country": "Bahrain",
+    "both": 77.73,
+    "females": 78.88,
+    "males": 76.87
+  },
+  {
+    "rating": 61,
+    "country": "Ecuador",
+    "both": 77.71,
+    "females": 80.45,
+    "males": 75.05
+  },
+  {
+    "rating": 62,
+    "country": "Sri Lanka",
+    "both": 77.56,
+    "females": 80.74,
+    "males": 74.25
+  },
+  {
+    "rating": 63,
+    "country": "Algeria",
+    "both": 77.5,
+    "females": 78.76,
+    "males": 76.3
+  },
+  {
+    "rating": 64,
+    "country": "China",
+    "both": 77.47,
+    "females": 79.73,
+    "males": 75.36
+  },
+  {
+    "rating": 64,
+    "country": "Antigua and Barbuda",
+    "both": 77.47,
+    "females": 78.58,
+    "males": 76.26
+  },
+  {
+    "rating": 65,
+    "country": "Peru",
+    "both": 77.44,
+    "females": 80.15,
+    "males": 74.87
+  },
+  {
+    "rating": 66,
+    "country": "Morocco",
+    "both": 77.43,
+    "females": 78.66,
+    "males": 76.17
+  },
+  {
+    "rating": 67,
+    "country": "Montenegro",
+    "both": 77.39,
+    "females": 79.77,
+    "males": 74.99
+  },
+  {
+    "rating": 68,
+    "country": "Tunisia",
+    "both": 77.36,
+    "females": 79.34,
+    "males": 75.37
+  },
+  {
+    "rating": 69,
+    "country": "Iran",
+    "both": 77.33,
+    "females": 78.54,
+    "males": 76.22
+  },
+  {
+    "rating": 70,
+    "country": "Hungary",
+    "both": 77.31,
+    "females": 80.66,
+    "males": 73.78
+  },
+  {
+    "rating": 71,
+    "country": "Argentina",
+    "both": 77.17,
+    "females": 80.42,
+    "males": 73.82
+  },
+  {
+    "rating": 72,
+    "country": "Aruba",
+    "both": 76.79,
+    "females": 79.1,
+    "males": 74.26
+  },
+  {
+    "rating": 73,
+    "country": "Saint Lucia",
+    "both": 76.67,
+    "females": 78.06,
+    "males": 75.27
+  },
+  {
+    "rating": 74,
+    "country": "Malaysia",
+    "both": 76.65,
+    "females": 78.78,
+    "males": 74.71
+  },
+  {
+    "rating": 75,
+    "country": "Brazil",
+    "both": 76.57,
+    "females": 80.14,
+    "males": 73.01
+  },
+  {
+    "rating": 76,
+    "country": "Romania",
+    "both": 76.5,
+    "females": 79.91,
+    "males": 73.13
+  },
+  {
+    "rating": 77,
+    "country": "Serbia",
+    "both": 76.47,
+    "females": 79.05,
+    "males": 73.89
+  },
+  {
+    "rating": 78,
+    "country": "Lithuania",
+    "both": 76.41,
+    "females": 81.7,
+    "males": 70.97
+  },
+  {
+    "rating": 79,
+    "country": "Brunei",
+    "both": 76.35,
+    "females": 77.64,
+    "males": 75.17
+  },
+  {
+    "rating": 80,
+    "country": "North Macedonia",
+    "both": 76.26,
+    "females": 78.32,
+    "males": 74.26
+  },
+  {
+    "rating": 81,
+    "country": "Syria",
+    "both": 76.06,
+    "females": 79.11,
+    "males": 73.13
+  },
+  {
+    "rating": 82,
+    "country": "Honduras",
+    "both": 75.87,
+    "females": 78.14,
+    "males": 73.57
+  },
+  {
+    "rating": 83,
+    "country": "Kuwait",
+    "both": 75.85,
+    "females": 77.06,
+    "males": 75.09
+  },
+  {
+    "rating": 84,
+    "country": "Vietnam",
+    "both": 75.77,
+    "females": 79.85,
+    "males": 71.73
+  },
+  {
+    "rating": 85,
+    "country": "Latvia",
+    "both": 75.73,
+    "females": 80.37,
+    "males": 70.81
+  },
+  {
+    "rating": 86,
+    "country": "Saudi Arabia",
+    "both": 75.69,
+    "females": 77.37,
+    "males": 74.47
+  },
+  {
+    "rating": 87,
+    "country": "Armenia",
+    "both": 75.55,
+    "females": 78.9,
+    "males": 71.82
+  },
+  {
+    "rating": 88,
+    "country": "Mauritius",
+    "both": 75.51,
+    "females": 78.92,
+    "males": 72.21
+  },
+  {
+    "rating": 89,
+    "country": "Bulgaria",
+    "both": 75.49,
+    "females": 79.06,
+    "males": 72.05
+  },
+  {
+    "rating": 90,
+    "country": "Mexico",
+    "both": 75.41,
+    "females": 78.17,
+    "males": 72.62
+  },
+  {
+    "rating": 91,
+    "country": "Nicaragua",
+    "both": 75.23,
+    "females": 78.65,
+    "males": 71.75
+  },
+  {
+    "rating": 92,
+    "country": "Belarus",
+    "both": 75.2,
+    "females": 79.9,
+    "males": 70.15
+  },
+  {
+    "rating": 93,
+    "country": "Belize",
+    "both": 75.09,
+    "females": 78.25,
+    "males": 72.14
+  },
+  {
+    "rating": 94,
+    "country": "Guatemala",
+    "both": 75.05,
+    "females": 77.89,
+    "males": 72.14
+  },
+  {
+    "rating": 95,
+    "country": "Jordan",
+    "both": 75.01,
+    "females": 76.82,
+    "males": 73.28
+  },
+  {
+    "rating": 96,
+    "country": "Jamaica",
+    "both": 74.88,
+    "females": 76.6,
+    "males": 73.17
+  },
+  {
+    "rating": 97,
+    "country": "Dominican Republic",
+    "both": 74.65,
+    "females": 77.9,
+    "males": 71.58
+  },
+  {
+    "rating": 98,
+    "country": "State of Palestine",
+    "both": 74.62,
+    "females": 76.38,
+    "males": 72.92
+  },
+  {
+    "rating": 99,
+    "country": "Paraguay",
+    "both": 74.59,
+    "females": 76.78,
+    "males": 72.55
+  },
+  {
+    "rating": 100,
+    "country": "Bahamas",
+    "both": 74.28,
+    "females": 76.51,
+    "males": 71.95
+  },
+  {
+    "rating": 101,
+    "country": "Georgia",
+    "both": 74.24,
+    "females": 78.54,
+    "males": 69.85
+  },
+  {
+    "rating": 102,
+    "country": "El Salvador",
+    "both": 74.06,
+    "females": 78.48,
+    "males": 69.27
+  },
+  {
+    "rating": 103,
+    "country": "Trinidad and Tobago",
+    "both": 73.91,
+    "females": 76.66,
+    "males": 71.24
+  },
+  {
+    "rating": 104,
+    "country": "Kazakhstan",
+    "both": 73.9,
+    "females": 77.97,
+    "males": 69.55
+  },
+  {
+    "rating": 105,
+    "country": "Samoa",
+    "both": 73.75,
+    "females": 75.97,
+    "males": 71.69
+  },
+  {
+    "rating": 106,
+    "country": "Seychelles",
+    "both": 73.74,
+    "females": 77.71,
+    "males": 70.26
+  },
+  {
+    "rating": 107,
+    "country": "Cabo Verde",
+    "both": 73.58,
+    "females": 76.83,
+    "males": 70.15
+  },
+  {
+    "rating": 108,
+    "country": "Bangladesh",
+    "both": 73.57,
+    "females": 75.6,
+    "males": 71.8
+  },
+  {
+    "rating": 109,
+    "country": "Libya",
+    "both": 73.44,
+    "females": 76.46,
+    "males": 70.61
+  },
+  {
+    "rating": 110,
+    "country": "Solomon Islands",
+    "both": 73.38,
+    "females": 75.31,
+    "males": 71.6
+  },
+  {
+    "rating": 111,
+    "country": "Azerbaijan",
+    "both": 73.33,
+    "females": 75.87,
+    "males": 70.76
+  },
+  {
+    "rating": 112,
+    "country": "Russia",
+    "both": 72.99,
+    "females": 78.15,
+    "males": 67.62
+  },
+  {
+    "rating": 113,
+    "country": "St. Vincent & Grenadines",
+    "both": 72.98,
+    "females": 75.62,
+    "males": 70.66
+  },
+  {
+    "rating": 114,
+    "country": "North Korea",
+    "both": 72.89,
+    "females": 76.37,
+    "males": 69.26
+  },
+  {
+    "rating": 115,
+    "country": "Bhutan",
+    "both": 72.77,
+    "females": 73.33,
+    "males": 72.27
+  },
+  {
+    "rating": 116,
+    "country": "Grenada",
+    "both": 72.59,
+    "females": 75.16,
+    "males": 70.24
+  },
+  {
+    "rating": 117,
+    "country": "Egypt",
+    "both": 72.54,
+    "females": 74.95,
+    "males": 70.23
+  },
+  {
+    "rating": 118,
+    "country": "Ukraine",
+    "both": 72.5,
+    "females": 77.27,
+    "males": 67.56
+  },
+  {
+    "rating": 119,
+    "country": "Bolivia",
+    "both": 72.35,
+    "females": 75.35,
+    "males": 69.5
+  },
+  {
+    "rating": 120,
+    "country": "Venezuela",
+    "both": 72.34,
+    "females": 76.25,
+    "males": 68.59
+  },
+  {
+    "rating": 121,
+    "country": "Indonesia",
+    "both": 72.32,
+    "females": 74.64,
+    "males": 70.12
+  },
+  {
+    "rating": 122,
+    "country": "Moldova",
+    "both": 72.3,
+    "females": 76.53,
+    "males": 68.02
+  },
+  {
+    "rating": 123,
+    "country": "Suriname",
+    "both": 72.13,
+    "females": 75.55,
+    "males": 68.88
+  },
+  {
+    "rating": 124,
+    "country": "Uzbekistan",
+    "both": 72.04,
+    "females": 74.26,
+    "males": 69.8
+  },
+  {
+    "rating": 125,
+    "country": "Kyrgyzstan",
+    "both": 71.95,
+    "females": 76.03,
+    "males": 67.85
+  },
+  {
+    "rating": 126,
+    "country": "Tajikistan",
+    "both": 71.76,
+    "females": 74.11,
+    "males": 69.5
+  },
+  {
+    "rating": 127,
+    "country": "Nepal",
+    "both": 71.74,
+    "females": 73.23,
+    "males": 70.13
+  },
+  {
+    "rating": 128,
+    "country": "Philippines",
+    "both": 71.66,
+    "females": 75.92,
+    "males": 67.67
+  },
+  {
+    "rating": 129,
+    "country": "Tonga",
+    "both": 71.32,
+    "females": 73.38,
+    "males": 69.28
+  },
+  {
+    "rating": 130,
+    "country": "Iraq",
+    "both": 71.08,
+    "females": 73.21,
+    "males": 68.96
+  },
+  {
+    "rating": 130,
+    "country": "Western Sahara",
+    "both": 71.08,
+    "females": 73.19,
+    "males": 69.36
+  },
+  {
+    "rating": 131,
+    "country": "Sao Tome & Principe",
+    "both": 71.01,
+    "females": 73.5,
+    "males": 68.54
+  },
+  {
+    "rating": 132,
+    "country": "Vanuatu",
+    "both": 70.99,
+    "females": 72.75,
+    "males": 69.4
+  },
+  {
+    "rating": 133,
+    "country": "Cambodia",
+    "both": 70.54,
+    "females": 72.69,
+    "males": 68.2
+  },
+  {
+    "rating": 134,
+    "country": "Mongolia",
+    "both": 70.53,
+    "females": 74.79,
+    "males": 66.43
+  },
+  {
+    "rating": 135,
+    "country": "India",
+    "both": 70.42,
+    "females": 71.8,
+    "males": 69.16
+  },
+  {
+    "rating": 136,
+    "country": "Guyana",
+    "both": 70.26,
+    "females": 73.53,
+    "males": 67.22
+  },
+  {
+    "rating": 137,
+    "country": "Timor-Leste",
+    "both": 70.18,
+    "females": 72.36,
+    "males": 68.14
+  },
+  {
+    "rating": 138,
+    "country": "Rwanda",
+    "both": 70,
+    "females": 72.16,
+    "males": 67.75
+  },
+  {
+    "rating": 139,
+    "country": "Botswana",
+    "both": 69.86,
+    "females": 72.69,
+    "males": 66.72
+  },
+  {
+    "rating": 140,
+    "country": "Kiribati",
+    "both": 69.17,
+    "females": 73.12,
+    "males": 65
+  },
+  {
+    "rating": 141,
+    "country": "Laos",
+    "both": 68.89,
+    "females": 70.79,
+    "males": 67.04
+  },
+  {
+    "rating": 142,
+    "country": "Senegal",
+    "both": 68.87,
+    "females": 70.88,
+    "males": 66.64
+  },
+  {
+    "rating": 143,
+    "country": "Turkmenistan",
+    "both": 68.63,
+    "females": 72.19,
+    "males": 65.1
+  },
+  {
+    "rating": 144,
+    "country": "Madagascar",
+    "both": 68.21,
+    "females": 69.92,
+    "males": 66.53
+  },
+  {
+    "rating": 145,
+    "country": "Fiji",
+    "both": 67.91,
+    "females": 69.97,
+    "males": 66
+  },
+  {
+    "rating": 146,
+    "country": "Djibouti",
+    "both": 67.87,
+    "females": 70.16,
+    "males": 65.84
+  },
+  {
+    "rating": 147,
+    "country": "Ethiopia",
+    "both": 67.81,
+    "females": 69.8,
+    "males": 65.86
+  },
+  {
+    "rating": 148,
+    "country": "Pakistan",
+    "both": 67.79,
+    "females": 68.9,
+    "males": 66.77
+  },
+  {
+    "rating": 149,
+    "country": "Myanmar",
+    "both": 67.78,
+    "females": 70.81,
+    "males": 64.65
+  },
+  {
+    "rating": 150,
+    "country": "Eritrea",
+    "both": 67.48,
+    "females": 69.75,
+    "males": 65.26
+  },
+  {
+    "rating": 151,
+    "country": "Kenya",
+    "both": 67.47,
+    "females": 69.87,
+    "males": 65.04
+  },
+  {
+    "rating": 152,
+    "country": "Gabon",
+    "both": 67.03,
+    "females": 69.27,
+    "males": 64.93
+  },
+  {
+    "rating": 153,
+    "country": "Yemen",
+    "both": 66.44,
+    "females": 68.16,
+    "males": 64.72
+  },
+  {
+    "rating": 154,
+    "country": "Tanzania",
+    "both": 66.39,
+    "females": 68.25,
+    "males": 64.52
+  },
+  {
+    "rating": 155,
+    "country": "Sudan",
+    "both": 66.09,
+    "females": 68.03,
+    "males": 64.18
+  },
+  {
+    "rating": 156,
+    "country": "Afghanistan",
+    "both": 65.98,
+    "females": 67.59,
+    "males": 64.47
+  },
+  {
+    "rating": 157,
+    "country": "Malawi",
+    "both": 65.62,
+    "females": 68.77,
+    "males": 62.45
+  },
+  {
+    "rating": 158,
+    "country": "Mauritania",
+    "both": 65.57,
+    "females": 67.24,
+    "males": 63.88
+  },
+  {
+    "rating": 159,
+    "country": "Papua New Guinea",
+    "both": 65.22,
+    "females": 66.62,
+    "males": 63.92
+  },
+  {
+    "rating": 160,
+    "country": "Congo",
+    "both": 65.21,
+    "females": 66.73,
+    "males": 63.67
+  },
+  {
+    "rating": 161,
+    "country": "Comoros",
+    "both": 65.03,
+    "females": 66.88,
+    "males": 63.24
+  },
+  {
+    "rating": 162,
+    "country": "Liberia",
+    "both": 65,
+    "females": 66.48,
+    "males": 63.54
+  },
+  {
+    "rating": 163,
+    "country": "Haiti",
+    "both": 64.99,
+    "females": 67.21,
+    "males": 62.77
+  },
+  {
+    "rating": 164,
+    "country": "Ghana",
+    "both": 64.94,
+    "females": 66.13,
+    "males": 63.78
+  },
+  {
+    "rating": 165,
+    "country": "South Africa",
+    "both": 64.88,
+    "females": 68.42,
+    "males": 61.46
+  },
+  {
+    "rating": 166,
+    "country": "Namibia",
+    "both": 64.86,
+    "females": 67.67,
+    "males": 61.83
+  },
+  {
+    "rating": 167,
+    "country": "Zambia",
+    "both": 64.7,
+    "females": 67.71,
+    "males": 61.66
+  },
+  {
+    "rating": 168,
+    "country": "Uganda",
+    "both": 64.38,
+    "females": 66.67,
+    "males": 61.99
+  },
+  {
+    "rating": 169,
+    "country": "Niger",
+    "both": 63.62,
+    "females": 64.89,
+    "males": 62.41
+  },
+  {
+    "rating": 170,
+    "country": "Gambia",
+    "both": 63.26,
+    "females": 64.73,
+    "males": 61.8
+  },
+  {
+    "rating": 171,
+    "country": "Burkina Faso",
+    "both": 62.98,
+    "females": 63.78,
+    "males": 62.06
+  },
+  {
+    "rating": 172,
+    "country": "Benin",
+    "both": 62.84,
+    "females": 64.45,
+    "males": 61.23
+  },
+  {
+    "rating": 173,
+    "country": "Burundi",
+    "both": 62.71,
+    "females": 64.56,
+    "males": 60.85
+  },
+  {
+    "rating": 174,
+    "country": "Guinea",
+    "both": 62.64,
+    "females": 63.25,
+    "males": 61.79
+  },
+  {
+    "rating": 175,
+    "country": "Angola",
+    "both": 62.22,
+    "females": 65.12,
+    "males": 59.46
+  },
+  {
+    "rating": 176,
+    "country": "Zimbabwe",
+    "both": 62.16,
+    "females": 63.66,
+    "males": 60.39
+  },
+  {
+    "rating": 177,
+    "country": "Togo",
+    "both": 62.13,
+    "females": 63.08,
+    "males": 61.16
+  },
+  {
+    "rating": 177,
+    "country": "Mozambique",
+    "both": 62.13,
+    "females": 64.95,
+    "males": 59.05
+  },
+  {
+    "rating": 178,
+    "country": "DR Congo",
+    "both": 61.6,
+    "females": 63.21,
+    "males": 60.01
+  },
+  {
+    "rating": 179,
+    "country": "Eswatini",
+    "both": 61.05,
+    "females": 65.67,
+    "males": 56.98
+  },
+  {
+    "rating": 180,
+    "country": "Mali",
+    "both": 60.54,
+    "females": 61.39,
+    "males": 59.69
+  },
+  {
+    "rating": 181,
+    "country": "Cameroon",
+    "both": 60.32,
+    "females": 61.66,
+    "males": 58.99
+  },
+  {
+    "rating": 182,
+    "country": "Equatorial Guinea",
+    "both": 59.82,
+    "females": 61.08,
+    "males": 58.76
+  },
+  {
+    "rating": 183,
+    "country": "Guinea-Bissau",
+    "both": 59.38,
+    "females": 61.33,
+    "males": 57.31
+  },
+  {
+    "rating": 184,
+    "country": "Côte d'Ivoire",
+    "both": 58.75,
+    "females": 60.13,
+    "males": 57.5
+  },
+  {
+    "rating": 185,
+    "country": "South Sudan",
+    "both": 58.74,
+    "females": 60.31,
+    "males": 57.21
+  },
+  {
+    "rating": 186,
+    "country": "Somalia",
+    "both": 58.34,
+    "females": 60.11,
+    "males": 56.62
+  },
+  {
+    "rating": 187,
+    "country": "Sierra Leone",
+    "both": 55.92,
+    "females": 56.78,
+    "males": 55.01
+  },
+  {
+    "rating": 188,
+    "country": "Nigeria",
+    "both": 55.75,
+    "females": 56.75,
+    "males": 54.8
+  },
+  {
+    "rating": 189,
+    "country": "Lesotho",
+    "both": 55.65,
+    "females": 58.9,
+    "males": 52.52
+  },
+  {
+    "rating": 190,
+    "country": "Chad",
+    "both": 55.17,
+    "females": 56.65,
+    "males": 53.73
+  },
+  {
+    "rating": 191,
+    "country": "Central African Republic",
+    "both": 54.36,
+    "females": 56.58,
+    "males": 52.16
+  }
+]

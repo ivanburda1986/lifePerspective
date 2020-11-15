@@ -7,13 +7,18 @@ const ui = {
   dayEntryDelete: document.getElementById('dayEntryDelete'),
   dayEntryModalClose: document.getElementById('dayEntryModalClose'),
   mainVisualization: document.getElementById('mainVisualization'),
+  nextBtn: document.getElementById('nextBtn'),
 }
 
 // DATA
 const data = {
-  dob: new Date(1986,0,31),
-  expiration: new Date(2066,1,1),
+  answers: {
+    dob: new Date(1986,0,31),
+    expiration: new Date(2066,1,1),
+    gender: 'other',
+  },
   days:[],
+
 }
 
 
@@ -164,10 +169,16 @@ ui.dayEntryDelete.addEventListener('click',(e)=>{
   hideModal();
 });
 
+//Click: Save questionaire answer
+ui.nextBtn.addEventListener('click', (e)=>{
+console.log('hi');
+});
+
+
 
 //Init the app
 (function appInit(){
-  createDaysDataObjects(data.expiration, data.dob);
+  createDaysDataObjects(data.answers.expiration, data.answers.dob);
   visualizeDays(data.days);
   highlightToday();
   attachActionToDays();
