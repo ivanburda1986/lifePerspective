@@ -12,10 +12,10 @@
   <div class="questionsContainer">
     <header class="questions-header">
       <h1>Get a perspective on your life</h1>
-     </header>
-     <div class="questions-main">
+    </header>
+    <div class="questions-main" id="question-gender">
       <form>
-        <p class="questions-question">Choose your gender</p>
+        <p class="questions-question">Who are you?</p>
         <div class="questions-radiobuttons">
           <input type="radio" id="genderChoice1" class="radioOption" name="gender" value="man">
           <label for="genderChoice1">Man</label>
@@ -23,6 +23,15 @@
           <label for="genderChoice2">Woman</label>
           <input type="radio" id="genderChoice3" class="radioOption" name="gender" value="other">
           <label for="genderChoice3">Other</label>
+        </div>
+        <button id="nextBtn" class="questions-btn my-2">Next</button>
+      </form>
+    </div>
+    <div class="questions-main" id="question-country">
+      <form>
+        <p class="questions-question">Where do you live?</p>
+        <div class="questions-countryselect">
+          <select name="countryselect" id="countryselect" class="dropdown"></select>
         </div>
         <button id="nextBtn" class="questions-btn my-2">Next</button>
       </form>
