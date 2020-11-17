@@ -1,5 +1,35 @@
+/* QUESTIONAIRE */
+.radioOption{
+  height: 1.5rem;
+  width: 1.5rem;
+  margin-left: 1rem;
+}
+
+.questions-question{
+  font-size: 1.2rem;
+}
+
+.questions-radiobuttons{
+  padding: 1.5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.questions-btn{
+  background: #fff;
+  color: #000;
+  border: 1px solid #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0.25em 0.5em;
+}
+
+
+
 /* GENERAL SETTINGS */
-:root{
+body{
   box-sizing: border-box;
 }
 
@@ -15,9 +45,6 @@ body{
   font-family: Arial, Helvetica, sans-serif;
 }
 
-body * + * {
-  margin-top: 1.5em;
-}
 
 .mainContainer{
   width: 99vw;
@@ -35,7 +62,7 @@ body * + * {
 
 .progressRemaining{
   height: 100%;
-  width: 57.5%;
+  width: 57%;
   background: mediumseagreen;
   text-align: end;
   line-height: 5rem;
@@ -45,7 +72,7 @@ body * + * {
 
 .progressElapsed{
   height: 100%;
-  width: 42.5%;
+  width: 42%;
   background: magenta;
   text-align: start;
   line-height: 5rem;
@@ -81,7 +108,7 @@ body * + * {
   border: 1px solid #fff;
   height: 1.5rem;
   width: 1.5rem;
-  margin: 2px;
+  margin: 3px;
   background: #333;
   font-size: 0.7rem;
   cursor: pointer;

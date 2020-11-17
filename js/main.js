@@ -10,6 +10,8 @@ const ui = {
   nextBtn: document.getElementById('nextBtn'),
 }
 
+
+
 // DATA
 const data = {
   answers: {
@@ -83,6 +85,7 @@ function visualizeDays(days){
 
 //Highlight today
 function highlightToday(){
+  console.log('hi');
   let today = new Date();
   today = `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`;
   let domPositionOfToday = document.getElementById(today).offsetTop;
@@ -170,11 +173,6 @@ ui.dayEntryDelete.addEventListener('click',(e)=>{
 });
 
 //Click: Save questionaire answer
-ui.nextBtn.addEventListener('click', (e)=>{
-console.log('hi');
-});
-
-
 
 //Init the app
 (function appInit(){

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="https://kit.fontawesome.com/4b83083c38.js" crossorigin="anonymous"></script>
-  <link rel="stylesheet" href="styles/main.css">
+  <link rel="stylesheet" href="styles/stylesheet.css">
   <link rel="stylesheet" href="styles/reusable.css">
   <title>Life Perspective</title>
 </head>
@@ -16,21 +16,21 @@
      <div class="questions-main">
       <form>
         <p class="questions-question">Choose your gender</p>
-        <div>
-          <input type="radio" id="genderChoice1" class="radioOption" name="gender" value="Man">
+        <div class="questions-radiobuttons">
+          <input type="radio" id="genderChoice1" class="radioOption" name="gender" value="man">
           <label for="genderChoice1">Man</label>
-          <input type="radio" id="genderChoice2" class="radioOption" name="gender" value="Woman">
+          <input type="radio" id="genderChoice2" class="radioOption" name="gender" value="woman">
           <label for="genderChoice2">Woman</label>
-          <input type="radio" id="genderChoice3" class="radioOption" name="gender" value="Other">
+          <input type="radio" id="genderChoice3" class="radioOption" name="gender" value="other">
           <label for="genderChoice3">Other</label>
         </div>
-        <button id="nextBtn">Next</button>
+        <button id="nextBtn" class="questions-btn my-2">Next</button>
       </form>
     </div>
   </div>
   
  
 
-  <script src="js/main.js"></script>
+  <script src="js/index.js"></script>
 </body>
 </html>
