@@ -19,6 +19,7 @@
 
 .questions-btn{
   background: #fff;
+  width: 6rem;
   color: #000;
   border: 1px solid #fff;
   font-size: 1.5rem;
@@ -211,6 +212,8 @@ textarea{
 .questionsContainer{
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .questions-main{
