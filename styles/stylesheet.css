@@ -250,6 +250,22 @@ textarea{
   background-color: rgba(255,255,255,1);
 }
 
+#question-dob input{
+  font-size: 1.2rem;
+}
+
+#day{
+  width: 1.5rem;
+}
+
+#month{
+  width: 1.5rem;
+}
+
+#year{
+  width: 3rem;
+}
+
 @media(max-width: 500px){
   textarea{
     width: 90vw;

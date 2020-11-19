@@ -4,6 +4,9 @@ const ui = {
   questionGender: document.getElementById('question-gender'),
   questionDob: document.getElementById('question-dob'),
   countryselect: document.getElementById('countryselect'),
+  year: document.getElementById('year'),
+  month: document.getElementById('month'),
+  day: document.getElementById('day'),
 };
 
 const data = {
@@ -24,6 +27,15 @@ Array.from(document.querySelectorAll('.radioOption')).forEach(radioOption =>{
   })
 });
 
+document.addEventListener('keyup', ()=>{
+  if(ui.day.value !== null && ui.month.value !== null && ui.year.value.length === 4){
+    ui.nextBtn.style.visibility = 'visible';
+  } else{
+    ui.nextBtn.style.visibility = 'hidden';
+  }
+})
+
+
 
 //Save the value
 ui.nextBtn.addEventListener('click', (e)=>{
@@ -32,9 +44,12 @@ ui.nextBtn.addEventListener('click', (e)=>{
     localStorage.setItem('gender', document.querySelector('input[name="gender"]:checked').value);
     ui.questionGender.style.display = 'none';
     ui.questionDob.style.display = 'flex';
+    ui.nextBtn.style.visibility = 'hidden';
     data.currentQuestion = 2;
   }
   else if(data.currentQuestion === 2){
+    let dob = new Date(ui.year.value, ui.month.value-1, ui.day.value);
+    localStorage.setItem('dob', dob);
     ui.questionDob.style.display = 'none';
     ui.questionCountry.style.display = 'flex';
     data.currentQuestion = 3;
@@ -53,7 +68,7 @@ async function getData() {
   );
   const data = await res.json();
   return data;
-}
+};
 
 //Create the selection of countries
 async function showData(){

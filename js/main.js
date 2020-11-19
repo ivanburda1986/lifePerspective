@@ -25,6 +25,45 @@ const data = {
 
 
 // LOGICS
+//Calculate the expiration date
+//Get the countries and related life expectancy data
+async function getData() {
+  const res = await fetch(
+    '../data/life-expectancy.json'
+  );
+  const fetchedData = await res.json();
+  return fetchedData;
+};
+async function calcExpiration(){
+  let fetchedData = await getData();
+  let countryList = {};
+  fetchedData.map(dataItem => {
+    countryList[dataItem.country] = {};
+    countryList[dataItem.country].rating = dataItem.rating;
+    countryList[dataItem.country].man = dataItem.males;
+    countryList[dataItem.country].woman = dataItem.females;
+    countryList[dataItem.country].other = dataItem.both;
+  });
+  let expiration;
+
+  if(data.answers.gender === "woman"){
+    data.answers.expiration = new Date(2012, 1, 1);
+  }
+
+  console.log(data.answers.expiration);
+
+}
+
+
+//Set the DOB, gender and the expiration
+window.addEventListener('load', ()=>{
+data.answers.dob = localStorage.getItem('dob');
+data.answers.gender = localStorage.getItem('gender');
+data.answers.country = localStorage.getItem('country');
+
+});
+
+
 //Create data objects for individual days
 function createDaysDataObjects(expiration, dob){
   data.days.push(new Date(dob));
@@ -85,7 +124,6 @@ function visualizeDays(days){
 
 //Highlight today
 function highlightToday(){
-  console.log('hi');
   let today = new Date();
   today = `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`;
   let domPositionOfToday = document.getElementById(today).offsetTop;
