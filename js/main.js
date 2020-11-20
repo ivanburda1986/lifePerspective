@@ -15,9 +15,10 @@ const ui = {
 // DATA
 const data = {
   answers: {
-    dob: new Date(),
-    expiration: new Date(),
+    dob: null,
+    expiration: null,
     gender: 'other',
+    expiration: null,
   },
   days:[],
 
@@ -80,10 +81,10 @@ function createDaysDataObjects(expiration, dob){
 //Visualize all individual days
 function visualizeDays(days){
   // Append first year label
-  // let yearLabel = document.createElement("div");
-  // yearLabel.innerText = days[0].getFullYear();
-  // yearLabel.classList.add('yearLabel');
-  // ui.mainVisualization.appendChild(yearLabel);
+  let yearLabel = document.createElement("div");
+  yearLabel.innerText = days[0].getFullYear();
+  yearLabel.classList.add('yearLabel');
+  ui.mainVisualization.appendChild(yearLabel);
 
   //Add all days of life
   days.forEach(day => {
@@ -127,10 +128,14 @@ function visualizeDays(days){
 //Highlight today
 function highlightToday(){
   let today = new Date();
-  today = `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`;
-  let domPositionOfToday = document.getElementById(today).offsetTop;
-  window.scrollTo(0, domPositionOfToday - window.innerHeight/2);
-  document.getElementById(today).classList.add('today');
+  if(today > data.answers.expiration){
+    console.log('the person is already dead');
+  } else{
+    today = `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`;
+    let domPositionOfToday = document.getElementById(today).offsetTop;
+    window.scrollTo(0, domPositionOfToday - window.innerHeight/2);
+    document.getElementById(today).classList.add('today');
+  }
 }
 
 //Mark all days that have an entry
@@ -216,9 +221,9 @@ ui.dayEntryDelete.addEventListener('click',(e)=>{
 
 //Init the app
 (function appInit(){
-  setData();
-  createDaysDataObjects(data.answers.expiration, data.answers.dob);
-  visualizeDays(data.days);
-  highlightToday();
-  attachActionToDays();
+  // setData();
+  // createDaysDataObjects(data.answers.expiration, data.answers.dob);
+  // visualizeDays(data.days);
+  // highlightToday();
+  // attachActionToDays();
 })();
