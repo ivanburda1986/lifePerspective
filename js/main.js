@@ -15,8 +15,8 @@ const ui = {
 // DATA
 const data = {
   answers: {
-    dob: new Date(1986,0,31),
-    expiration: new Date(2066,1,1),
+    dob: new Date(),
+    expiration: new Date(),
     gender: 'other',
   },
   days:[],
@@ -44,24 +44,26 @@ async function calcExpiration(){
     countryList[dataItem.country].woman = dataItem.females;
     countryList[dataItem.country].other = dataItem.both;
   });
-  let expiration;
 
-  if(data.answers.gender === "woman"){
-    data.answers.expiration = new Date(2012, 1, 1);
-  }
-
-  console.log(data.answers.expiration);
-
+  let newExp = new Date();
+  newExp.setFullYear(data.answers.dob.getFullYear() + countryList[data.answers.country][data.answers.gender]);
+  newExp.setMonth(data.answers.dob.getMonth());
+  newExp.setDate(data.answers.dob.getDate());
+  data.answers.expiration = newExp;
+  
 }
 
 
 //Set the DOB, gender and the expiration
-window.addEventListener('load', ()=>{
-data.answers.dob = localStorage.getItem('dob');
-data.answers.gender = localStorage.getItem('gender');
-data.answers.country = localStorage.getItem('country');
+function setData(){
+  data.answers.dob = new Date(localStorage.getItem('dob'));
+  data.answers.gender = localStorage.getItem('gender');
+  data.answers.country = localStorage.getItem('country');
+  calcExpiration();
+  
+};
 
-});
+
 
 
 //Create data objects for individual days
@@ -77,11 +79,11 @@ function createDaysDataObjects(expiration, dob){
 
 //Visualize all individual days
 function visualizeDays(days){
-  //Append first year label
-  let yearLabel = document.createElement("div");
-  yearLabel.innerText = days[0].getFullYear();
-  yearLabel.classList.add('yearLabel');
-  ui.mainVisualization.appendChild(yearLabel);
+  // Append first year label
+  // let yearLabel = document.createElement("div");
+  // yearLabel.innerText = days[0].getFullYear();
+  // yearLabel.classList.add('yearLabel');
+  // ui.mainVisualization.appendChild(yearLabel);
 
   //Add all days of life
   days.forEach(day => {
@@ -214,6 +216,7 @@ ui.dayEntryDelete.addEventListener('click',(e)=>{
 
 //Init the app
 (function appInit(){
+  setData();
   createDaysDataObjects(data.answers.expiration, data.answers.dob);
   visualizeDays(data.days);
   highlightToday();
