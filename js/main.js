@@ -7,7 +7,11 @@ const ui = {
   dayEntryDelete: document.getElementById('dayEntryDelete'),
   dayEntryModalClose: document.getElementById('dayEntryModalClose'),
   mainVisualization: document.getElementById('mainVisualization'),
-  nextBtn: document.getElementById('nextBtn'),
+  statsDob: document.getElementById('statsDOB'),
+  statsExpectancy: document.getElementById('statsExpectancy'),
+  statsExpirationDate: document.getElementById('statsExpirationDate'),
+  progressDob: document.getElementById('progressElapsed'),
+  progressExpiration: document.getElementById('progressRemaining')
 }
 
 
@@ -18,7 +22,7 @@ const data = {
     dob: null,
     expiration: null,
     gender: 'other',
-    expiration: null,
+    expectancy: null,
   },
   days:[],
 
@@ -51,7 +55,7 @@ async function calcExpiration(){
   newExp.setMonth(data.answers.dob.getMonth());
   newExp.setDate(data.answers.dob.getDate());
   data.answers.expiration = newExp;
-  
+  data.answers.expectancy = countryList[data.answers.country][data.answers.gender];
 }
 
 
@@ -64,6 +68,13 @@ function setData(){
   
 };
 
+function showStatsProgressNumbers(){
+  ui.statsDob.innerText = `${data.answers.dob.getDate()}.${data.answers.dob.getMonth()+1}. ${data.answers.dob.getFullYear()}, `;
+  ui.statsExpectancy.innerText = Math.round(data.answers.expectancy) + ", ";
+  ui.statsExpirationDate.innerText = `${data.answers.expiration.getDate()}.${data.answers.expiration.getMonth()+1}. ${data.answers.expiration.getFullYear()}`;
+  ui.progressDob.innerText = data.answers.dob.getFullYear();
+  ui.progressExpiration.innerText = data.answers.expiration.getFullYear();
+}
 
 
 
