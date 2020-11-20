@@ -11,7 +11,9 @@ const ui = {
   statsExpectancy: document.getElementById('statsExpectancy'),
   statsExpirationDate: document.getElementById('statsExpirationDate'),
   progressDob: document.getElementById('progressElapsed'),
-  progressExpiration: document.getElementById('progressRemaining')
+  progressExpiration: document.getElementById('progressRemaining'),
+  progressElapsed: document.getElementById('progressElapsed'),
+  progressRemaining: document.getElementById('progressRemaining'),
 }
 
 
@@ -25,7 +27,7 @@ const data = {
     expectancy: null,
   },
   days:[],
-
+  today: new Date(),
 }
 
 
@@ -74,6 +76,11 @@ function showStatsProgressNumbers(){
   ui.statsExpirationDate.innerText = `${data.answers.expiration.getDate()}.${data.answers.expiration.getMonth()+1}. ${data.answers.expiration.getFullYear()}`;
   ui.progressDob.innerText = data.answers.dob.getFullYear();
   ui.progressExpiration.innerText = data.answers.expiration.getFullYear();
+
+  let currentAge = data.today.getFullYear() - data.answers.dob.getFullYear();
+  ui.progressElapsed.style.width = `${currentAge / Math.round(data.answers.expectancy)*100}%`;
+  ui.progressRemaining.style.width = `${100 - (currentAge / Math.round(data.answers.expectancy))*100}%`;
+
 }
 
 
@@ -233,6 +240,7 @@ ui.dayEntryDelete.addEventListener('click',(e)=>{
 //Init the app
 (function appInit(){
   // setData();
+  // showStatsProgressNumbers();
   // createDaysDataObjects(data.answers.expiration, data.answers.dob);
   // visualizeDays(data.days);
   // highlightToday();
