@@ -1,4 +1,4 @@
-//SELECTORS
+//SELECTORS==========================
 const ui = {
   dayEntryModal: document.getElementById('dayEntryModal'),
   dayEntryDate: document.getElementById('dayEntryDate'),
@@ -15,162 +15,61 @@ const ui = {
   progressElapsed: document.getElementById('progressElapsed'),
   progressRemaining: document.getElementById('progressRemaining'),
 }
-
-
-
-// DATA
+// DATA==============================
 const data = {
   answers: {
     dob: null,
-    expiration: null,
-    gender: 'other',
-    expectancy: null,
+    gender: null,
+    country: null,
   },
-  days:[],
+  countryList: {},
+  expectancy: null,
+  expiration: null,
   today: new Date(),
 }
 
 
-// LOGICS
-//Calculate the expiration date
-//Get the countries and related life expectancy data
-async function getData() {
+//DATA LOGICS=============================
+//Get JSON with life expectancy data
+async function getExpectancyStats() {
   const res = await fetch(
     '../data/life-expectancy.json'
   );
-  const fetchedData = await res.json();
-  return fetchedData;
+  const expectancyStats = await res.json();
+  return expectancyStats;
 };
-async function calcExpiration(){
-  let fetchedData = await getData();
-  let countryList = {};
-  fetchedData.map(dataItem => {
-    countryList[dataItem.country] = {};
-    countryList[dataItem.country].rating = dataItem.rating;
-    countryList[dataItem.country].man = dataItem.males;
-    countryList[dataItem.country].woman = dataItem.females;
-    countryList[dataItem.country].other = dataItem.both;
+
+async function processExpectancyStats(){
+  let expectancyStats = await getExpectancyStats();
+  expectancyStats.map(dataItem => {
+    data.countryList[dataItem.country] = {};
+    data.countryList[dataItem.country].rating = dataItem.rating;
+    data.countryList[dataItem.country].man = dataItem.males;
+    data.countryList[dataItem.country].woman = dataItem.females;
+    data.countryList[dataItem.country].other = dataItem.both;
   });
+  getLifeExpectancyAndExiration();
+  showStatsProgressNumbers();
+  visualizeDays();
+  highlightToday();
+  attachActionToDays();
+};
 
-  let newExp = new Date();
-  newExp.setFullYear(data.answers.dob.getFullYear() + countryList[data.answers.country][data.answers.gender]);
-  newExp.setMonth(data.answers.dob.getMonth());
-  newExp.setDate(data.answers.dob.getDate());
-  data.answers.expiration = newExp;
-  data.answers.expectancy = countryList[data.answers.country][data.answers.gender];
-}
-
-
-//Set the DOB, gender and the expiration
-function setData(){
+//Get answers from the questionnaire
+function getAnswers(){
   data.answers.dob = new Date(localStorage.getItem('dob'));
   data.answers.gender = localStorage.getItem('gender');
   data.answers.country = localStorage.getItem('country');
-  calcExpiration();
-  
 };
 
-function showStatsProgressNumbers(){
-  ui.statsDob.innerText = `${data.answers.dob.getDate()}.${data.answers.dob.getMonth()+1}. ${data.answers.dob.getFullYear()}, `;
-  ui.statsExpectancy.innerText = Math.round(data.answers.expectancy) + ", ";
-  ui.statsExpirationDate.innerText = `${data.answers.expiration.getDate()}.${data.answers.expiration.getMonth()+1}. ${data.answers.expiration.getFullYear()}`;
-  ui.progressDob.innerText = data.answers.dob.getFullYear();
-  ui.progressExpiration.innerText = data.answers.expiration.getFullYear();
-
-  let currentAge = data.today.getFullYear() - data.answers.dob.getFullYear();
-  ui.progressElapsed.style.width = `${currentAge / Math.round(data.answers.expectancy)*100}%`;
-  ui.progressRemaining.style.width = `${100 - (currentAge / Math.round(data.answers.expectancy))*100}%`;
-
-}
-
-
-
-//Create data objects for individual days
-function createDaysDataObjects(expiration, dob){
-  data.days.push(new Date(dob));
-  let numberOfDays = (expiration-dob)/1000/3600/24;
-  let nextDate = dob;
-  for(let i = 1; i < numberOfDays; i++){
-    nextDate.setDate(nextDate.getDate() + 1);
-    data.days.push(new Date(nextDate));
-  }
-};
-
-//Visualize all individual days
-function visualizeDays(days){
-  // Append first year label
-  let yearLabel = document.createElement("div");
-  yearLabel.innerText = days[0].getFullYear();
-  yearLabel.classList.add('yearLabel');
-  ui.mainVisualization.appendChild(yearLabel);
-
-  //Add all days of life
-  days.forEach(day => {
-    //Create a day DOM element
-    let domDay = document.createElement("div");
-
-    //If this is the first day of the year add a year label before it
-    if (day.getMonth() === 0 && day.getDate() === 1){
-      let yearLabel = document.createElement("div");
-      yearLabel.innerText = day.getFullYear();
-      yearLabel.classList.add('yearLabel');
-      ui.mainVisualization.appendChild(yearLabel);
-    }
-
-    //If this is the first day of a month add a month label before it
-    if (day.getDate() === 1){
-      let monthLabel = document.createElement("div");
-      monthLabel.innerText = day.getMonth()+1;
-      //monthLabel.classList.add('day');
-      monthLabel.classList.add('monthLabel');
-      ui.mainVisualization.appendChild(monthLabel);
-    }
-
-    //Appened the day to DOM
-    domDay.id = `${day.getFullYear()}-${day.getMonth()+1}-${day.getDate()}`;
-    domDay.classList.add('day');
-    ui.mainVisualization.appendChild(domDay);
-    domDay.innerText = day.getDate();
-
-    //Attach data attributes to the day
-    domDay.setAttribute("data-year", day.getFullYear());
-    domDay.setAttribute("data-month", day.getMonth()+1);
-    domDay.setAttribute("data-day", day.getDate());
-
-  })
-
-  //Get rid of the day-data because it is not needed any longer
-  data.days = [];
-}
-
-//Highlight today
-function highlightToday(){
-  let today = new Date();
-  if(today > data.answers.expiration){
-    console.log('the person is already dead');
-  } else{
-    today = `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`;
-    let domPositionOfToday = document.getElementById(today).offsetTop;
-    window.scrollTo(0, domPositionOfToday - window.innerHeight/2);
-    document.getElementById(today).classList.add('today');
-  }
-}
-
-//Mark all days that have an entry
-
-
-//Displaying of day-entry modal
-function displayModal(input){
-  ui.dayEntryModal.classList.add('visible');
-  ui.dayEntryModal.setAttribute("data-day",input.clickedDayId);
-  ui.dayEntryDate.innerText = `${input.day}. ${input.month}. ${input.year}`;
-  ui.dayEntryForm.value = getDayEntryFromLocalStorage (input.clickedDayId);
-
-}
-
-//Closing day-entry modal
-function hideModal(){
- ui.dayEntryModal.classList.remove('visible');
+//Calculate user's life expiration
+function getLifeExpectancyAndExiration(){
+  let expiration = new Date();
+  expiration.setFullYear(data.answers.dob.getFullYear() + data.countryList[data.answers.country][data.answers.gender]);
+  expiration.setMonth(data.answers.dob.getMonth());
+  expiration.setDate(data.answers.dob.getDate());
+  data.expiration = expiration;
+  data.expectancy = data.countryList[data.answers.country][data.answers.gender];
 }
 
 //Saving day-entry to local storage
@@ -202,7 +101,111 @@ function deleteDayEntryFromLocalStorage(dayId){
   document.getElementById(dayId).classList.remove('hasEntry');
 }
 
-//EVENTS
+
+
+
+//DISPLAYING=============================
+//Display user's stats (birth, expected life lenght, expect termination year) and the life progress bar
+function showStatsProgressNumbers(){
+  ui.statsDob.innerText = `${data.answers.dob.getDate()}.${data.answers.dob.getMonth()+1}. ${data.answers.dob.getFullYear()}, `;
+  ui.statsExpectancy.innerText = Math.round(data.expectancy) + ", ";
+  ui.statsExpirationDate.innerText = `${data.expiration.getDate()}.${data.expiration.getMonth()+1}. ${data.expiration.getFullYear()}`;
+  
+  ui.progressDob.innerText = data.answers.dob.getFullYear();
+  ui.progressExpiration.innerText = data.expiration.getFullYear();
+  let currentAge = data.today.getFullYear() - data.answers.dob.getFullYear();
+  ui.progressElapsed.style.width = `${currentAge / Math.round(data.expectancy)*100}%`;
+  ui.progressRemaining.style.width = `${100 - (currentAge / Math.round(data.expectancy))*100}%`;
+}
+
+//Visualize all individual days
+function visualizeDays(){
+  //Get an array with all days from the DOB until the life termination
+  let days = [];
+  days.push(new Date(data.answers.dob));
+  let numberOfDays = (data.expiration - data.answers.dob)/1000/3600/24;
+  let nextDate = data.answers.dob;
+  for(let i = 1; i < numberOfDays; i++){
+    nextDate.setDate(nextDate.getDate() + 1);
+    days.push(new Date(nextDate));
+  };
+
+  //Append a label to the first year
+  if(data.answers.dob.getMonth() === 1 && data.answers.dob.getDate()===1){
+    let yearLabel = document.createElement("div");
+    yearLabel.innerText = days[0].getFullYear();
+    yearLabel.classList.add('yearLabel');
+    ui.mainVisualization.appendChild(yearLabel);
+  }
+
+  //Append all days of the user's life
+  days.forEach(day => {
+    //Create a day DOM element
+    let domDay = document.createElement("div");
+
+    //If this is the first day of the year add a year label before it
+    if (day.getMonth() === 0 && day.getDate() === 1){
+      let yearLabel = document.createElement("div");
+      yearLabel.innerText = day.getFullYear();
+      yearLabel.classList.add('yearLabel');
+      ui.mainVisualization.appendChild(yearLabel);
+    }
+
+    //If this is the first day of a month add a month label before it
+    if (day.getDate() === 1){
+      let monthLabel = document.createElement("div");
+      monthLabel.innerText = day.getMonth()+1;
+      monthLabel.classList.add('monthLabel');
+      ui.mainVisualization.appendChild(monthLabel);
+    }
+
+    //Appened the day to DOM and give it a unique ID
+    domDay.id = `${day.getFullYear()}-${day.getMonth()+1}-${day.getDate()}`;
+    domDay.classList.add('day');
+    ui.mainVisualization.appendChild(domDay);
+    domDay.innerText = day.getDate();
+
+    //Attach data attributes to the day
+    domDay.setAttribute("data-year", day.getFullYear());
+    domDay.setAttribute("data-month", day.getMonth()+1);
+    domDay.setAttribute("data-day", day.getDate());
+
+  })
+}
+
+//Highlight today
+function highlightToday(){
+  let today = new Date();
+  if(today > data.expiration){
+    console.log('the person is already dead');
+  } else{
+    today = `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`;
+    let domPositionOfToday = document.getElementById(today).offsetTop;
+    window.scrollTo(0, domPositionOfToday - window.innerHeight/2);
+    document.getElementById(today).classList.add('today');
+  }
+}
+
+//Mark upon app load all days that have an entry attached to them
+
+
+//Displaying of day-entry modal
+function displayModal(input){
+  ui.dayEntryModal.classList.add('visible');
+  ui.dayEntryModal.setAttribute("data-day",input.clickedDayId);
+  ui.dayEntryDate.innerText = `${input.day}. ${input.month}. ${input.year}`;
+  ui.dayEntryForm.value = getDayEntryFromLocalStorage (input.clickedDayId);
+
+}
+
+//Closing day-entry modal
+function hideModal(){
+ ui.dayEntryModal.classList.remove('visible');
+}
+
+
+
+//EVENT TRIGGERS=============================
 //Click: Open day-entry modal
 function attachActionToDays(){
   Array.from(document.querySelectorAll('.day')).forEach(item=>{
@@ -235,14 +238,10 @@ ui.dayEntryDelete.addEventListener('click',(e)=>{
   hideModal();
 });
 
-//Click: Save questionaire answer
 
 //Init the app
 (function appInit(){
-  // setData();
-  // showStatsProgressNumbers();
-  // createDaysDataObjects(data.answers.expiration, data.answers.dob);
-  // visualizeDays(data.days);
-  // highlightToday();
-  // attachActionToDays();
+  getExpectancyStats();
+  processExpectancyStats();
+  getAnswers();
 })();
