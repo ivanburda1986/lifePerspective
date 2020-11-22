@@ -17,14 +17,19 @@
     </section>
    <!-- Stats  -->
     <section id="mainStats" class="mainStats my-1 mx-1">
-      <form>
-        <label for="statsDOB">Birth: </label>
-        <output name=statsDOB id="statsDOB"></output>
-        <label for="statsExpectancy">Life Expectancy: </label>
-        <output name=statsExpectancy id="statsExpectancy"></output>
-        <label for="statsExpirationDate">Expiration: </label>
-        <output name=statsExpirationDate id="statsExpirationDate"></output>
-      </form>
+      <div id="changeAnswersContainer">
+        <button id="changeAnswers" class=""><i class="fas fa-arrow-left"></i> Change answers</button>
+      </div>
+      <div id="statsContainer">
+        <form>
+          <label for="statsDOB">Birth: </label>
+          <output name=statsDOB id="statsDOB"></output>
+          <label for="statsExpectancy">Life Expectancy: </label>
+          <output name=statsExpectancy id="statsExpectancy"></output>
+          <label for="statsExpirationDate">Expiration: </label>
+          <output name=statsExpirationDate id="statsExpirationDate"></output>
+        </form>
+      </div>
     </section>
     <!-- Main view with days of life -->
     <section id="mainVisualization" class="mainVisualization my-1 mx-1">

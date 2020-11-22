@@ -1,9 +1,3 @@
-An option to return to the questions
-Delete input fields contenct when re-entering the questionnaire
-Allow entering only numbers into the questions DOB question
-
-When the user was born on the 1.1. make sure the first year label is not displayed twice
-Upon loading mark all days with an entry (based on the local storage day-entry data)
 Improve the styling
 
 Show some message if the user is already expected to be dead
@@ -13,3 +7,4 @@ Show some message if the user is already expected to be dead
 
 //Validations
 -entering the day, month, year
+-when trying to submit an empty message

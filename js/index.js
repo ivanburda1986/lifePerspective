@@ -1,3 +1,4 @@
+//SELECTORS==========================
 const ui = {
   nextBtn: document.getElementById('nextBtn'),
   questionCountry: document.getElementById('question-country'),
@@ -9,17 +10,29 @@ const ui = {
   day: document.getElementById('day'),
 };
 
+//DATA==========================
 const data = {
   currentQuestion: 1
 }
 
+
+//MANAGING THE UI
 
 //Make the 'Next' button invisible by default
 ui.nextBtn.style.visibility = 'hidden';
 ui.questionCountry.style.display = 'none';
 ui.questionDob.style.display = 'none';
 
+//Make sure there are no pre-filled answers
+window.addEventListener('load', ()=>{
+  Array.from(document.querySelectorAll('.radioOption')).forEach(radioOption =>{
+    radioOption.checked = false;
+    console.log('cleared');
+  });
+})
 
+
+//EVENT LISTENERS==========================
 //Display the next button
 Array.from(document.querySelectorAll('.radioOption')).forEach(radioOption =>{
   radioOption.addEventListener('click', (e)=>{
@@ -69,6 +82,7 @@ async function getData() {
   const data = await res.json();
   return data;
 };
+
 
 //Create the selection of countries
 async function showData(){

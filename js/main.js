@@ -14,6 +14,7 @@ const ui = {
   progressExpiration: document.getElementById('progressRemaining'),
   progressElapsed: document.getElementById('progressElapsed'),
   progressRemaining: document.getElementById('progressRemaining'),
+  changeAnswers: document.getElementById('changeAnswers'),
 }
 // DATA==============================
 const data = {
@@ -52,6 +53,7 @@ async function processExpectancyStats(){
   showStatsProgressNumbers();
   visualizeDays();
   highlightToday();
+  highlightAllDaysWithEntry();
   attachActionToDays();
 };
 
@@ -74,10 +76,14 @@ function getLifeExpectancyAndExiration(){
 
 //Saving day-entry to local storage
 function saveDayEntryToLocalStorage (dayId, content) {
+  let currentStorageEntries = JSON.parse(localStorage.getItem('entries'));
+  currentStorageEntries[dayId] = {message:content};
   localStorage.setItem(
-    dayId,
-     JSON.stringify({message:content})
+    "entries",
+    JSON.stringify(currentStorageEntries)
   );
+
+  //Make the day marked as having an entry
   if(content !== ""){
     document.getElementById(dayId).classList.add('hasEntry');
   } else{
@@ -87,17 +93,27 @@ function saveDayEntryToLocalStorage (dayId, content) {
 
 //Getting day-entry from local storage
 function getDayEntryFromLocalStorage (dayId) {
-  let content = JSON.parse(localStorage.getItem(dayId));
-  if (content === null) {
+  let currentStorageEntries = JSON.parse(localStorage.getItem('entries'));
+  if (currentStorageEntries === null) {
     return "";
   } else {
-    return content.message;
+    let content = currentStorageEntries[dayId];
+    if (content === undefined) {
+      return "";
+    } else {
+      return content.message;
+    }
   }
 }
 
 //Deleting day-entry from local storage
 function deleteDayEntryFromLocalStorage(dayId){
-  localStorage.removeItem(dayId);
+  let currentStorageEntries = JSON.parse(localStorage.getItem('entries'));
+  delete currentStorageEntries[dayId];
+  localStorage.setItem(
+    "entries",
+    JSON.stringify(currentStorageEntries)
+  );
   document.getElementById(dayId).classList.remove('hasEntry');
 }
 
@@ -187,7 +203,15 @@ function highlightToday(){
 }
 
 //Mark upon app load all days that have an entry attached to them
-
+function highlightAllDaysWithEntry(){
+  let currentStorageEntries = JSON.parse(localStorage.getItem('entries'));
+  if (currentStorageEntries !== null) {
+    let daysWithEntry = Object.keys(currentStorageEntries);
+    daysWithEntry.forEach(day => {
+      document.getElementById(day).classList.add('hasEntry');
+    })
+  }
+}
 
 //Displaying of day-entry modal
 function displayModal(input){
@@ -236,6 +260,11 @@ ui.dayEntryDelete.addEventListener('click',(e)=>{
   let dayId = ui.dayEntryModal.getAttribute('data-day');
   deleteDayEntryFromLocalStorage(dayId);
   hideModal();
+});
+
+//Click: Go back to the answers
+ui.changeAnswers.addEventListener('click', (e)=>{
+  window.open('index.html', "_self");
 });
 
 
