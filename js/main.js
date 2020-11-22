@@ -254,6 +254,9 @@ ui.dayEntrySubmit.addEventListener('click', (e)=>{
   hideModal();
 });
 
+//On load the disable the submit button if there is no content
+
+
 //Click: Delete day-entry modal
 ui.dayEntryDelete.addEventListener('click',(e)=>{
   e.preventDefault();
