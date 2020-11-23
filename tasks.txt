@@ -1,13 +1,21 @@
 Improve the styling
 
 Show some message if the user is already expected to be dead
--in this case the highlighting of today cannot be applied because today is not available among listed days of the user's life
--scroll all the way down in the list of user's days
--give a congratulation message if the user is still alive, because it means they have outlived their life expectancy
+-scroll to the last expected day and show an overlay message to the user congratulation them that they have outlived their life expectancy
+-inform the user that all extra days above the expectancy will have a different color background to celebrate them
+-once the user accept the message, do not show it again 
+-add a textual note to the last day so that when the user open the day there is an information this was the last expected day
 
-Adding a dropdown list with all years, so that the user can quickly navigate ot any of them. The lits should be responsive on mobile
-Making the top progress bar stick
-Add a today-progress bar showing how the current day is passing
+-then scroll the user to the today's day and next time always scroll to the today's day
+
+
+Selecting years fast
+-Adding a dropdown list with all years, so that the user can quickly navigate ot any of them. The lits should be responsive on mobile
+-Making the top progress bar stick
+
+Progress bar
+-Add a today-progress bar showing how the current day is passing
+-tackle the progressbar in case the user outlived their expectancy. In that case visualise by how much they have outlived it.
 
 
 //Validations

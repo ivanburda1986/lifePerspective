@@ -227,7 +227,7 @@ function highlightToday(){
 function expectancyOutlived(){
   window.scrollTo(0, document.body.scrollHeight);
   let lastExpectedDay = `${data.expiration.getFullYear()}-${data.expiration.getMonth()+1}-${data.expiration.getDate()}`;
-  document.getElementById(lastExpectedDay).classList.add('today');
+  document.getElementById(lastExpectedDay).classList.add('lastExpectedDay');
 }
 
 //Mark upon app load all days that have an entry attached to them

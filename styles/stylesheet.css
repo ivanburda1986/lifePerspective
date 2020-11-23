@@ -150,7 +150,7 @@ padding-right: 3rem;
 }
 
 .lastExpectedDay{
-  border: 1px solid purple;
+  background: purple;
 }
 
 .extraDay{
