@@ -135,17 +135,32 @@ function showStatsProgressNumbers(){
 }
 
 //Visualize all individual days
-function visualizeDays(){
-  //Get an array with all days from the DOB until the life termination
-  let days = [];
-  days.push(new Date(data.answers.dob));
-  let numberOfDays = (data.expiration - data.answers.dob)/1000/3600/24;
-  let nextDate = data.answers.dob;
-  for(let i = 1; i < numberOfDays; i++){
-    nextDate.setDate(nextDate.getDate() + 1);
-    days.push(new Date(nextDate));
-  };
+function visualizeDays(outlivedExpectancy){
+  let visualiseFrom;
+  outlivedExpectancy ? visualiseFrom = 'expiration': 'dob';
 
+  //Get an array with all days from the expiration until today
+  let days = [];
+  if(visualiseFrom === 'expiration'){
+    //days.push(new Date(data.expiration)) --> not applied because this day was already visualised as the last expected day
+    let numberOfDays = (data.today - data.expiration)/1000/3600/24;
+    let nextDate = data.expiration;
+    for(let i = 1; i < numberOfDays; i++){
+      nextDate.setDate(nextDate.getDate() + 1);
+      days.push(new Date(nextDate));
+    };
+  } 
+  //Get an array with all days from the DOB until the life termination
+  else{
+    days.push(new Date(data.answers.dob));
+    let numberOfDays = (data.expiration - data.answers.dob)/1000/3600/24;
+    let nextDate = data.answers.dob;
+    for(let i = 1; i < numberOfDays; i++){
+      nextDate.setDate(nextDate.getDate() + 1);
+      days.push(new Date(nextDate));
+    };
+  }
+ 
   //Append a label to the first year
   if(data.answers.dob.getMonth() === 1 && data.answers.dob.getDate()===1){
     let yearLabel = document.createElement("div");
@@ -177,8 +192,8 @@ function visualizeDays(){
 
     //Appened the day to DOM and give it a unique ID
     domDay.id = `${day.getFullYear()}-${day.getMonth()+1}-${day.getDate()}`;
-    domDay.classList.add('day');
     ui.mainVisualization.appendChild(domDay);
+    domDay.classList.add('day');
     domDay.innerText = day.getDate();
 
     //Attach data attributes to the day
@@ -186,8 +201,14 @@ function visualizeDays(){
     domDay.setAttribute("data-month", day.getMonth()+1);
     domDay.setAttribute("data-day", day.getDate());
 
+    // //Mark the day as extra if the user has outlived the expected lifespan, otherwise mark it as normal
+    if(visualiseFrom === 'expiration'){
+      domDay.classList.add('extraDay');
+    } else{
+      domDay.classList.add('regularDay');
+    }
   })
-}
+};
 
 //Highlight today
 function highlightToday(){
@@ -200,10 +221,13 @@ function highlightToday(){
     window.scrollTo(0, domPositionOfToday - window.innerHeight/2);
     document.getElementById(today).classList.add('today');
   }
-}
+};
 
+//Inform the user they have outlived their life expectancy
 function expectancyOutlived(){
-  console.log('the person is already dead');
+  window.scrollTo(0, document.body.scrollHeight);
+  let lastExpectedDay = `${data.expiration.getFullYear()}-${data.expiration.getMonth()+1}-${data.expiration.getDate()}`;
+  document.getElementById(lastExpectedDay).classList.add('today');
 }
 
 //Mark upon app load all days that have an entry attached to them
@@ -218,7 +242,7 @@ function highlightAllDaysWithEntry(){
       }
     })
   }
-}
+};
 
 //Displaying of day-entry modal
 function displayModal(input){
@@ -226,13 +250,12 @@ function displayModal(input){
   ui.dayEntryModal.setAttribute("data-day",input.clickedDayId);
   ui.dayEntryDate.innerText = `${input.day}. ${input.month}. ${input.year}`;
   ui.dayEntryForm.value = getDayEntryFromLocalStorage (input.clickedDayId);
-
-}
+};
 
 //Closing day-entry modal
 function hideModal(){
  ui.dayEntryModal.classList.remove('visible');
-}
+};
 
 
 

@@ -133,7 +133,6 @@ padding-right: 3rem;
   height: 1.5rem;
   width: 1.5rem;
   margin: 3px;
-  background: #333;
   font-size: 0.7rem;
   cursor: pointer;
 }
@@ -144,6 +143,18 @@ padding-right: 3rem;
 
 .hasEntry{
   border: 1px solid red;
+}
+
+.regularDay{
+  background: #333;
+}
+
+.lastExpectedDay{
+  border: 1px solid purple;
+}
+
+.extraDay{
+  background: darkslategray;
 }
 
 .monthLabel{
