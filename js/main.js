@@ -193,7 +193,7 @@ function visualizeDays(){
 function highlightToday(){
   let today = new Date();
   if(today > data.expiration){
-    console.log('the person is already dead');
+    expectancyOutlived();
   } else{
     today = `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`;
     let domPositionOfToday = document.getElementById(today).offsetTop;
@@ -202,13 +202,20 @@ function highlightToday(){
   }
 }
 
+function expectancyOutlived(){
+  console.log('the person is already dead');
+}
+
 //Mark upon app load all days that have an entry attached to them
 function highlightAllDaysWithEntry(){
   let currentStorageEntries = JSON.parse(localStorage.getItem('entries'));
   if (currentStorageEntries !== null) {
     let daysWithEntry = Object.keys(currentStorageEntries);
     daysWithEntry.forEach(day => {
-      document.getElementById(day).classList.add('hasEntry');
+      //If there is a day in the local storage which is outside of the user's lifespan, just ignore it
+      if(document.getElementById(day) !== null){
+        document.getElementById(day).classList.add('hasEntry');
+      }
     })
   }
 }
