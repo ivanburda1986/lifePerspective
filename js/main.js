@@ -25,13 +25,21 @@ const data = {
   },
   countryList: {},
   expectancy: null,
-  expiration: null,
+  expiration: new Date(),
   today: new Date(),
   outlivedExpectancy: null,
 }
 
 
 //DATA LOGICS=============================
+//Get answers from the questionnaire
+function getAnswers(){
+  data.answers.dob = new Date(localStorage.getItem('dob'));
+  data.answers.gender = localStorage.getItem('gender');
+  data.answers.country = localStorage.getItem('country');
+};
+
+
 //Get JSON with life expectancy data
 async function getExpectancyStats() {
   const res = await fetch(
@@ -50,29 +58,27 @@ async function processExpectancyStats(){
     data.countryList[dataItem.country].woman = dataItem.females;
     data.countryList[dataItem.country].other = dataItem.both;
   });
-  getLifeExpectancyAndExpiration();
-  outlivedExpectancyCheck();
-  showStatsProgressNumbers();
-  visualizeDays();
-  highlightToday();
-  highlightAllDaysWithEntry();
-  attachActionToDays();
+  // getLifeExpectancyAndExpiration();
+  // outlivedExpectancyCheck();
+  // showStatsProgressNumbers();
+  // visualizeDays();
+  // if(data.outlivedExpectancy){
+  //   visualizeDays('outlived'); --- there seems to be an issue because after this the data.expiration gets set to todays date
+  // }
+  // highlightOutlivedExpectancy();
+  // highlightToday();
+  // highlightAllDaysWithEntry();
+  // attachActionToDays();
 };
 
-//Get answers from the questionnaire
-function getAnswers(){
-  data.answers.dob = new Date(localStorage.getItem('dob'));
-  data.answers.gender = localStorage.getItem('gender');
-  data.answers.country = localStorage.getItem('country');
-};
+
 
 //Calculate user's life expiration
 function getLifeExpectancyAndExpiration(){
-  let expiration = new Date();
-  expiration.setFullYear(data.answers.dob.getFullYear() + data.countryList[data.answers.country][data.answers.gender]);
-  expiration.setMonth(data.answers.dob.getMonth());
-  expiration.setDate(data.answers.dob.getDate());
-  data.expiration = expiration;
+  data.expiration.setFullYear(data.answers.dob.getFullYear() + data.countryList[data.answers.country][data.answers.gender]);
+  data.expiration.setMonth(data.answers.dob.getMonth());
+  data.expiration.setDate(data.answers.dob.getDate());
+  console.log(data.expiration);
   data.expectancy = data.countryList[data.answers.country][data.answers.gender];
 }
 
@@ -138,22 +144,12 @@ function showStatsProgressNumbers(){
 
 //Visualize all individual days
 function visualizeDays(outlivedExpectancy){
-  let visualiseFrom;
+  let visualiseFrom = 'dob';
   outlivedExpectancy ? visualiseFrom = 'expiration': 'dob';
-
-  //Get an array with all days from the expiration until today
   let days = [];
-  if(visualiseFrom === 'expiration'){
-    //days.push(new Date(data.expiration)) --> not applied because this day was already visualised as the last expected day
-    let numberOfDays = ((data.today - data.expiration)/1000/3600/24)+1;
-    let nextDate = data.expiration;
-    for(let i = 1; i < numberOfDays; i++){
-      nextDate.setDate(nextDate.getDate() + 1);
-      days.push(new Date(nextDate));
-    };
-  } 
+
   //Get an array with all days from the DOB until the life termination
-  else{
+  if(visualiseFrom === 'dob'){
     days.push(new Date(data.answers.dob));
     let numberOfDays = (data.expiration - data.answers.dob)/1000/3600/24;
     let nextDate = data.answers.dob;
@@ -161,6 +157,16 @@ function visualizeDays(outlivedExpectancy){
       nextDate.setDate(nextDate.getDate() + 1);
       days.push(new Date(nextDate));
     };
+  } 
+  //Get an array with all days from the expiration until today
+  else{
+       //days.push(new Date(data.expiration)) --> not applied because this day was already visualised as the last expected day
+       let numberOfDays = ((data.today - data.expiration)/1000/3600/24)+1;
+       let nextDate = data.expiration;
+       for(let i = 1; i < numberOfDays; i++){
+         nextDate.setDate(nextDate.getDate() + 1);
+         days.push(new Date(nextDate));
+       };
   }
  
   //Append a label to the first year
@@ -222,8 +228,10 @@ function highlightToday(){
 };
 
 //Inform the user they have outlived their life expectancy
-function outlivedExpectancyCongratulation(){
+function highlightOutlivedExpectancy(){
   let lastExpectedDay = `${data.expiration.getFullYear()}-${data.expiration.getMonth()+1}-${data.expiration.getDate()}`;
+  console.log(data.expiration);
+  console.log(lastExpectedDay);
   window.scrollTo(0, document.body.scrollHeight);
   document.getElementById(lastExpectedDay).classList.add('lastExpectedDay');
 }
@@ -311,7 +319,10 @@ ui.changeAnswers.addEventListener('click', (e)=>{
 
 //Init the app
 (function appInit(){
-  getExpectancyStats();
-  processExpectancyStats();
-  getAnswers();
+  // getAnswers();
+  // getExpectancyStats();
+  // processExpectancyStats();
+
 })();
+
+
