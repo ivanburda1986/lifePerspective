@@ -27,6 +27,7 @@ const data = {
   expectancy: null,
   expiration: null,
   today: new Date(),
+  outlivedExpectancy: null,
 }
 
 
@@ -49,7 +50,8 @@ async function processExpectancyStats(){
     data.countryList[dataItem.country].woman = dataItem.females;
     data.countryList[dataItem.country].other = dataItem.both;
   });
-  getLifeExpectancyAndExiration();
+  getLifeExpectancyAndExpiration();
+  outlivedExpectancyCheck();
   showStatsProgressNumbers();
   visualizeDays();
   highlightToday();
@@ -65,7 +67,7 @@ function getAnswers(){
 };
 
 //Calculate user's life expiration
-function getLifeExpectancyAndExiration(){
+function getLifeExpectancyAndExpiration(){
   let expiration = new Date();
   expiration.setFullYear(data.answers.dob.getFullYear() + data.countryList[data.answers.country][data.answers.gender]);
   expiration.setMonth(data.answers.dob.getMonth());
@@ -143,7 +145,7 @@ function visualizeDays(outlivedExpectancy){
   let days = [];
   if(visualiseFrom === 'expiration'){
     //days.push(new Date(data.expiration)) --> not applied because this day was already visualised as the last expected day
-    let numberOfDays = (data.today - data.expiration)/1000/3600/24;
+    let numberOfDays = ((data.today - data.expiration)/1000/3600/24)+1;
     let nextDate = data.expiration;
     for(let i = 1; i < numberOfDays; i++){
       nextDate.setDate(nextDate.getDate() + 1);
@@ -212,23 +214,29 @@ function visualizeDays(outlivedExpectancy){
 
 //Highlight today
 function highlightToday(){
-  let today = new Date();
-  if(today > data.expiration){
-    expectancyOutlived();
-  } else{
-    today = `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`;
-    let domPositionOfToday = document.getElementById(today).offsetTop;
-    window.scrollTo(0, domPositionOfToday - window.innerHeight/2);
-    document.getElementById(today).classList.add('today');
-  }
+  let todayDate = new Date();
+  let todaySelector = `${todayDate.getFullYear()}-${todayDate.getMonth()+1}-${todayDate.getDate()}`;
+  let domPositionOfToday = document.getElementById(todaySelector).offsetTop;
+  window.scrollTo(0, domPositionOfToday - window.innerHeight/2);
+  document.getElementById(todaySelector).classList.add('today');
 };
 
 //Inform the user they have outlived their life expectancy
-function expectancyOutlived(){
-  window.scrollTo(0, document.body.scrollHeight);
+function outlivedExpectancyCongratulation(){
   let lastExpectedDay = `${data.expiration.getFullYear()}-${data.expiration.getMonth()+1}-${data.expiration.getDate()}`;
+  window.scrollTo(0, document.body.scrollHeight);
   document.getElementById(lastExpectedDay).classList.add('lastExpectedDay');
 }
+
+//Check whether the user outlived their life expectancy
+function outlivedExpectancyCheck(){
+  let todayDate = new Date();
+  if(todayDate > data.expiration){
+   data.outlivedExpectancy = true;
+  }
+}
+
+
 
 //Mark upon app load all days that have an entry attached to them
 function highlightAllDaysWithEntry(){
