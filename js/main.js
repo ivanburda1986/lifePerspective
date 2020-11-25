@@ -58,17 +58,15 @@ async function processExpectancyStats(){
     data.countryList[dataItem.country].woman = dataItem.females;
     data.countryList[dataItem.country].other = dataItem.both;
   });
-  // getLifeExpectancyAndExpiration();
-  // outlivedExpectancyCheck();
-  // showStatsProgressNumbers();
-  // visualizeDays();
-  // if(data.outlivedExpectancy){
-  //   visualizeDays('outlived'); --- there seems to be an issue because after this the data.expiration gets set to todays date
-  // }
-  // highlightOutlivedExpectancy();
-  // highlightToday();
-  // highlightAllDaysWithEntry();
-  // attachActionToDays();
+  getLifeExpectancyAndExpiration();
+  outlivedExpectancyCheck();
+  showStatsProgressNumbers();
+  visualizeWithinExpectactionDays();
+  visualizeAboveExpectactionDays();
+  highlightOutlivedExpectancy();
+  highlightToday();
+  highlightAllDaysWithEntry();
+  attachActionToDays();
 };
 
 
@@ -78,8 +76,8 @@ function getLifeExpectancyAndExpiration(){
   data.expiration.setFullYear(data.answers.dob.getFullYear() + data.countryList[data.answers.country][data.answers.gender]);
   data.expiration.setMonth(data.answers.dob.getMonth());
   data.expiration.setDate(data.answers.dob.getDate());
-  console.log(data.expiration);
   data.expectancy = data.countryList[data.answers.country][data.answers.gender];
+  console.log('From Get Life Expectancy and Expiration:' + data.expiration);
 }
 
 //Saving day-entry to local storage
@@ -140,35 +138,23 @@ function showStatsProgressNumbers(){
   let currentAge = data.today.getFullYear() - data.answers.dob.getFullYear();
   ui.progressElapsed.style.width = `${currentAge / Math.round(data.expectancy)*100}%`;
   ui.progressRemaining.style.width = `${100 - (currentAge / Math.round(data.expectancy))*100}%`;
+  console.log('From Showstats and progress:' + data.expiration);
 }
 
-//Visualize all individual days
-function visualizeDays(outlivedExpectancy){
-  let visualiseFrom = 'dob';
-  outlivedExpectancy ? visualiseFrom = 'expiration': 'dob';
+//Visualize all individual days within the expectation
+function visualizeWithinExpectactionDays(){
   let days = [];
 
   //Get an array with all days from the DOB until the life termination
-  if(visualiseFrom === 'dob'){
-    days.push(new Date(data.answers.dob));
-    let numberOfDays = (data.expiration - data.answers.dob)/1000/3600/24;
-    let nextDate = data.answers.dob;
-    for(let i = 1; i < numberOfDays; i++){
-      nextDate.setDate(nextDate.getDate() + 1);
-      days.push(new Date(nextDate));
-    };
-  } 
-  //Get an array with all days from the expiration until today
-  else{
-       //days.push(new Date(data.expiration)) --> not applied because this day was already visualised as the last expected day
-       let numberOfDays = ((data.today - data.expiration)/1000/3600/24)+1;
-       let nextDate = data.expiration;
-       for(let i = 1; i < numberOfDays; i++){
-         nextDate.setDate(nextDate.getDate() + 1);
-         days.push(new Date(nextDate));
-       };
-  }
- 
+  console.log('Visualize all individual days within the expectation');
+  days.push(new Date(data.answers.dob));
+  let numberOfDays = (data.expiration - data.answers.dob)/1000/3600/24;
+  let nextDate = data.answers.dob;
+  for(let i = 1; i < numberOfDays; i++){
+    nextDate.setDate(nextDate.getDate() + 1);
+    days.push(new Date(nextDate));
+  };
+   
   //Append a label to the first year
   if(data.answers.dob.getMonth() === 1 && data.answers.dob.getDate()===1){
     let yearLabel = document.createElement("div");
@@ -209,29 +195,70 @@ function visualizeDays(outlivedExpectancy){
     domDay.setAttribute("data-month", day.getMonth()+1);
     domDay.setAttribute("data-day", day.getDate());
 
-    // //Mark the day as extra if the user has outlived the expected lifespan, otherwise mark it as normal
-    if(visualiseFrom === 'expiration'){
-      domDay.classList.add('extraDay');
-    } else{
+    // //Mark the day as a normal day
       domDay.classList.add('regularDay');
-    }
   })
+
+  console.log('From Visualize within-expectation days:' + data.expiration);
 };
 
-//Highlight today
-function highlightToday(){
-  let todayDate = new Date();
-  let todaySelector = `${todayDate.getFullYear()}-${todayDate.getMonth()+1}-${todayDate.getDate()}`;
-  let domPositionOfToday = document.getElementById(todaySelector).offsetTop;
-  window.scrollTo(0, domPositionOfToday - window.innerHeight/2);
-  document.getElementById(todaySelector).classList.add('today');
+
+//Visualize all individual days above the expectation
+function visualizeAboveExpectactionDays(){
+  let days = [];
+
+  //Get an array with all days after the expiration until today
+  console.log('Visualize all individual days above the expectation');
+  let numberOfDays = ((data.today - data.expiration)/1000/3600/24)+1;
+  let nextDate = new Date(data.expiration);
+  for(let i = 1; i < numberOfDays; i++){
+    nextDate.setDate(nextDate.getDate() + 1);
+    days.push(new Date(nextDate));
+  };
+
+    //Append all days of the user's life
+    days.forEach(day => {
+      //Create a day DOM element
+      let domDay = document.createElement("div");
+  
+      //If this is the first day of the year add a year label before it
+      if (day.getMonth() === 0 && day.getDate() === 1){
+        let yearLabel = document.createElement("div");
+        yearLabel.innerText = day.getFullYear();
+        yearLabel.classList.add('yearLabel');
+        ui.mainVisualization.appendChild(yearLabel);
+      }
+  
+      //If this is the first day of a month add a month label before it
+      if (day.getDate() === 1){
+        let monthLabel = document.createElement("div");
+        monthLabel.innerText = day.getMonth()+1;
+        monthLabel.classList.add('monthLabel');
+        ui.mainVisualization.appendChild(monthLabel);
+      }
+
+      //Appened the day to DOM and give it a unique ID
+      domDay.id = `${day.getFullYear()}-${day.getMonth()+1}-${day.getDate()}`;
+      ui.mainVisualization.appendChild(domDay);
+      domDay.classList.add('day');
+      domDay.innerText = day.getDate();
+  
+      //Attach data attributes to the day
+      domDay.setAttribute("data-year", day.getFullYear());
+      domDay.setAttribute("data-month", day.getMonth()+1);
+      domDay.setAttribute("data-day", day.getDate());
+
+      // //Mark the day as an above-expectancy day
+      domDay.classList.add('extraDay');
+    });
+
+    console.log('From Visualize above-expectation days:' + data.expiration);
 };
+
 
 //Inform the user they have outlived their life expectancy
 function highlightOutlivedExpectancy(){
   let lastExpectedDay = `${data.expiration.getFullYear()}-${data.expiration.getMonth()+1}-${data.expiration.getDate()}`;
-  console.log(data.expiration);
-  console.log(lastExpectedDay);
   window.scrollTo(0, document.body.scrollHeight);
   document.getElementById(lastExpectedDay).classList.add('lastExpectedDay');
 }
@@ -242,7 +269,19 @@ function outlivedExpectancyCheck(){
   if(todayDate > data.expiration){
    data.outlivedExpectancy = true;
   }
+  console.log('From Outlived expectancy check:' + data.expiration);
 }
+
+//Highlight today
+function highlightToday(){
+  let todayDate = new Date();
+  let todaySelector = `${todayDate.getFullYear()}-${todayDate.getMonth()+1}-${todayDate.getDate()}`;
+  let domPositionOfToday = document.getElementById(todaySelector).offsetTop;
+  window.scrollTo(0, domPositionOfToday - window.innerHeight/2);
+  document.getElementById(todaySelector).className = '';
+  document.getElementById(todaySelector).classList.add('day');
+  document.getElementById(todaySelector).classList.add('today');
+};
 
 
 
@@ -319,9 +358,9 @@ ui.changeAnswers.addEventListener('click', (e)=>{
 
 //Init the app
 (function appInit(){
-  // getAnswers();
-  // getExpectancyStats();
-  // processExpectancyStats();
+  getAnswers();
+  getExpectancyStats();
+  processExpectancyStats();
 
 })();
 
