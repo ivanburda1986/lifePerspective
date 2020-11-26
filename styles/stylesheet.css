@@ -137,6 +137,10 @@ padding-right: 3rem;
   cursor: pointer;
 }
 
+.firstBirthday{
+  background: lightgreen;
+}
+
 .today{
   background: red;
 }
@@ -180,6 +184,8 @@ padding-right: 3rem;
   line-height: 1.5rem;
 }
 
+/* Day-entry modal */
+
 .dayEntryModal{
   position: fixed;
   width: 100vw;
@@ -219,6 +225,11 @@ font-size: 2.5rem;
   border: none;
   font-size: 2rem;
   cursor: pointer;
+}
+
+.dayImage{
+  width: 120px;
+  height: auto;
 }
 
 textarea{

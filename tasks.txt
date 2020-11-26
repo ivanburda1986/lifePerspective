@@ -1,11 +1,7 @@
 Improve the styling
 
 Show some message if the user is already expected to be dead
--scroll to the last expected day and show an overlay message to the user congratulation them that they have outlived their life expectancy
--inform the user that all extra days above the expectancy will have a different color background to celebrate them
--once the user accept the message, do not show it again 
 -add a textual note to the last day so that when the user open the day there is an information this was the last expected day
-
 -then scroll the user to the today's day and next time always scroll to the today's day
 
 

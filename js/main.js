@@ -15,11 +15,13 @@ const ui = {
   progressElapsed: document.getElementById('progressElapsed'),
   progressRemaining: document.getElementById('progressRemaining'),
   changeAnswers: document.getElementById('changeAnswers'),
+  firstBirthday: null,
+  lastExpectedDay: null,
 }
 // DATA==============================
 const data = {
   answers: {
-    dob: null,
+    dob: new Date(),
     gender: null,
     country: null,
   },
@@ -34,7 +36,8 @@ const data = {
 //DATA LOGICS=============================
 //Get answers from the questionnaire
 function getAnswers(){
-  data.answers.dob = new Date(localStorage.getItem('dob'));
+  let dob = new Date(localStorage.getItem('dob'));
+  data.answers.dob = dob;
   data.answers.gender = localStorage.getItem('gender');
   data.answers.country = localStorage.getItem('country');
 };
@@ -65,6 +68,7 @@ async function processExpectancyStats(){
   visualizeAboveExpectactionDays();
   highlightOutlivedExpectancy();
   highlightToday();
+  highlightFirstBirthday();
   highlightAllDaysWithEntry();
   attachActionToDays();
 };
@@ -73,9 +77,9 @@ async function processExpectancyStats(){
 
 //Calculate user's life expiration
 function getLifeExpectancyAndExpiration(){
-  data.expiration.setFullYear(data.answers.dob.getFullYear() + data.countryList[data.answers.country][data.answers.gender]);
-  data.expiration.setMonth(data.answers.dob.getMonth());
-  data.expiration.setDate(data.answers.dob.getDate());
+  data.expiration.setFullYear(new Date(data.answers.dob).getFullYear() + data.countryList[data.answers.country][data.answers.gender]);
+  data.expiration.setMonth(new Date(data.answers.dob).getMonth());
+  data.expiration.setDate(new Date(data.answers.dob).getDate());
   data.expectancy = data.countryList[data.answers.country][data.answers.gender];
   console.log('From Get Life Expectancy and Expiration:' + data.expiration);
 }
@@ -129,13 +133,13 @@ function deleteDayEntryFromLocalStorage(dayId){
 //DISPLAYING=============================
 //Display user's stats (birth, expected life lenght, expect termination year) and the life progress bar
 function showStatsProgressNumbers(){
-  ui.statsDob.innerText = `${data.answers.dob.getDate()}.${data.answers.dob.getMonth()+1}. ${data.answers.dob.getFullYear()}, `;
+  ui.statsDob.innerText = `${new Date(data.answers.dob).getDate()}.${new Date(data.answers.dob).getMonth()+1}. ${new Date(data.answers.dob).getFullYear()}, `;
   ui.statsExpectancy.innerText = Math.round(data.expectancy) + ", ";
   ui.statsExpirationDate.innerText = `${data.expiration.getDate()}.${data.expiration.getMonth()+1}. ${data.expiration.getFullYear()}`;
   
-  ui.progressDob.innerText = data.answers.dob.getFullYear();
+  ui.progressDob.innerText = new Date(data.answers.dob).getFullYear();
   ui.progressExpiration.innerText = data.expiration.getFullYear();
-  let currentAge = data.today.getFullYear() - data.answers.dob.getFullYear();
+  let currentAge = data.today.getFullYear() - new Date(data.answers.dob).getFullYear();
   ui.progressElapsed.style.width = `${currentAge / Math.round(data.expectancy)*100}%`;
   ui.progressRemaining.style.width = `${100 - (currentAge / Math.round(data.expectancy))*100}%`;
   console.log('From Showstats and progress:' + data.expiration);
@@ -149,14 +153,14 @@ function visualizeWithinExpectactionDays(){
   console.log('Visualize all individual days within the expectation');
   days.push(new Date(data.answers.dob));
   let numberOfDays = (data.expiration - data.answers.dob)/1000/3600/24;
-  let nextDate = data.answers.dob;
+  let nextDate = new Date(data.answers.dob);
   for(let i = 1; i < numberOfDays; i++){
     nextDate.setDate(nextDate.getDate() + 1);
     days.push(new Date(nextDate));
   };
    
   //Append a label to the first year
-  if(data.answers.dob.getMonth() === 1 && data.answers.dob.getDate()===1){
+  if(new Date(data.answers.dob).getMonth() === 1 && new Date(data.answers.dob).getDate()===1){
     let yearLabel = document.createElement("div");
     yearLabel.innerText = days[0].getFullYear();
     yearLabel.classList.add('yearLabel');
@@ -260,7 +264,8 @@ function visualizeAboveExpectactionDays(){
 function highlightOutlivedExpectancy(){
   let lastExpectedDay = `${data.expiration.getFullYear()}-${data.expiration.getMonth()+1}-${data.expiration.getDate()}`;
   window.scrollTo(0, document.body.scrollHeight);
-  document.getElementById(lastExpectedDay).classList.add('lastExpectedDay');
+  ui.lastExpectedDay = document.getElementById(lastExpectedDay);
+  ui.lastExpectedDay.classList.add('lastExpectedDay');
 }
 
 //Check whether the user outlived their life expectancy
@@ -270,6 +275,11 @@ function outlivedExpectancyCheck(){
    data.outlivedExpectancy = true;
   }
   console.log('From Outlived expectancy check:' + data.expiration);
+}
+
+//Highlight the first birthday
+function highlightFirstBirthday(){
+
 }
 
 //Highlight today
@@ -305,6 +315,8 @@ function displayModal(input){
   ui.dayEntryModal.setAttribute("data-day",input.clickedDayId);
   ui.dayEntryDate.innerText = `${input.day}. ${input.month}. ${input.year}`;
   ui.dayEntryForm.value = getDayEntryFromLocalStorage (input.clickedDayId);
+
+
 };
 
 //Closing day-entry modal
