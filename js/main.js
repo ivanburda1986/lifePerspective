@@ -262,10 +262,12 @@ function visualizeAboveExpectactionDays(){
 
 //Inform the user they have outlived their life expectancy
 function highlightOutlivedExpectancy(){
-  let lastExpectedDay = `${data.expiration.getFullYear()}-${data.expiration.getMonth()+1}-${data.expiration.getDate()}`;
+  let lastExpectedDay = `${new Date(data.expiration).getFullYear()}-${new Date(data.expiration).getMonth()+1}-${new Date(data.expiration).getDate()}`;
   window.scrollTo(0, document.body.scrollHeight);
   ui.lastExpectedDay = document.getElementById(lastExpectedDay);
-  ui.lastExpectedDay.classList.add('lastExpectedDay');
+ ui.lastExpectedDay.className = '';
+ ui.lastExpectedDay.classList.add('day');
+ ui.lastExpectedDay.classList.add('lastExpectedDay');
 }
 
 //Check whether the user outlived their life expectancy
@@ -279,7 +281,11 @@ function outlivedExpectancyCheck(){
 
 //Highlight the first birthday
 function highlightFirstBirthday(){
-
+  let firstBirthday = `${new Date(data.answers.dob).getFullYear()}-${new Date(data.answers.dob).getMonth()+1}-${new Date(data.answers.dob).getDate()}`;
+  ui.firstBirthday = document.getElementById(firstBirthday);
+  ui.firstBirthday.className = '';
+  ui.firstBirthday.classList.add('day');
+  ui.firstBirthday.classList.add('firstBirthday');
 }
 
 //Highlight today
