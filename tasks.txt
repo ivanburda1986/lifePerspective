@@ -1,20 +1,12 @@
-Improve the styling
+The last things to do:
+==========================================
+1]A list of available profiles. They are deletable.
+2]Creating a profile with of an existing name will just update the existing rather than overwriting it fully
+3]Fixing progressbar for users who have outlived their expectancy
+4]Progressbar should be fixed to the top so that it is always visible
+5]Progressbar should include a dropdown with all available years for fast-moving
+6]Allow users to attachch a picture image via an URL for every day
+7]Validation for entering day, month, year
+8]Validation for submitting an empty daily message
+9]Improve general styling of the solution
 
-Allow users to attach pictures to any day as a URL link
-
-Selecting years fast
--Adding a dropdown list with all years, so that the user can quickly navigate ot any of them. The lits should be responsive on mobile
--Making the top progress bar stick
-
-Progress bar
--Add a today-progress bar showing how the current day is passing
--tackle the progressbar in case the user outlived their expectancy. In that case visualise by how much they have outlived it.
-
-
-//Validations
--entering the day, month, year
--when trying to submit an empty message
-
-
-
-//add a list of available profiles at the login, so thaat users can login instead of creating a new profile
