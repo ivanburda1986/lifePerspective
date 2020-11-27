@@ -9,4 +9,4 @@ The last things to do:
 7]Validation for entering day, month, year
 8]Validation for submitting an empty daily message
 9]Improve general styling of the solution
-
+10]Show somewhere in the navbar the name of the currently active profile
