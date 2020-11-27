@@ -99,6 +99,7 @@ ui.nextBtn.addEventListener('click', (e)=>{
   else if(data.currentQuestion === 4){
     data[data.nameValue].country = ui.countryselect.value;
     localStorage.setItem(data.nameValue, JSON.stringify(data[data.nameValue]));
+    localStorage.setItem('currentProfile', data.nameValue);
     window.open("main.html", "_self");
   }
 })

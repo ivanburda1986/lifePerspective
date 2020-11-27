@@ -16,7 +16,5 @@ Progress bar
 -when trying to submit an empty message
 
 
-//ask user to create a login name and then save all realted data in the ls as a single object linked to the login name
-users will always have to enter their name if they have one, or create a new login
 
--this will create independent data objects in the local storage and multiple users will be able to login independently
+//add a list of available profiles at the login, so thaat users can login instead of creating a new profile

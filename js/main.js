@@ -33,18 +33,19 @@ const data = {
   expiration: new Date(),
   today: new Date(),
   outlivedExpectancy: null,
-  setFirstBirthdayDefaultMessage: localStorage.getItem('setFirstBirthdayDefaultMessage'),
-  setLastExpectedDayDefaultMessage: localStorage.getItem('setLastExpectedDayDefaultMessage'),
+  currentProfile: localStorage.getItem('currentProfile'),
+  setFirstBirthdayDefaultMessage: null,
+  setLastExpectedDayDefaultMessage: null,
 }
 
 
 //DATA LOGICS=============================
 //Get answers from the questionnaire
 function getAnswers(){
-  let dob = new Date(localStorage.getItem('dob'));
+  let dob = new Date(getCurrentProfileFromStorage().dob);
   data.answers.dob = dob;
-  data.answers.gender = localStorage.getItem('gender');
-  data.answers.country = localStorage.getItem('country');
+  data.answers.gender = getCurrentProfileFromStorage().gender;
+  data.answers.country = getCurrentProfileFromStorage().country;
 };
 
 
@@ -72,12 +73,25 @@ async function processExpectancyStats(){
   visualizeWithinExpectactionDays();
   visualizeAboveExpectactionDays();
   highlightOutlivedExpectancy();
-  highlightToday();
   highlightFirstBirthday();
   highlightOutlivedExpectancy();
+  highlightToday();
   highlightAllDaysWithEntry();
   attachActionToDays();
 };
+
+//Get current profile data from local storage
+function getCurrentProfileFromStorage(){
+  return JSON.parse(localStorage.getItem(data.currentProfile));
+}
+
+//Update current profile data in local storage
+function updateCurrentProfileInStorage(keyName, value){
+  let retrievedProfileData = getCurrentProfileFromStorage();
+  retrievedProfileData[keyName] = value;
+  localStorage.setItem(data.currentProfile, JSON.stringify(retrievedProfileData));
+  return getCurrentProfileFromStorage();
+}
 
 
 
@@ -92,14 +106,14 @@ function getLifeExpectancyAndExpiration(){
 
 //Saving day-entry to local storage
 function saveDayEntryToLocalStorage (dayId, content) {
-  let currentStorageEntries = JSON.parse(localStorage.getItem('entries'));
-  if (currentStorageEntries === null) {
+  let currentStorageEntries = getCurrentProfileFromStorage().entries;
+  if (currentStorageEntries === undefined) {
    currentStorageEntries = {};
   }
   currentStorageEntries[dayId] = {message:content};
-  localStorage.setItem(
+  updateCurrentProfileInStorage(
     "entries",
-    JSON.stringify(currentStorageEntries)
+    currentStorageEntries
   );
 
   //Make the day marked as having an entry
@@ -112,8 +126,8 @@ function saveDayEntryToLocalStorage (dayId, content) {
 
 //Getting day-entry from local storage
 function getDayEntryFromLocalStorage (dayId) {
-  let currentStorageEntries = JSON.parse(localStorage.getItem('entries'));
-  if (currentStorageEntries === null) {
+  let currentStorageEntries = getCurrentProfileFromStorage().entries;
+  if (currentStorageEntries === undefined) {
     return "";
   } else {
     let content = currentStorageEntries[dayId];
@@ -127,11 +141,11 @@ function getDayEntryFromLocalStorage (dayId) {
 
 //Deleting day-entry from local storage
 function deleteDayEntryFromLocalStorage(dayId){
-  let currentStorageEntries = JSON.parse(localStorage.getItem('entries'));
+  let currentStorageEntries = getCurrentProfileFromStorage().entries;
   delete currentStorageEntries[dayId];
-  localStorage.setItem(
+  updateCurrentProfileInStorage(
     "entries",
-    JSON.stringify(currentStorageEntries)
+    currentStorageEntries
   );
   document.getElementById(dayId).classList.remove('hasEntry');
 }
@@ -145,7 +159,7 @@ function showStatsProgressNumbers(){
   ui.statsDob.innerText = `${new Date(data.answers.dob).getDate()}.${new Date(data.answers.dob).getMonth()+1}. ${new Date(data.answers.dob).getFullYear()}, `;
   ui.statsExpectancy.innerText = Math.round(data.expectancy) + ", ";
   ui.statsExpirationDate.innerText = `${data.expiration.getDate()}.${data.expiration.getMonth()+1}. ${data.expiration.getFullYear()}`;
-  
+
   ui.progressDob.innerText = new Date(data.answers.dob).getFullYear();
   ui.progressExpiration.innerText = data.expiration.getFullYear();
   let currentAge = data.today.getFullYear() - new Date(data.answers.dob).getFullYear();
@@ -167,7 +181,7 @@ function visualizeWithinExpectactionDays(){
     nextDate.setDate(nextDate.getDate() + 1);
     days.push(new Date(nextDate));
   };
-   
+
   //Append a label to the first year
   if(new Date(data.answers.dob).getMonth() === 1 && new Date(data.answers.dob).getDate()===1){
     let yearLabel = document.createElement("div");
@@ -233,7 +247,7 @@ function visualizeAboveExpectactionDays(){
     days.forEach(day => {
       //Create a day DOM element
       let domDay = document.createElement("div");
-  
+
       //If this is the first day of the year add a year label before it
       if (day.getMonth() === 0 && day.getDate() === 1){
         let yearLabel = document.createElement("div");
@@ -241,7 +255,7 @@ function visualizeAboveExpectactionDays(){
         yearLabel.classList.add('yearLabel');
         ui.mainVisualization.appendChild(yearLabel);
       }
-  
+
       //If this is the first day of a month add a month label before it
       if (day.getDate() === 1){
         let monthLabel = document.createElement("div");
@@ -255,7 +269,7 @@ function visualizeAboveExpectactionDays(){
       ui.mainVisualization.appendChild(domDay);
       domDay.classList.add('day');
       domDay.innerText = day.getDate();
-  
+
       //Attach data attributes to the day
       domDay.setAttribute("data-year", day.getFullYear());
       domDay.setAttribute("data-month", day.getMonth()+1);
@@ -272,7 +286,6 @@ function visualizeAboveExpectactionDays(){
 //Inform the user they have outlived their life expectancy
 function highlightOutlivedExpectancy(){
   let lastExpectedDay = `${new Date(data.expiration).getFullYear()}-${new Date(data.expiration).getMonth()+1}-${new Date(data.expiration).getDate()}`;
-  window.scrollTo(0, document.body.scrollHeight);
   ui.lastExpectedDay = document.getElementById(lastExpectedDay);
  ui.lastExpectedDay.className = '';
  ui.lastExpectedDay.classList.add('day');
@@ -282,7 +295,10 @@ function highlightOutlivedExpectancy(){
 //Populate the last expected day with a congratulation message but do not re-populate it if the user overwrites it
  if(data.setLastExpectedDayDefaultMessage === null){
   saveDayEntryToLocalStorage (ui.lastExpectedDayId, "Based on the average life expectancy, this was the last day of your life! Congratulations if you can see this message! All following days will be highlight with a special color so that you can remind yourself of enjoying them even more!")
-  localStorage.setItem('setLastExpectedDayDefaultMessage', 'true');
+  updateCurrentProfileInStorage(
+    "setLastExpectedDayDefaultMessage",
+    'true'
+  );
  }
 }
 
@@ -291,6 +307,7 @@ function outlivedExpectancyCheck(){
   let todayDate = new Date();
   if(todayDate > data.expiration){
    data.outlivedExpectancy = true;
+   window.scrollTo(0, document.body.scrollHeight);
   }
   console.log('From Outlived expectancy check:' + data.expiration);
 }
@@ -303,12 +320,12 @@ function highlightFirstBirthday(){
   ui.firstBirthday.classList.add('day');
   ui.firstBirthday.classList.add('firstBirthday');
   ui.firstBirthdayId = firstBirthday;
-  
+
   //Populate the first birthday with a default message but do not re-populate it if the user overwrites it
  if(data.setFirstBirthdayDefaultMessage === null){
   getDayEntryFromLocalStorage (ui.firstBirthdayId);
   saveDayEntryToLocalStorage (ui.firstBirthdayId, "This is the day when you were born!");
-  localStorage.setItem('setFirstBirthdayDefaultMessage', 'true');
+  updateCurrentProfileInStorage("setFirstBirthdayDefaultMessage", 'true');
  }
 }
 
@@ -327,7 +344,7 @@ function highlightToday(){
 
 //Mark upon app load all days that have an entry attached to them
 function highlightAllDaysWithEntry(){
-  let currentStorageEntries = JSON.parse(localStorage.getItem('entries'));
+  let currentStorageEntries = getCurrentProfileFromStorage().entries;
   if (currentStorageEntries !== null) {
     let daysWithEntry = Object.keys(currentStorageEntries);
     daysWithEntry.forEach(day => {
