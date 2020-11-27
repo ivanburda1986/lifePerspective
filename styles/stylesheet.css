@@ -216,6 +216,13 @@ padding-right: 3rem;
 font-size: 2.5rem;
 }
 
+.dayEntryModal main{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  }
+
 .btn-close{
   position: absolute;
   display: block;
@@ -228,7 +235,7 @@ font-size: 2.5rem;
   cursor: pointer;
 }
 
-.dayImage{
+.dayEntryImage{
   width: 120px;
   height: auto;
 }

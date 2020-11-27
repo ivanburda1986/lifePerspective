@@ -1,6 +1,7 @@
 //SELECTORS==========================
 const ui = {
   dayEntryModal: document.getElementById('dayEntryModal'),
+  dayEntryImage: document.querySelector('.dayEntryImage'),
   dayEntryDate: document.getElementById('dayEntryDate'),
   dayEntryForm: document.getElementById('dayEntryForm'),
   dayEntrySubmit: document.getElementById('dayEntrySubmit'),
@@ -17,6 +18,8 @@ const ui = {
   changeAnswers: document.getElementById('changeAnswers'),
   firstBirthday: null,
   lastExpectedDay: null,
+  firstBirthdayId: null,
+  lastExpectedDayId: null,
 }
 // DATA==============================
 const data = {
@@ -30,6 +33,8 @@ const data = {
   expiration: new Date(),
   today: new Date(),
   outlivedExpectancy: null,
+  setFirstBirthdayDefaultMessage: localStorage.getItem('setFirstBirthdayDefaultMessage'),
+  setLastExpectedDayDefaultMessage: localStorage.getItem('setLastExpectedDayDefaultMessage'),
 }
 
 
@@ -69,6 +74,7 @@ async function processExpectancyStats(){
   highlightOutlivedExpectancy();
   highlightToday();
   highlightFirstBirthday();
+  highlightOutlivedExpectancy();
   highlightAllDaysWithEntry();
   attachActionToDays();
 };
@@ -87,6 +93,9 @@ function getLifeExpectancyAndExpiration(){
 //Saving day-entry to local storage
 function saveDayEntryToLocalStorage (dayId, content) {
   let currentStorageEntries = JSON.parse(localStorage.getItem('entries'));
+  if (currentStorageEntries === null) {
+   currentStorageEntries = {};
+  }
   currentStorageEntries[dayId] = {message:content};
   localStorage.setItem(
     "entries",
@@ -268,6 +277,13 @@ function highlightOutlivedExpectancy(){
  ui.lastExpectedDay.className = '';
  ui.lastExpectedDay.classList.add('day');
  ui.lastExpectedDay.classList.add('lastExpectedDay');
+ ui.lastExpectedDayId = lastExpectedDay;
+
+//Populate the last expected day with a congratulation message but do not re-populate it if the user overwrites it
+ if(data.setLastExpectedDayDefaultMessage === null){
+  saveDayEntryToLocalStorage (ui.lastExpectedDayId, "Based on the average life expectancy, this was the last day of your life! Congratulations if you can see this message! All following days will be highlight with a special color so that you can remind yourself of enjoying them even more!")
+  localStorage.setItem('setLastExpectedDayDefaultMessage', 'true');
+ }
 }
 
 //Check whether the user outlived their life expectancy
@@ -286,6 +302,14 @@ function highlightFirstBirthday(){
   ui.firstBirthday.className = '';
   ui.firstBirthday.classList.add('day');
   ui.firstBirthday.classList.add('firstBirthday');
+  ui.firstBirthdayId = firstBirthday;
+  
+  //Populate the first birthday with a default message but do not re-populate it if the user overwrites it
+ if(data.setFirstBirthdayDefaultMessage === null){
+  getDayEntryFromLocalStorage (ui.firstBirthdayId);
+  saveDayEntryToLocalStorage (ui.firstBirthdayId, "This is the day when you were born!");
+  localStorage.setItem('setFirstBirthdayDefaultMessage', 'true');
+ }
 }
 
 //Highlight today
@@ -322,7 +346,16 @@ function displayModal(input){
   ui.dayEntryDate.innerText = `${input.day}. ${input.month}. ${input.year}`;
   ui.dayEntryForm.value = getDayEntryFromLocalStorage (input.clickedDayId);
 
-
+  if(input.clickedDayId === ui.firstBirthdayId){
+    ui.dayEntryImage.style.display = 'flex';
+    ui.dayEntryImage.src = '/images/birth.png';
+  } else if(input.clickedDayId === ui.lastExpectedDayId){
+    ui.dayEntryImage.style.display = 'flex';
+    ui.dayEntryImage.src = '/images/end.png';
+  } else{
+    ui.dayEntryImage.style.display = 'none';
+    console.log('removed');
+  }
 };
 
 //Closing day-entry modal
