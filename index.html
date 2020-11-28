@@ -15,7 +15,7 @@
     </header>
     <div class="questions-main" id="question-profileName">
       <form>
-        <p class="questions-question">What is your name?</p>
+        <p class="questions-question">Create a new profile</p>
         <label for="name">Name</label>
         <input type="text" id="name" name="name" placeholder="Name">
       </form>
@@ -54,9 +54,14 @@
     </div>
     <button id="nextBtn" class="questions-btn my-2">Next</button>
   </div>
-  
- 
-
-  <script src="js/index.js"></script>
+  <div id="profileListContainer">
+    <p class="questions-question">Existing profiles</p>
+    <ul class="profileList">
+      <li class="profileListItem py-2">Ivan</li>
+      <li class="profileListItem py-2">Petr88</li>
+      <li class="profileListItem py-2">MartinaBrdova</li>
+    </ul>
+  </div>
+   <script src="js/index.js"></script>
 </body>
 </html>

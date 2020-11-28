@@ -8,6 +8,7 @@ const ui = {
   dayEntryDelete: document.getElementById('dayEntryDelete'),
   dayEntryModalClose: document.getElementById('dayEntryModalClose'),
   mainVisualization: document.getElementById('mainVisualization'),
+  statsName: document.getElementById('statsName'),
   statsDob: document.getElementById('statsDOB'),
   statsExpectancy: document.getElementById('statsExpectancy'),
   statsExpirationDate: document.getElementById('statsExpirationDate'),
@@ -24,6 +25,7 @@ const ui = {
 // DATA==============================
 const data = {
   answers: {
+    name: null,
     dob: new Date(),
     gender: null,
     country: null,
@@ -42,6 +44,7 @@ const data = {
 //DATA LOGICS=============================
 //Get answers from the questionnaire
 function getAnswers(){
+  data.answers.name = getCurrentProfileFromStorage().profileName;
   let dob = new Date(getCurrentProfileFromStorage().dob);
   data.answers.dob = dob;
   data.answers.gender = getCurrentProfileFromStorage().gender;
@@ -156,6 +159,7 @@ function deleteDayEntryFromLocalStorage(dayId){
 //DISPLAYING=============================
 //Display user's stats (birth, expected life lenght, expect termination year) and the life progress bar
 function showStatsProgressNumbers(){
+  ui.statsName.innerText = data.answers.name + ", ";
   ui.statsDob.innerText = `${new Date(data.answers.dob).getDate()}.${new Date(data.answers.dob).getMonth()+1}. ${new Date(data.answers.dob).getFullYear()}, `;
   ui.statsExpectancy.innerText = Math.round(data.expectancy) + ", ";
   ui.statsExpirationDate.innerText = `${data.expiration.getDate()}.${data.expiration.getMonth()+1}. ${data.expiration.getFullYear()}`;

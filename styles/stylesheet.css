@@ -27,6 +27,30 @@
   padding: 0.25em 0.5em;
 }
 
+/* PROFILES LIST */
+#profileListContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  min-width: 40vw;
+}
+
+.profileList{
+list-style-type: none;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+
+}
+
+.profileListItem{
+  width: 500px;
+  margin: 0 auto;
+  cursor: pointer;
+}
 
 
 /* GENERAL SETTINGS */
@@ -39,6 +63,7 @@ body{
   color: #fff;
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;

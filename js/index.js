@@ -1,5 +1,7 @@
 //SELECTORS==========================
 const ui = {
+  profileListContainer: document.getElementById('profileListContainer'),
+  profileList: document.querySelector('.profileList'),
   nextBtn: document.getElementById('nextBtn'),
   questionProfileName: document.getElementById('question-profileName'),
   questionGender: document.getElementById('question-gender'),
@@ -27,6 +29,7 @@ ui.questionGender.style.display = 'none';
 ui.questionDob.style.display = 'none';
 ui.questionCountry.style.display = 'none';
 ui.nextBtn.style.visibility = 'hidden';
+ui.profileListContainer.style.visibility = 'visible';
 
 //Make sure there are no pre-filled answers
 window.addEventListener('load', ()=>{
@@ -35,6 +38,50 @@ window.addEventListener('load', ()=>{
     console.log('cleared');
   });
 })
+
+//Populate the list of available profiles
+function listExistingProfiles(){
+  ui.profileList.innerHTML = "";
+  let profiles = getExistingProfilesListFromStorage();
+  profiles.forEach(profile => {
+    let profileListItem = document.createElement("li");
+    profileListItem.innerText = profile;
+    profileListItem.classList.add('profileListItem');
+    profileListItem.classList.add('py-2');
+    ui.profileList.appendChild(profileListItem);
+    profileListItem.addEventListener('click', ()=>{
+      localStorage.setItem('currentProfile', profile);
+      window.open("main.html", "_self");
+    })
+  })
+}
+
+
+
+//Get list of profiles from local storage
+function getExistingProfilesListFromStorage(){
+  let existingProfiles = JSON.parse(localStorage.getItem('existingProfilesList'));
+  if (existingProfiles === null){
+    return [];
+  } else{
+    return existingProfiles;
+  }
+}
+
+//Update current profile data in local storage
+function updateExistingProfilesListInStorage(action, profileName){
+  let retrievedProfileData = getExistingProfilesListFromStorage();
+  if(action === 'create'){
+    let alreadyExists = retrievedProfileData.indexOf(profileName);
+    alreadyExists !== -1 ? console.log('already exists') : retrievedProfileData.push(profileName); 
+  } else if(action === 'delete'){
+    let position = retrievedProfileData.indexOf(profileName);
+    retrievedProfileData.splice(position, 1);
+  }
+  localStorage.setItem('existingProfilesList', JSON.stringify(retrievedProfileData));
+  return getExistingProfilesListFromStorage();
+}
+
 
 
 //EVENT LISTENERS==========================
@@ -74,6 +121,7 @@ ui.nextBtn.addEventListener('click', (e)=>{
     ui.questionDob.style.display = 'none';
     ui.questionCountry.style.display = 'none';
     ui.nextBtn.style.visibility = 'hidden';
+    ui.profileListContainer.style.visibility = 'hidden';
     data.currentQuestion = 2;
   }
   else if(data.currentQuestion === 2){
@@ -100,6 +148,7 @@ ui.nextBtn.addEventListener('click', (e)=>{
     data[data.nameValue].country = ui.countryselect.value;
     localStorage.setItem(data.nameValue, JSON.stringify(data[data.nameValue]));
     localStorage.setItem('currentProfile', data.nameValue);
+    updateExistingProfilesListInStorage('create', data.nameValue);
     window.open("main.html", "_self");
   }
 })
@@ -130,3 +179,6 @@ async function showData(){
   });
   countryselect.innerHTML = htmlCountryList;
 };
+
+//App init
+listExistingProfiles();
