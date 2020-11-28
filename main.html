@@ -10,29 +10,31 @@
 </head>
 <body>
   <main class="mainContainer">
-    <!-- Progress -->
-    <section id="mainProgress" class="mainProgress my-1 mx-1">
-      <div id="progressElapsed" class="progressElapsed"></div>
-      <div id="progressRemaining" class="progressRemaining"></div>
-    </section>
-   <!-- Stats  -->
-    <section id="mainStats" class="mainStats my-1 mx-1">
-      <div id="changeAnswersContainer">
-        <button id="changeAnswers" class=""><i class="fas fa-arrow-left"></i> Change answers</button>
-      </div>
-      <div id="statsContainer">
-        <form>
-          <label for="statsName">Name: </label>
-          <output name=statsName id="statsName"></output>
-          <label for="statsDOB">Birth: </label>
-          <output name=statsDOB id="statsDOB"></output>
-          <label for="statsExpectancy">Life Expectancy: </label>
-          <output name=statsExpectancy id="statsExpectancy"></output>
-          <label for="statsExpirationDate">Expiration: </label>
-          <output name=statsExpirationDate id="statsExpirationDate"></output>
-        </form>
-      </div>
-    </section>
+    <div class="topBar">
+      <!-- Progress -->
+      <section id="mainProgress" class="mainProgress mx-1">
+        <div id="progressElapsed" class="progressElapsed"></div>
+        <div id="progressRemaining" class="progressRemaining"></div>
+      </section>
+      <!-- Stats  -->
+      <section id="mainStats" class="mainStats mx-1">
+        <div id="changeAnswersContainer">
+          <button id="changeAnswers" class=""><i class="fas fa-arrow-left"></i> Back</button>
+        </div>
+        <div id="statsContainer">
+          <form>
+            <label for="statsName">Name: </label>
+            <output name=statsName id="statsName"></output>
+            <label for="statsDOB">Birth: </label>
+            <output name=statsDOB id="statsDOB"></output>
+            <label for="statsExpectancy">Life Expectancy: </label>
+            <output name=statsExpectancy id="statsExpectancy"></output>
+            <label for="statsExpirationDate">Expiration: </label>
+            <output name=statsExpirationDate id="statsExpirationDate"></output>
+          </form>
+        </div>
+      </section>
+    </div>
     <!-- Main view with days of life -->
     <section id="mainVisualization" class="mainVisualization my-1 mx-1">
     </section>

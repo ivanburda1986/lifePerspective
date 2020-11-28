@@ -78,12 +78,20 @@ body{
 }
 
 /* Overview */
+.topBar{
+  position: fixed;
+  top: -1vh;
+  width: 99vw;
+  background-color: black;
+}
+
 .mainProgress{
   display: flex;
   flex-direction: row;
   justify-content: center;
-  height: 5rem;
+  height: 3rem;
   width: auto;
+  background-color: inherit;
 }
 
 .progressRemaining{
@@ -91,7 +99,7 @@ body{
   width: 57%;
   background: mediumseagreen;
   text-align: end;
-  line-height: 5rem;
+  line-height: 3rem;
   font-size: 2rem;
   padding-right: 0.5rem;
 }
@@ -101,7 +109,7 @@ body{
   width: 42%;
   background: magenta;
   text-align: start;
-  line-height: 5rem;
+  line-height: 3rem;
   font-size: 2rem;
   padding-left: 0.5rem;
 }
