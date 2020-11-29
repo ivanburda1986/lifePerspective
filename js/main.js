@@ -16,6 +16,7 @@ const ui = {
   progressExpiration: document.getElementById('progressRemaining'),
   progressElapsed: document.getElementById('progressElapsed'),
   progressRemaining: document.getElementById('progressRemaining'),
+  progressExtra: document.getElementById('progressExtra'),
   changeAnswers: document.getElementById('changeAnswers'),
   firstBirthday: null,
   lastExpectedDay: null,
@@ -159,17 +160,32 @@ function deleteDayEntryFromLocalStorage(dayId){
 //DISPLAYING=============================
 //Display user's stats (birth, expected life lenght, expect termination year) and the life progress bar
 function showStatsProgressNumbers(){
+  //Stats under the progress bar
   ui.statsName.innerText = data.answers.name + ", ";
   ui.statsDob.innerText = `${new Date(data.answers.dob).getDate()}.${new Date(data.answers.dob).getMonth()+1}. ${new Date(data.answers.dob).getFullYear()}, `;
   ui.statsExpectancy.innerText = Math.round(data.expectancy) + ", ";
   ui.statsExpirationDate.innerText = `${data.expiration.getDate()}.${data.expiration.getMonth()+1}. ${data.expiration.getFullYear()}`;
 
+  //The visual progress bar of life
+  
   ui.progressDob.innerText = new Date(data.answers.dob).getFullYear();
   ui.progressExpiration.innerText = data.expiration.getFullYear();
+
   let currentAge = data.today.getFullYear() - new Date(data.answers.dob).getFullYear();
-  ui.progressElapsed.style.width = `${currentAge / Math.round(data.expectancy)*100}%`;
-  ui.progressRemaining.style.width = `${100 - (currentAge / Math.round(data.expectancy))*100}%`;
-  console.log('From Showstats and progress:' + data.expiration);
+
+  //--Still within the expectancy
+  if(currentAge <= data.expectancy){
+    ui.progressExtra.style.display = "none";
+    ui.progressElapsed.style.width = `${currentAge / Math.round(data.expectancy)*100}%`;
+    ui.progressRemaining.style.width = `${100 - (currentAge / Math.round(data.expectancy))*100}%`;
+  } 
+  //--Already outlived the expectancy
+  else if(currentAge > data.expectancy){
+    ui.progressExtra.style.display = "block";
+    ui.progressRemaining.style.display = "none";
+    let aboveExpectancy = currentAge - data.expectancy;
+    
+  }
 }
 
 //Visualize all individual days within the expectation

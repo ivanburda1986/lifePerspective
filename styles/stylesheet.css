@@ -114,6 +114,16 @@ body{
   padding-left: 0.5rem;
 }
 
+.progressExtra{
+  height: 100%;
+  width: 0%;
+  background: cyan;
+  text-align: end;
+  line-height: 3rem;
+  font-size: 2rem;
+  padding-right: 0.5rem;
+}
+
 .mainStats{
   display: flex;
   flex-direction: row;
