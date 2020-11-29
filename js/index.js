@@ -43,29 +43,40 @@ window.addEventListener('load', ()=>{
 function listExistingProfiles(){
   ui.profileList.innerHTML = "";
   let profiles = getExistingProfilesListFromStorage();
-  profiles.forEach(profile => {
+  if(profiles.length === 0){
+    console.log('There are no profiles yet');
     let profileListItem = document.createElement("li");
-    profileListItem.id = profile;
-    profileListItem.classList.add('profileListItem');
-    profileListItem.classList.add('py-1');
-    profileListItem.innerHTML = `<p>${profile}</p>`;
-    ui.profileList.appendChild(profileListItem);
-
-    profileListItem.addEventListener('click', (e)=>{
-      if(e.target.classList.contains('profileListItem')){
-        localStorage.setItem('currentProfile', profile);
-        window.open("main.html", "_self");
-      }
+      profileListItem.classList.add('profileListItem');
+      profileListItem.classList.add('py-1');
+      profileListItem.innerHTML = `<p>There are no profiles yet.</p>`;
+      ui.profileList.appendChild(profileListItem);
+  } else{
+    profiles.forEach(profile => {
+      let profileListItem = document.createElement("li");
+      profileListItem.id = profile;
+      profileListItem.classList.add('profileListItem');
+      profileListItem.classList.add('py-1');
+      profileListItem.innerHTML = `<p>${profile}</p>`;
+      ui.profileList.appendChild(profileListItem);
+  
+      profileListItem.addEventListener('click', (e)=>{
+        if(e.target.classList.contains('profileListItem')){
+          localStorage.setItem('currentProfile', profile);
+          window.open("main.html", "_self");
+        }
+      })
+  
+      let deleteButton = document.createElement("button");
+      deleteButton.innerText = 'x';
+      profileListItem.appendChild(deleteButton);
+      deleteButton.addEventListener('click',(e)=>{
+        e.preventDefault();
+        e.target.parentNode.remove();
+        updateExistingProfilesListInStorage('delete', profile);
+        localStorage.removeItem(profile);
+      })
     })
-
-    let deleteButton = document.createElement("button");
-    deleteButton.innerText = 'x';
-    profileListItem.appendChild(deleteButton);
-    deleteButton.addEventListener('click',(e)=>{
-      e.preventDefault();
-      e.target.parentNode.remove();
-    })
-  })
+  }
 }
 
 

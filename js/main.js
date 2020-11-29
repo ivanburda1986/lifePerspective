@@ -79,7 +79,7 @@ async function processExpectancyStats(){
   visualizeAboveExpectactionDays();
   highlightOutlivedExpectancy();
   highlightFirstBirthday();
-  highlightOutlivedExpectancy();
+  //highlightOutlivedExpectancy();
   highlightToday();
   highlightAllDaysWithEntry();
   attachActionToDays();
@@ -307,21 +307,23 @@ function visualizeAboveExpectactionDays(){
 
 //Inform the user they have outlived their life expectancy
 function highlightOutlivedExpectancy(){
-  let lastExpectedDay = `${new Date(data.expiration).getFullYear()}-${new Date(data.expiration).getMonth()+1}-${new Date(data.expiration).getDate()}`;
-  ui.lastExpectedDay = document.getElementById(lastExpectedDay);
- ui.lastExpectedDay.className = '';
- ui.lastExpectedDay.classList.add('day');
- ui.lastExpectedDay.classList.add('lastExpectedDay');
- ui.lastExpectedDayId = lastExpectedDay;
-
-//Populate the last expected day with a congratulation message but do not re-populate it if the user overwrites it
- if(data.setLastExpectedDayDefaultMessage === null){
-  saveDayEntryToLocalStorage (ui.lastExpectedDayId, "Based on the average life expectancy, this was the last day of your life! Congratulations if you can see this message! All following days will be highlight with a special color so that you can remind yourself of enjoying them even more!")
-  updateCurrentProfileInStorage(
-    "setLastExpectedDayDefaultMessage",
-    'true'
-  );
- }
+  if(data.outlivedExpectancy === true){
+    let lastExpectedDay = `${new Date(data.expiration).getFullYear()}-${new Date(data.expiration).getMonth()+1}-${new Date(data.expiration).getDate()}`;
+    ui.lastExpectedDay = document.getElementById(lastExpectedDay);
+    ui.lastExpectedDay.className = '';
+    ui.lastExpectedDay.classList.add('day');
+    ui.lastExpectedDay.classList.add('lastExpectedDay');
+    ui.lastExpectedDayId = lastExpectedDay;
+   
+   //Populate the last expected day with a congratulation message but do not re-populate it if the user overwrites it
+    if(data.setLastExpectedDayDefaultMessage === null){
+     saveDayEntryToLocalStorage (ui.lastExpectedDayId, "Based on the average life expectancy, this was the last day of your life! Congratulations if you can see this message! All following days will be highlight with a special color so that you can remind yourself of enjoying them even more!")
+     updateCurrentProfileInStorage(
+       "setLastExpectedDayDefaultMessage",
+       'true'
+     );
+    }
+  }
 }
 
 //Check whether the user outlived their life expectancy
