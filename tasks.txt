@@ -2,7 +2,7 @@ The last things to do:
 ==========================================
 DONE---1]A list of available profiles. They are deletable.
 DONE---2]Creating a profile with of an existing name will just update the existing rather than overwriting it fully
-3]Fixing progressbar for users who have outlived their expectancy
+DONE---3]Fixing progressbar for users who have outlived their expectancy
 DONE---4]Progressbar should be fixed to the top so that it is always visible
 5]Progressbar should include a dropdown with all available years for fast-moving
 6]Allow users to attachch a picture image via an URL for every day

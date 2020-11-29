@@ -47,9 +47,17 @@ align-items: center;
 }
 
 .profileListItem{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  height: 2rem;
   width: 500px;
+  max-width: 80vw;
   margin: 0 auto;
   cursor: pointer;
+  background-color: rgba(10,10,10,0.5);
+  margin-top: 3px;
 }
 
 
@@ -95,6 +103,10 @@ body{
 }
 
 .progressRemaining{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
   height: 100%;
   width: 57%;
   background: mediumseagreen;
@@ -105,6 +117,10 @@ body{
 }
 
 .progressElapsed{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
   height: 100%;
   width: 42%;
   background: magenta;
@@ -112,6 +128,7 @@ body{
   line-height: 3rem;
   font-size: 2rem;
   padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 
 .progressExtra{

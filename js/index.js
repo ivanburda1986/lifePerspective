@@ -45,13 +45,25 @@ function listExistingProfiles(){
   let profiles = getExistingProfilesListFromStorage();
   profiles.forEach(profile => {
     let profileListItem = document.createElement("li");
-    profileListItem.innerText = profile;
+    profileListItem.id = profile;
     profileListItem.classList.add('profileListItem');
-    profileListItem.classList.add('py-2');
+    profileListItem.classList.add('py-1');
+    profileListItem.innerHTML = `<p>${profile}</p>`;
     ui.profileList.appendChild(profileListItem);
-    profileListItem.addEventListener('click', ()=>{
-      localStorage.setItem('currentProfile', profile);
-      window.open("main.html", "_self");
+
+    profileListItem.addEventListener('click', (e)=>{
+      if(e.target.classList.contains('profileListItem')){
+        localStorage.setItem('currentProfile', profile);
+        window.open("main.html", "_self");
+      }
+    })
+
+    let deleteButton = document.createElement("button");
+    deleteButton.innerText = 'x';
+    profileListItem.appendChild(deleteButton);
+    deleteButton.addEventListener('click',(e)=>{
+      e.preventDefault();
+      e.target.parentNode.remove();
     })
   })
 }

@@ -12,8 +12,9 @@ const ui = {
   statsDob: document.getElementById('statsDOB'),
   statsExpectancy: document.getElementById('statsExpectancy'),
   statsExpirationDate: document.getElementById('statsExpirationDate'),
-  progressDob: document.getElementById('progressElapsed'),
-  progressExpiration: document.getElementById('progressRemaining'),
+  progressDob: document.getElementById('progressElapsedDob'),
+  progressExpirationOutlivedView: document.getElementById('progressElapsedExpiration'),
+  progressExpiration: document.getElementById('progressRemainingExpiration'),
   progressElapsed: document.getElementById('progressElapsed'),
   progressRemaining: document.getElementById('progressRemaining'),
   progressExtra: document.getElementById('progressExtra'),
@@ -170,7 +171,6 @@ function showStatsProgressNumbers(){
   
   ui.progressDob.innerText = new Date(data.answers.dob).getFullYear();
   ui.progressExpiration.innerText = data.expiration.getFullYear();
-
   let currentAge = data.today.getFullYear() - new Date(data.answers.dob).getFullYear();
 
   //--Still within the expectancy
@@ -181,10 +181,12 @@ function showStatsProgressNumbers(){
   } 
   //--Already outlived the expectancy
   else if(currentAge > data.expectancy){
-    ui.progressExtra.style.display = "block";
     ui.progressRemaining.style.display = "none";
     let aboveExpectancy = currentAge - data.expectancy;
-    
+    ui.progressElapsed.style.width = `${100 - (aboveExpectancy/data.expectancy * 100)}%`;
+    ui.progressExtra.style.display = "block";
+    ui.progressExtra.style.width = `${aboveExpectancy/data.expectancy * 100}%`;
+    ui.progressExpirationOutlivedView.innerText = data.expiration.getFullYear();
   }
 }
 
