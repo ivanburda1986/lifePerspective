@@ -81,8 +81,13 @@ body{
 
 
 .mainContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   width: 99vw;
   height: 98vh;
+  margin-top: 6rem;
 }
 
 /* Overview */
@@ -94,6 +99,7 @@ body{
 }
 
 .mainProgress{
+  padding-top: 0.5rem;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -240,7 +246,7 @@ padding-right: 3rem;
 .yearLabel{
   border: 1px solid #fff;
   height: 1.5rem;
-  width: 100%;
+  width: 98vw;
   margin: 2px;
   line-height: 1.5rem;
 }
