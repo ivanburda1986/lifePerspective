@@ -306,6 +306,17 @@ font-size: 2.5rem;
   height: auto;
 }
 
+.dayEntryImageBtn{
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.imageUrlInsertForm{
+  display: none;
+}
+
 textarea{
   background: #000;
   color: #fff;

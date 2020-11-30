@@ -53,8 +53,13 @@
     <button class="btn-close" id="dayEntryModalClose">&#10006;</button>
   </header>
   <main>
-    <img src="" alt="Birthday" class="dayEntryImage">
-    <form action="">
+    <button class="dayEntryImageBtn"><img src="/images/imagePlaceholder.png" alt="Birthday" class="dayEntryImage"></button>
+    
+    <form class="imageUrlInsertForm">
+      <input type="text" id="imageUrlInsertField" class="imageUrlInsertField" name="imageUrlInsertField" placeholder="Insert image URL here">
+      <button class="btn-img-save" id="imageUrlSaveBtn">Save</button>
+    </form>
+    <form>
       <textarea name="dayEntryForm" id="dayEntryForm" cols="30" rows="10" placeholder="Enter something memorable for this day..."></textarea>
       <br>
       <input type="submit" value="Submit" class="btn btn-submit" id="dayEntrySubmit">

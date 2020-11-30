@@ -2,6 +2,9 @@
 const ui = {
   dayEntryModal: document.getElementById('dayEntryModal'),
   dayEntryImage: document.querySelector('.dayEntryImage'),
+  dayEntryImageBtn: document.querySelector('.dayEntryImageBtn'),
+  imageUrlInsertForm: document.querySelector('.imageUrlInsertForm'),
+  imageUrlInsertField: document.querySelector('.imageUrlInsertField'),
   dayEntryDate: document.getElementById('dayEntryDate'),
   dayEntryForm: document.getElementById('dayEntryForm'),
   dayEntrySubmit: document.getElementById('dayEntrySubmit'),
@@ -40,6 +43,7 @@ const data = {
   currentProfile: localStorage.getItem('currentProfile'),
   setFirstBirthdayDefaultMessage: null,
   setLastExpectedDayDefaultMessage: null,
+  openedModalId: null
 }
 
 
@@ -393,10 +397,11 @@ function displayModal(input){
   } else if(input.clickedDayId === ui.lastExpectedDayId){
     ui.dayEntryImage.style.display = 'flex';
     ui.dayEntryImage.src = '/images/end.png';
-  } else{
-    ui.dayEntryImage.style.display = 'none';
-    console.log('removed');
-  }
+  } 
+  //else{
+  //   ui.dayEntryImage.style.display = 'none';
+  //   console.log('removed');
+  // }
 };
 
 //Closing day-entry modal
@@ -413,6 +418,7 @@ function attachActionToDays(){
     item.addEventListener('click',()=>{
     let clickedDayId = `${item.getAttribute('data-year')}-${item.getAttribute('data-month')}-${item.getAttribute('data-day')}`;
     displayModal({clickedDayId:clickedDayId, year:item.getAttribute('data-year'), month: item.getAttribute('data-month'), day: item.getAttribute('data-day')});
+    data.openedModalId = clickedDayId;
     })
   });
 }
@@ -430,9 +436,22 @@ ui.dayEntrySubmit.addEventListener('click', (e)=>{
   saveDayEntryToLocalStorage(dayId, content);
   hideModal();
 });
+//Click: Add image to a day entry
+ui.dayEntryImage.addEventListener('click', (e)=>{
+  e.preventDefault();
+  if(ui.imageUrlInsertForm.style.display === "" || ui.imageUrlInsertForm.style.display === "none"){
+    ui.imageUrlInsertForm.style.display = "block";
+    ui.imageUrlInsertField.value = data.openedModalId;
+  }
+  else{
+    ui.imageUrlInsertForm.style.display = "none";
+  }
+});
+
+
+
 
 //On load the disable the submit button if there is no content
-
 
 //Click: Delete day-entry modal
 ui.dayEntryDelete.addEventListener('click',(e)=>{
