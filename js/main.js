@@ -5,6 +5,7 @@ const ui = {
   dayEntryImageBtn: document.querySelector('.dayEntryImageBtn'),
   imageUrlInsertForm: document.querySelector('.imageUrlInsertForm'),
   imageUrlInsertField: document.querySelector('.imageUrlInsertField'),
+  imageUrlSaveBtn: document.querySelector('#imageUrlSaveBtn'),
   dayEntryDate: document.getElementById('dayEntryDate'),
   dayEntryForm: document.getElementById('dayEntryForm'),
   dayEntrySubmit: document.getElementById('dayEntrySubmit'),
@@ -114,19 +115,19 @@ function getLifeExpectancyAndExpiration(){
 }
 
 //Saving day-entry to local storage
-function saveDayEntryToLocalStorage (dayId, content) {
+function saveDayEntryToLocalStorage (dayId, attribute, content) {
   let currentStorageEntries = getCurrentProfileFromStorage().entries;
   if (currentStorageEntries === undefined) {
    currentStorageEntries = {};
   }
-  currentStorageEntries[dayId] = {message:content};
+  currentStorageEntries[dayId] = `{${attribute}:${content}}`;
   updateCurrentProfileInStorage(
     "entries",
     currentStorageEntries
   );
 
   //Make the day marked as having an entry
-  if(content !== ""){
+  if(attribute === "message" && content !== ""){
     document.getElementById(dayId).classList.add('hasEntry');
   } else{
     document.getElementById(dayId).classList.remove('hasEntry');
@@ -143,7 +144,7 @@ function getDayEntryFromLocalStorage (dayId) {
     if (content === undefined) {
       return "";
     } else {
-      return content.message;
+      return content;
     }
   }
 }
@@ -321,7 +322,7 @@ function highlightOutlivedExpectancy(){
    
    //Populate the last expected day with a congratulation message but do not re-populate it if the user overwrites it
     if(data.setLastExpectedDayDefaultMessage === null){
-     saveDayEntryToLocalStorage (ui.lastExpectedDayId, "Based on the average life expectancy, this was the last day of your life! Congratulations if you can see this message! All following days will be highlight with a special color so that you can remind yourself of enjoying them even more!")
+     saveDayEntryToLocalStorage (ui.lastExpectedDayId, "message", "Based on the average life expectancy, this was the last day of your life! Congratulations if you can see this message! All following days will be highlight with a special color so that you can remind yourself of enjoying them even more!")
      updateCurrentProfileInStorage(
        "setLastExpectedDayDefaultMessage",
        'true'
@@ -352,7 +353,7 @@ function highlightFirstBirthday(){
   //Populate the first birthday with a default message but do not re-populate it if the user overwrites it
  if(data.setFirstBirthdayDefaultMessage === null){
   getDayEntryFromLocalStorage (ui.firstBirthdayId);
-  saveDayEntryToLocalStorage (ui.firstBirthdayId, "This is the day when you were born!");
+  saveDayEntryToLocalStorage (ui.firstBirthdayId, "message", "This is the day when you were born!");
   updateCurrentProfileInStorage("setFirstBirthdayDefaultMessage", 'true');
  }
 }
@@ -390,6 +391,8 @@ function displayModal(input){
   ui.dayEntryModal.setAttribute("data-day",input.clickedDayId);
   ui.dayEntryDate.innerText = `${input.day}. ${input.month}. ${input.year}`;
   ui.dayEntryForm.value = getDayEntryFromLocalStorage (input.clickedDayId);
+  console.log(getDayEntryFromLocalStorage (input.clickedDayId));
+  //ui.dayEntryImage.src = '/images/birth.png';
 
   if(input.clickedDayId === ui.firstBirthdayId){
     ui.dayEntryImage.style.display = 'flex';
@@ -433,20 +436,32 @@ ui.dayEntrySubmit.addEventListener('click', (e)=>{
   e.preventDefault();
   let dayId = ui.dayEntryModal.getAttribute('data-day');
   let content = ui.dayEntryForm.value;
-  saveDayEntryToLocalStorage(dayId, content);
+  saveDayEntryToLocalStorage(dayId, "message", content);
   hideModal();
 });
-//Click: Add image to a day entry
+//Click: Trigger adding image to a day entry
 ui.dayEntryImage.addEventListener('click', (e)=>{
   e.preventDefault();
   if(ui.imageUrlInsertForm.style.display === "" || ui.imageUrlInsertForm.style.display === "none"){
     ui.imageUrlInsertForm.style.display = "block";
-    ui.imageUrlInsertField.value = data.openedModalId;
+    if(getCurrentProfileFromStorage().imageUrl === undefined){
+      ui.imageUrlInsertField.placeholder = "Insert some image URL";
+    } else{
+      ui.imageUrlInsertField.value = getCurrentProfileFromStorage().imageUrl;
+    }
   }
   else{
     ui.imageUrlInsertForm.style.display = "none";
   }
 });
+
+//Click: Save Image URL
+ui.imageUrlSaveBtn.addEventListener('click', (e)=>{
+  e.preventDefault();
+  if(ui.imageUrlInsertField.value !== ""){
+    updateCurrentProfileInStorage("imageUrl", ui.imageUrlInsertField.value);
+  }
+})
 
 
 
