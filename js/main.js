@@ -115,19 +115,19 @@ function getLifeExpectancyAndExpiration(){
 }
 
 //Saving day-entry to local storage
-function saveDayEntryToLocalStorage (dayId, attribute, content) {
+function saveDayEntryToLocalStorage (dayId, content) {
   let currentStorageEntries = getCurrentProfileFromStorage().entries;
   if (currentStorageEntries === undefined) {
    currentStorageEntries = {};
   }
-  currentStorageEntries[dayId] = `{${attribute}:${content}}`;
+  currentStorageEntries[dayId] = {message: content};
   updateCurrentProfileInStorage(
     "entries",
     currentStorageEntries
   );
 
   //Make the day marked as having an entry
-  if(attribute === "message" && content !== ""){
+  if(content !== ""){
     document.getElementById(dayId).classList.add('hasEntry');
   } else{
     document.getElementById(dayId).classList.remove('hasEntry');
@@ -136,6 +136,7 @@ function saveDayEntryToLocalStorage (dayId, attribute, content) {
 
 //Getting day-entry from local storage
 function getDayEntryFromLocalStorage (dayId) {
+  console.log(dayId);
   let currentStorageEntries = getCurrentProfileFromStorage().entries;
   if (currentStorageEntries === undefined) {
     return "";
@@ -144,7 +145,7 @@ function getDayEntryFromLocalStorage (dayId) {
     if (content === undefined) {
       return "";
     } else {
-      return content;
+      return content.message;
     }
   }
 }
@@ -322,7 +323,7 @@ function highlightOutlivedExpectancy(){
    
    //Populate the last expected day with a congratulation message but do not re-populate it if the user overwrites it
     if(data.setLastExpectedDayDefaultMessage === null){
-     saveDayEntryToLocalStorage (ui.lastExpectedDayId, "message", "Based on the average life expectancy, this was the last day of your life! Congratulations if you can see this message! All following days will be highlight with a special color so that you can remind yourself of enjoying them even more!")
+     saveDayEntryToLocalStorage (ui.lastExpectedDayId, "Based on the average life expectancy, this was the last day of your life! Congratulations if you can see this message! All following days will be highlight with a special color so that you can remind yourself of enjoying them even more!")
      updateCurrentProfileInStorage(
        "setLastExpectedDayDefaultMessage",
        'true'
@@ -353,7 +354,7 @@ function highlightFirstBirthday(){
   //Populate the first birthday with a default message but do not re-populate it if the user overwrites it
  if(data.setFirstBirthdayDefaultMessage === null){
   getDayEntryFromLocalStorage (ui.firstBirthdayId);
-  saveDayEntryToLocalStorage (ui.firstBirthdayId, "message", "This is the day when you were born!");
+  saveDayEntryToLocalStorage (ui.firstBirthdayId, "This is the day when you were born!");
   updateCurrentProfileInStorage("setFirstBirthdayDefaultMessage", 'true');
  }
 }
@@ -391,7 +392,6 @@ function displayModal(input){
   ui.dayEntryModal.setAttribute("data-day",input.clickedDayId);
   ui.dayEntryDate.innerText = `${input.day}. ${input.month}. ${input.year}`;
   ui.dayEntryForm.value = getDayEntryFromLocalStorage (input.clickedDayId);
-  console.log(getDayEntryFromLocalStorage (input.clickedDayId));
   //ui.dayEntryImage.src = '/images/birth.png';
 
   if(input.clickedDayId === ui.firstBirthdayId){
@@ -436,7 +436,7 @@ ui.dayEntrySubmit.addEventListener('click', (e)=>{
   e.preventDefault();
   let dayId = ui.dayEntryModal.getAttribute('data-day');
   let content = ui.dayEntryForm.value;
-  saveDayEntryToLocalStorage(dayId, "message", content);
+  saveDayEntryToLocalStorage(dayId, content);
   hideModal();
 });
 //Click: Trigger adding image to a day entry
