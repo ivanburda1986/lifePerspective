@@ -142,6 +142,7 @@ function getDayEntryFromLocalStorage (dayId) {
     return "";
   } else {
     let content = currentStorageEntries[dayId];
+    console.log(content);
     if (content === undefined) {
       return "";
     } else {
@@ -159,6 +160,20 @@ function deleteDayEntryFromLocalStorage(dayId){
     currentStorageEntries
   );
   document.getElementById(dayId).classList.remove('hasEntry');
+}
+
+
+//Saving day-entry image to local storage
+function saveDayImageToLocalStorage (dayId, imageUrl) {
+  let currentStorageEntries = getCurrentProfileFromStorage().entries;
+  if (currentStorageEntries === undefined) {
+   currentStorageEntries = {};
+  }
+  currentStorageEntries[dayId]["ivan"] = {image: imageUrl};
+  updateCurrentProfileInStorage(
+    "entries",
+    currentStorageEntries
+  );
 }
 
 
