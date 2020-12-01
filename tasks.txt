@@ -4,9 +4,11 @@ DONE---1]A list of available profiles. They are deletable.
 DONE---2]Creating a profile with of an existing name will just update the existing rather than overwriting it fully
 DONE---3]Fixing progressbar for users who have outlived their expectancy
 DONE---4]Progressbar should be fixed to the top so that it is always visible
-5]Progressbar should include a dropdown with all available years for fast-moving
 DONE---6]Allow users to attachch a picture image via an URL for every day
-7]Validation for entering day, month, year
-8]Validation for submitting an empty daily message
-9]Improve general styling of the solution
 DONE---10]Show somewhere in the navbar the name of the currently active profile
+5]Progressbar should include a dropdown with all available years for fast-moving
+8]Validation for submitting an empty daily message
+7]Validation for entering day, month, year
+REFACTORING]Improve the 
+9]Improve general styling of the solution
+
