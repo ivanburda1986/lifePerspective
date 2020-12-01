@@ -44,6 +44,8 @@ const data = {
   currentProfile: localStorage.getItem('currentProfile'),
   setFirstBirthdayDefaultMessage: null,
   setLastExpectedDayDefaultMessage: null,
+  setFirstBirthdayDefaultImage: null,
+  setLastExpectedDayDefaultImage: null,
   openedModalId: null
 }
 
@@ -56,6 +58,11 @@ function getAnswers(){
   data.answers.dob = dob;
   data.answers.gender = getCurrentProfileFromStorage().gender;
   data.answers.country = getCurrentProfileFromStorage().country;
+
+  data.setFirstBirthdayDefaultImage = getCurrentProfileFromStorage().setFirstBirthdayDefaultImage;
+  data.setLastExpectedDayDefaultImage = getCurrentProfileFromStorage().setLastExpectedDayDefaultImage;
+  data.setFirstBirthdayDefaultMessage = getCurrentProfileFromStorage().setFirstBirthdayDefaultMessage;
+  data.setLastExpectedDayDefaultMessage = getCurrentProfileFromStorage().setLastExpectedDayDefaultMessage;
 };
 
 
@@ -84,7 +91,7 @@ async function processExpectancyStats(){
   visualizeAboveExpectactionDays();
   highlightOutlivedExpectancy();
   highlightFirstBirthday();
-  //highlightOutlivedExpectancy();
+  highlightOutlivedExpectancy();
   highlightToday();
   highlightAllDaysWithEntry();
   attachActionToDays();
@@ -115,12 +122,15 @@ function getLifeExpectancyAndExpiration(){
 }
 
 //Saving day-entry to local storage
-function saveDayEntryToLocalStorage (dayId, content) {
+function saveDayEntryToLocalStorage (dayId, attribute, content) {
   let currentStorageEntries = getCurrentProfileFromStorage().entries;
   if (currentStorageEntries === undefined) {
    currentStorageEntries = {};
   }
-  currentStorageEntries[dayId] = {message: content};
+  if(currentStorageEntries[dayId] === undefined){
+    currentStorageEntries[dayId] = {"message" : "","image" : ""};
+  }
+  currentStorageEntries[dayId][attribute] = content;
   updateCurrentProfileInStorage(
     "entries",
     currentStorageEntries
@@ -146,7 +156,7 @@ function getDayEntryFromLocalStorage (dayId) {
     if (content === undefined) {
       return "";
     } else {
-      return content.message;
+      return content;
     }
   }
 }
@@ -337,13 +347,20 @@ function highlightOutlivedExpectancy(){
     ui.lastExpectedDayId = lastExpectedDay;
    
    //Populate the last expected day with a congratulation message but do not re-populate it if the user overwrites it
-    if(data.setLastExpectedDayDefaultMessage === null){
-     saveDayEntryToLocalStorage (ui.lastExpectedDayId, "Based on the average life expectancy, this was the last day of your life! Congratulations if you can see this message! All following days will be highlight with a special color so that you can remind yourself of enjoying them even more!")
+    if(data.setLastExpectedDayDefaultMessage === undefined){
+     saveDayEntryToLocalStorage (ui.lastExpectedDayId, "message", "Based on the average life expectancy, this was the last day of your life! Congratulations if you can see this message! All following days will be highlight with a special color so that you can remind yourself of enjoying them even more!")
      updateCurrentProfileInStorage(
        "setLastExpectedDayDefaultMessage",
        'true'
      );
     }
+
+    //Assign to the last expected day a default image but do not re-assign it if the user overwrites it
+    if(data.setLastExpectedDayDefaultImage === undefined){
+      getDayEntryFromLocalStorage (ui.lastExpectedDayId);
+      saveDayEntryToLocalStorage (ui.lastExpectedDayId, "image", "/images/end.png")
+      updateCurrentProfileInStorage("setLastExpectedDayDefaultImage", 'true');
+  }
   }
 }
 
@@ -367,11 +384,19 @@ function highlightFirstBirthday(){
   ui.firstBirthdayId = firstBirthday;
 
   //Populate the first birthday with a default message but do not re-populate it if the user overwrites it
- if(data.setFirstBirthdayDefaultMessage === null){
+ if(data.setFirstBirthdayDefaultMessage === undefined){
   getDayEntryFromLocalStorage (ui.firstBirthdayId);
-  saveDayEntryToLocalStorage (ui.firstBirthdayId, "This is the day when you were born!");
+  saveDayEntryToLocalStorage (ui.firstBirthdayId, "message", "This is the day when you were born!");
   updateCurrentProfileInStorage("setFirstBirthdayDefaultMessage", 'true');
  }
+  //Assign to the first birthday a default image but do not re-assign it if the user overwrites it
+  if(data.setFirstBirthdayDefaultImage=== undefined){
+    getDayEntryFromLocalStorage (ui.firstBirthdayId);
+    saveDayEntryToLocalStorage (ui.firstBirthdayId, "image", "/images/birth.png")
+    updateCurrentProfileInStorage("setFirstBirthdayDefaultImage", 'true');
+  }
+
+ 
 }
 
 //Highlight today
@@ -390,7 +415,8 @@ function highlightToday(){
 //Mark upon app load all days that have an entry attached to them
 function highlightAllDaysWithEntry(){
   let currentStorageEntries = getCurrentProfileFromStorage().entries;
-  if (currentStorageEntries !== null) {
+  console.log("debugging:" + currentStorageEntries);
+  if (currentStorageEntries !== undefined) {
     let daysWithEntry = Object.keys(currentStorageEntries);
     daysWithEntry.forEach(day => {
       //If there is a day in the local storage which is outside of the user's lifespan, just ignore it
@@ -406,16 +432,30 @@ function displayModal(input){
   ui.dayEntryModal.classList.add('visible');
   ui.dayEntryModal.setAttribute("data-day",input.clickedDayId);
   ui.dayEntryDate.innerText = `${input.day}. ${input.month}. ${input.year}`;
-  ui.dayEntryForm.value = getDayEntryFromLocalStorage (input.clickedDayId);
-  //ui.dayEntryImage.src = '/images/birth.png';
+  console.log("message" + getDayEntryFromLocalStorage (input.clickedDayId).message);
+  if(getDayEntryFromLocalStorage (input.clickedDayId).message === undefined){
+    ui.dayEntryForm.value = "";
+  } else{
+    ui.dayEntryForm.value = getDayEntryFromLocalStorage (input.clickedDayId).message;
+  }
 
-  if(input.clickedDayId === ui.firstBirthdayId){
-    ui.dayEntryImage.style.display = 'flex';
-    ui.dayEntryImage.src = '/images/birth.png';
-  } else if(input.clickedDayId === ui.lastExpectedDayId){
-    ui.dayEntryImage.style.display = 'flex';
-    ui.dayEntryImage.src = '/images/end.png';
-  } 
+  if(getDayEntryFromLocalStorage (input.clickedDayId).image !== undefined){
+    ui.dayEntryImage.src = getDayEntryFromLocalStorage (input.clickedDayId).image;
+  }else{
+    ui.dayEntryImage.src = '/images/imagePlaceholder.png';
+  }
+
+  // if(input.clickedDayId === ui.firstBirthdayId){
+  //   ui.dayEntryImage.disabled = true;
+  //   ui.dayEntryImage.style.display = 'flex';
+  //   ui.dayEntryImage.src = '/images/birth.png';
+  //   ui.imageUrlInsertForm.style.display = "none";
+  // } else if(input.clickedDayId === ui.lastExpectedDayId){
+  //   ui.dayEntryImage.style.classList = "";
+  //   ui.dayEntryImage.style.display = 'flex';
+  //   ui.dayEntryImage.src = '/images/end.png';
+  //   ui.imageUrlInsertForm.style.display = "none";
+  // } 
   //else{
   //   ui.dayEntryImage.style.display = 'none';
   //   console.log('removed');
@@ -451,18 +491,19 @@ ui.dayEntrySubmit.addEventListener('click', (e)=>{
   e.preventDefault();
   let dayId = ui.dayEntryModal.getAttribute('data-day');
   let content = ui.dayEntryForm.value;
-  saveDayEntryToLocalStorage(dayId, content);
+  saveDayEntryToLocalStorage(dayId, "message", content);
   hideModal();
 });
+
 //Click: Trigger adding image to a day entry
 ui.dayEntryImage.addEventListener('click', (e)=>{
   e.preventDefault();
   if(ui.imageUrlInsertForm.style.display === "" || ui.imageUrlInsertForm.style.display === "none"){
     ui.imageUrlInsertForm.style.display = "block";
-    if(getCurrentProfileFromStorage().imageUrl === undefined){
+    if(getDayEntryFromLocalStorage (data.openedModalId).image === undefined){
       ui.imageUrlInsertField.placeholder = "Insert some image URL";
     } else{
-      ui.imageUrlInsertField.value = getCurrentProfileFromStorage().imageUrl;
+      ui.imageUrlInsertField.value = getDayEntryFromLocalStorage (data.openedModalId).image;
     }
   }
   else{
@@ -474,7 +515,9 @@ ui.dayEntryImage.addEventListener('click', (e)=>{
 ui.imageUrlSaveBtn.addEventListener('click', (e)=>{
   e.preventDefault();
   if(ui.imageUrlInsertField.value !== ""){
-    updateCurrentProfileInStorage("imageUrl", ui.imageUrlInsertField.value);
+    saveDayEntryToLocalStorage(data.openedModalId, "image", ui.imageUrlInsertField.value);
+    ui.imageUrlInsertForm.style.display = "none";
+    ui.dayEntryImage.src = ui.imageUrlInsertField.value;
   }
 })
 
