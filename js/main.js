@@ -87,6 +87,7 @@ async function processExpectancyStats(){
   getLifeExpectancyAndExpiration();
   outlivedExpectancyCheck();
   showStatsProgressNumbers();
+  populateYearSelector();
   visualizeWithinExpectactionDays();
   visualizeAboveExpectactionDays();
   highlightOutlivedExpectancy();
@@ -223,8 +224,13 @@ function showStatsProgressNumbers(){
 function populateYearSelector(){
   let startingYear = new Date(data.answers.dob).getFullYear();
   let lastExpectedYear = new Date(data.expiration).getFullYear();
+  let currentYear = new Date(data.today).getFullYear();
+  let listUntilYear;
   let yearsList = '';
-  for(let i = startingYear; i <= lastExpectedYear; i++){
+  data.outlivedExpectancy === true ? listUntilYear = currentYear : listUntilYear =lastExpectedYear;
+  console.log(currentYear);
+
+  for(let i = startingYear; i <= listUntilYear; i++){
     yearsList += `
     <option value="${i}">${i}</option>
     `;
@@ -252,6 +258,7 @@ function visualizeWithinExpectactionDays(){
     let yearLabel = document.createElement("div");
     yearLabel.innerText = days[0].getFullYear();
     yearLabel.classList.add('yearLabel');
+    yearLabel.id = days[0].getFullYear();
     ui.mainVisualization.appendChild(yearLabel);
   }
 
@@ -265,6 +272,7 @@ function visualizeWithinExpectactionDays(){
       let yearLabel = document.createElement("div");
       yearLabel.innerText = day.getFullYear();
       yearLabel.classList.add('yearLabel');
+      yearLabel.id = day.getFullYear();
       ui.mainVisualization.appendChild(yearLabel);
     }
 
@@ -318,6 +326,7 @@ function visualizeAboveExpectactionDays(){
         let yearLabel = document.createElement("div");
         yearLabel.innerText = day.getFullYear();
         yearLabel.classList.add('yearLabel');
+        yearLabel.id = day.getFullYear();
         ui.mainVisualization.appendChild(yearLabel);
       }
 
@@ -485,8 +494,8 @@ function hideModal(){
 //Click: Move to a selecter year
 ui.statsYearSelect.addEventListener('change', (e)=>{
   e.preventDefault();
-  let domPositionOfSelectedYear= document.getElementById(todaySelector).offsetTop;
-  window.scrollTo(0, domPositionOfSelectedYear - window.innerHeight/2);
+  let domPositionOfSelectedYear= document.getElementById(ui.statsYearSelect.value).offsetTop;
+  window.scrollTo(0, domPositionOfSelectedYear - window.innerHeight/5);
 })
 
 //Click: Open day-entry modal

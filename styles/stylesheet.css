@@ -158,6 +158,10 @@ body{
   width: auto;
 }
 
+.statsYearSelect{
+  margin: 0 20px;
+}
+
 #changeAnswersContainer{
   position: relative;
 display: flex;
