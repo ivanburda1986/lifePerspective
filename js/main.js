@@ -13,9 +13,9 @@ const ui = {
   dayEntryModalClose: document.getElementById('dayEntryModalClose'),
   mainVisualization: document.getElementById('mainVisualization'),
   statsName: document.getElementById('statsName'),
-  statsDob: document.getElementById('statsDOB'),
   statsExpectancy: document.getElementById('statsExpectancy'),
-  statsExpirationDate: document.getElementById('statsExpirationDate'),
+  statsLifespan: document.getElementById('statsLifespan'),
+  statsYearSelect: document.getElementById('statsYearSelect'),
   progressDob: document.getElementById('progressElapsedDob'),
   progressExpirationOutlivedView: document.getElementById('progressElapsedExpiration'),
   progressExpiration: document.getElementById('progressRemainingExpiration'),
@@ -194,10 +194,8 @@ function saveDayImageToLocalStorage (dayId, imageUrl) {
 function showStatsProgressNumbers(){
   //Stats under the progress bar
   ui.statsName.innerText = data.answers.name + ", ";
-  ui.statsDob.innerText = `${new Date(data.answers.dob).getDate()}.${new Date(data.answers.dob).getMonth()+1}. ${new Date(data.answers.dob).getFullYear()}, `;
-  ui.statsExpectancy.innerText = Math.round(data.expectancy) + ", ";
-  ui.statsExpirationDate.innerText = `${data.expiration.getDate()}.${data.expiration.getMonth()+1}. ${data.expiration.getFullYear()}`;
-
+  ui.statsExpectancy.innerText = Math.round(data.expectancy) + ": ";
+  ui.statsLifespan.innerText = `${new Date(data.answers.dob).getDate()}.${new Date(data.answers.dob).getMonth()+1}. ${new Date(data.answers.dob).getFullYear()} - ${data.expiration.getDate()}.${data.expiration.getMonth()+1}. ${data.expiration.getFullYear()}`;
   //The visual progress bar of life
   
   ui.progressDob.innerText = new Date(data.answers.dob).getFullYear();
@@ -220,6 +218,20 @@ function showStatsProgressNumbers(){
     ui.progressExpirationOutlivedView.innerText = data.expiration.getFullYear();
   }
 }
+
+//Show a selector with all years of user's life 
+function populateYearSelector(){
+  let startingYear = new Date(data.answers.dob).getFullYear();
+  let lastExpectedYear = new Date(data.expiration).getFullYear();
+  let yearsList = '';
+  for(let i = startingYear; i <= lastExpectedYear; i++){
+    yearsList += `
+    <option value="${i}">${i}</option>
+    `;
+  };
+  ui.statsYearSelect.innerHTML = yearsList;
+}
+
 
 //Visualize all individual days within the expectation
 function visualizeWithinExpectactionDays(){
@@ -470,6 +482,13 @@ function hideModal(){
 
 
 //EVENT TRIGGERS=============================
+//Click: Move to a selecter year
+ui.statsYearSelect.addEventListener('change', (e)=>{
+  e.preventDefault();
+  let domPositionOfSelectedYear= document.getElementById(todaySelector).offsetTop;
+  window.scrollTo(0, domPositionOfSelectedYear - window.innerHeight/2);
+})
+
 //Click: Open day-entry modal
 function attachActionToDays(){
   Array.from(document.querySelectorAll('.day')).forEach(item=>{
