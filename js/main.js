@@ -119,7 +119,6 @@ function getLifeExpectancyAndExpiration(){
   data.expiration.setMonth(new Date(data.answers.dob).getMonth());
   data.expiration.setDate(new Date(data.answers.dob).getDate());
   data.expectancy = data.countryList[data.answers.country][data.answers.gender];
-  console.log('From Get Life Expectancy and Expiration:' + data.expiration);
 }
 
 //Saving day-entry to local storage
@@ -129,7 +128,7 @@ function saveDayEntryToLocalStorage (dayId, attribute, content) {
    currentStorageEntries = {};
   }
   if(currentStorageEntries[dayId] === undefined){
-    currentStorageEntries[dayId] = {"message" : "","image" : ""};
+    currentStorageEntries[dayId] = {"message" : "","image" : "/images/imagePlaceholder.png"};
   }
   currentStorageEntries[dayId][attribute] = content;
   updateCurrentProfileInStorage(
@@ -147,13 +146,11 @@ function saveDayEntryToLocalStorage (dayId, attribute, content) {
 
 //Getting day-entry from local storage
 function getDayEntryFromLocalStorage (dayId) {
-  console.log(dayId);
   let currentStorageEntries = getCurrentProfileFromStorage().entries;
   if (currentStorageEntries === undefined) {
     return "";
   } else {
     let content = currentStorageEntries[dayId];
-    console.log(content);
     if (content === undefined) {
       return "";
     } else {
@@ -228,7 +225,6 @@ function populateYearSelector(){
   let listUntilYear;
   let yearsList = '';
   data.outlivedExpectancy === true ? listUntilYear = currentYear : listUntilYear =lastExpectedYear;
-  console.log(currentYear);
 
   for(let i = startingYear; i <= listUntilYear; i++){
     yearsList += `
@@ -244,7 +240,6 @@ function visualizeWithinExpectactionDays(){
   let days = [];
 
   //Get an array with all days from the DOB until the life termination
-  console.log('Visualize all individual days within the expectation');
   days.push(new Date(data.answers.dob));
   let numberOfDays = (data.expiration - data.answers.dob)/1000/3600/24;
   let nextDate = new Date(data.answers.dob);
@@ -299,7 +294,6 @@ function visualizeWithinExpectactionDays(){
       domDay.classList.add('regularDay');
   })
 
-  console.log('From Visualize within-expectation days:' + data.expiration);
 };
 
 
@@ -308,7 +302,6 @@ function visualizeAboveExpectactionDays(){
   let days = [];
 
   //Get an array with all days after the expiration until today
-  console.log('Visualize all individual days above the expectation');
   let numberOfDays = ((data.today - data.expiration)/1000/3600/24)+1;
   let nextDate = new Date(data.expiration);
   for(let i = 1; i < numberOfDays; i++){
@@ -353,7 +346,6 @@ function visualizeAboveExpectactionDays(){
       domDay.classList.add('extraDay');
     });
 
-    console.log('From Visualize above-expectation days:' + data.expiration);
 };
 
 
@@ -392,7 +384,6 @@ function outlivedExpectancyCheck(){
    data.outlivedExpectancy = true;
    window.scrollTo(0, document.body.scrollHeight);
   }
-  console.log('From Outlived expectancy check:' + data.expiration);
 }
 
 //Highlight the first birthday
@@ -436,7 +427,6 @@ function highlightToday(){
 //Mark upon app load all days that have an entry attached to them
 function highlightAllDaysWithEntry(){
   let currentStorageEntries = getCurrentProfileFromStorage().entries;
-  console.log("debugging:" + currentStorageEntries);
   if (currentStorageEntries !== undefined) {
     let daysWithEntry = Object.keys(currentStorageEntries);
     daysWithEntry.forEach(day => {
@@ -453,7 +443,6 @@ function displayModal(input){
   ui.dayEntryModal.classList.add('visible');
   ui.dayEntryModal.setAttribute("data-day",input.clickedDayId);
   ui.dayEntryDate.innerText = `${input.day}. ${input.month}. ${input.year}`;
-  console.log("message" + getDayEntryFromLocalStorage (input.clickedDayId).message);
   if(getDayEntryFromLocalStorage (input.clickedDayId).message === undefined){
     ui.dayEntryForm.value = "";
   } else{
@@ -465,22 +454,6 @@ function displayModal(input){
   }else{
     ui.dayEntryImage.src = '/images/imagePlaceholder.png';
   }
-
-  // if(input.clickedDayId === ui.firstBirthdayId){
-  //   ui.dayEntryImage.disabled = true;
-  //   ui.dayEntryImage.style.display = 'flex';
-  //   ui.dayEntryImage.src = '/images/birth.png';
-  //   ui.imageUrlInsertForm.style.display = "none";
-  // } else if(input.clickedDayId === ui.lastExpectedDayId){
-  //   ui.dayEntryImage.style.classList = "";
-  //   ui.dayEntryImage.style.display = 'flex';
-  //   ui.dayEntryImage.src = '/images/end.png';
-  //   ui.imageUrlInsertForm.style.display = "none";
-  // } 
-  //else{
-  //   ui.dayEntryImage.style.display = 'none';
-  //   console.log('removed');
-  // }
 };
 
 //Closing day-entry modal
@@ -551,8 +524,6 @@ ui.imageUrlSaveBtn.addEventListener('click', (e)=>{
 
 
 
-
-//On load the disable the submit button if there is no content
 
 //Click: Delete day-entry modal
 ui.dayEntryDelete.addEventListener('click',(e)=>{
