@@ -28,25 +28,31 @@ const ui = {
   firstBirthdayId: null,
   lastExpectedDayId: null,
 }
-// DATA==============================
+// APP DATA==============================
 const data = {
+  //Answers from the questionaire
   answers: {
     name: null,
     dob: new Date(),
     gender: null,
     country: null,
   },
-  countryList: {},
+  //Time-related variables
   expectancy: null,
   expiration: new Date(),
   today: new Date(),
   outlivedExpectancy: null,
-  currentProfile: localStorage.getItem('currentProfile'),
+
+  //Setting default images and text for the first and last day of life
   setFirstBirthdayDefaultMessage: null,
   setLastExpectedDayDefaultMessage: null,
   setFirstBirthdayDefaultImage: null,
   setLastExpectedDayDefaultImage: null,
-  openedModalId: null
+
+  //Other
+  openedModalId: null,
+  countryList: {},
+  currentProfile: localStorage.getItem('currentProfile'),
 }
 
 
@@ -58,13 +64,24 @@ function getAnswers(){
   data.answers.dob = dob;
   data.answers.gender = getCurrentProfileFromStorage().gender;
   data.answers.country = getCurrentProfileFromStorage().country;
+};
 
+//Check whether the user outlived their life expectancy
+function outlivedExpectancyCheck(){
+  let todayDate = new Date();
+  if(todayDate > data.expiration){
+   data.outlivedExpectancy = true;
+   window.scrollTo(0, document.body.scrollHeight);
+  }
+}
+
+//Check whether the first and last day default image and text entries have been already overwritten by the user so that they do not get reset to default
+function getWhetherDefaultFirstLastDayEntriesHaveBeenOverwritten(){
   data.setFirstBirthdayDefaultImage = getCurrentProfileFromStorage().setFirstBirthdayDefaultImage;
   data.setLastExpectedDayDefaultImage = getCurrentProfileFromStorage().setLastExpectedDayDefaultImage;
   data.setFirstBirthdayDefaultMessage = getCurrentProfileFromStorage().setFirstBirthdayDefaultMessage;
   data.setLastExpectedDayDefaultMessage = getCurrentProfileFromStorage().setLastExpectedDayDefaultMessage;
 };
-
 
 //Get JSON with life expectancy data
 async function getExpectancyStats() {
@@ -84,18 +101,9 @@ async function processExpectancyStats(){
     data.countryList[dataItem.country].woman = dataItem.females;
     data.countryList[dataItem.country].other = dataItem.both;
   });
-  getLifeExpectancyAndExpiration();
-  outlivedExpectancyCheck();
-  showStatsProgressNumbers();
-  populateYearSelector();
-  visualizeWithinExpectactionDays();
-  visualizeAboveExpectactionDays();
-  highlightOutlivedExpectancy();
-  highlightFirstBirthday();
-  highlightOutlivedExpectancy();
-  highlightToday();
-  highlightAllDaysWithEntry();
-  attachActionToDays();
+
+  //Trigger actions which depend on availability of the fetched data 
+  return asyncDataBasedFeatures();
 };
 
 //Get current profile data from local storage
@@ -111,37 +119,12 @@ function updateCurrentProfileInStorage(keyName, value){
   return getCurrentProfileFromStorage();
 }
 
-
-
 //Calculate user's life expiration
 function getLifeExpectancyAndExpiration(){
   data.expiration.setFullYear(new Date(data.answers.dob).getFullYear() + data.countryList[data.answers.country][data.answers.gender]);
   data.expiration.setMonth(new Date(data.answers.dob).getMonth());
   data.expiration.setDate(new Date(data.answers.dob).getDate());
   data.expectancy = data.countryList[data.answers.country][data.answers.gender];
-}
-
-//Saving day-entry to local storage
-function saveDayEntryToLocalStorage (dayId, attribute, content) {
-  let currentStorageEntries = getCurrentProfileFromStorage().entries;
-  if (currentStorageEntries === undefined) {
-   currentStorageEntries = {};
-  }
-  if(currentStorageEntries[dayId] === undefined){
-    currentStorageEntries[dayId] = {"message" : "","image" : "/images/imagePlaceholder.png"};
-  }
-  currentStorageEntries[dayId][attribute] = content;
-  updateCurrentProfileInStorage(
-    "entries",
-    currentStorageEntries
-  );
-
-  //Make the day marked as having an entry
-  if(content !== ""){
-    document.getElementById(dayId).classList.add('hasEntry');
-  } else{
-    document.getElementById(dayId).classList.remove('hasEntry');
-  }
 }
 
 //Getting day-entry from local storage
@@ -159,6 +142,25 @@ function getDayEntryFromLocalStorage (dayId) {
   }
 }
 
+//Saving day-entry to local storage
+function saveDayEntryToLocalStorage (dayId, attribute, content) {
+  let currentStorageEntries = getCurrentProfileFromStorage().entries;
+  if (currentStorageEntries === undefined) {
+   currentStorageEntries = {};
+  }
+  if(currentStorageEntries[dayId] === undefined){
+    currentStorageEntries[dayId] = {"message" : "","image" : "/images/imagePlaceholder.png"};
+  }
+  currentStorageEntries[dayId][attribute] = content;
+  updateCurrentProfileInStorage(
+    "entries",
+    currentStorageEntries
+  );
+
+  //Upon managing the day, highlight it if it has an entry.
+  highlightAllDaysWithEntry();
+}
+
 //Deleting day-entry from local storage
 function deleteDayEntryFromLocalStorage(dayId){
   let currentStorageEntries = getCurrentProfileFromStorage().entries;
@@ -169,7 +171,6 @@ function deleteDayEntryFromLocalStorage(dayId){
   );
   document.getElementById(dayId).classList.remove('hasEntry');
 }
-
 
 //Saving day-entry image to local storage
 function saveDayImageToLocalStorage (dayId, imageUrl) {
@@ -184,18 +185,31 @@ function saveDayImageToLocalStorage (dayId, imageUrl) {
   );
 }
 
-
-
-
 //DISPLAYING=============================
+//Async-data based features
+function asyncDataBasedFeatures(){
+  getLifeExpectancyAndExpiration();
+  outlivedExpectancyCheck();
+  showStatsProgressNumbers();
+  populateYearSelector();
+  visualizeWithinExpectactionDays();
+  visualizeAboveExpectactionDays();
+  highlightOutlivedExpectancy();
+  highlightFirstBirthday();
+  highlightOutlivedExpectancy();
+  highlightToday();
+  highlightAllDaysWithEntry();
+  attachActionToDays();
+};
+
 //Display user's stats (birth, expected life lenght, expect termination year) and the life progress bar
 function showStatsProgressNumbers(){
   //Stats under the progress bar
   ui.statsName.innerText = data.answers.name + ", ";
   ui.statsExpectancy.innerText = Math.round(data.expectancy) + ": ";
   ui.statsLifespan.innerText = `${new Date(data.answers.dob).getDate()}.${new Date(data.answers.dob).getMonth()+1}. ${new Date(data.answers.dob).getFullYear()} - ${data.expiration.getDate()}.${data.expiration.getMonth()+1}. ${data.expiration.getFullYear()}`;
-  //The visual progress bar of life
   
+  //The visual progress bar of life
   ui.progressDob.innerText = new Date(data.answers.dob).getFullYear();
   ui.progressExpiration.innerText = data.expiration.getFullYear();
   let currentAge = data.today.getFullYear() - new Date(data.answers.dob).getFullYear();
@@ -217,7 +231,7 @@ function showStatsProgressNumbers(){
   }
 }
 
-//Show a selector with all years of user's life 
+//Show a year selector with all years of user's life 
 function populateYearSelector(){
   let startingYear = new Date(data.answers.dob).getFullYear();
   let lastExpectedYear = new Date(data.expiration).getFullYear();
@@ -232,10 +246,10 @@ function populateYearSelector(){
     `;
   };
   ui.statsYearSelect.innerHTML = yearsList;
+  ui.statsYearSelect.value = currentYear;
 }
 
-
-//Visualize all individual days within the expectation
+//Visualize all individual days within the user's life expectancy
 function visualizeWithinExpectactionDays(){
   let days = [];
 
@@ -248,13 +262,19 @@ function visualizeWithinExpectactionDays(){
     days.push(new Date(nextDate));
   };
 
-  //Make sure a year label is appended o the first year, if the DOB is not on the 1.1. which would make it get the year label automatically
+  //Make sure a year label is appended to the first year, if the DOB is not on the 1.1., which would make it get the year label automatically
   if(new Date(data.answers.dob).getDate() !==1 ){
     let yearLabel = document.createElement("div");
     yearLabel.innerText = days[0].getFullYear();
     yearLabel.classList.add('yearLabel');
     yearLabel.id = days[0].getFullYear();
     ui.mainVisualization.appendChild(yearLabel);
+
+  //Make sure there is a month indication for the days of the first month, if the DOB is not on the first day of the month, which would make it get the month label automatically
+    let monthLabel = document.createElement("div");
+      monthLabel.innerText = days[0].getMonth()+1;
+      monthLabel.classList.add('monthLabel');
+      ui.mainVisualization.appendChild(monthLabel);
   }
 
   //Append all days of the user's life
@@ -296,7 +316,6 @@ function visualizeWithinExpectactionDays(){
 
 };
 
-
 //Visualize all individual days above the expectation
 function visualizeAboveExpectactionDays(){
   let days = [];
@@ -309,7 +328,7 @@ function visualizeAboveExpectactionDays(){
     days.push(new Date(nextDate));
   };
 
-    //Append all days of the user's life
+    //Append all above-expectancy days of the user's life
     days.forEach(day => {
       //Create a day DOM element
       let domDay = document.createElement("div");
@@ -348,7 +367,6 @@ function visualizeAboveExpectactionDays(){
 
 };
 
-
 //Inform the user they have outlived their life expectancy
 function highlightOutlivedExpectancy(){
   if(data.outlivedExpectancy === true){
@@ -373,16 +391,7 @@ function highlightOutlivedExpectancy(){
       getDayEntryFromLocalStorage (ui.lastExpectedDayId);
       saveDayEntryToLocalStorage (ui.lastExpectedDayId, "image", "/images/end.png")
       updateCurrentProfileInStorage("setLastExpectedDayDefaultImage", 'true');
-  }
-  }
-}
-
-//Check whether the user outlived their life expectancy
-function outlivedExpectancyCheck(){
-  let todayDate = new Date();
-  if(todayDate > data.expiration){
-   data.outlivedExpectancy = true;
-   window.scrollTo(0, document.body.scrollHeight);
+    }
   }
 }
 
@@ -407,8 +416,6 @@ function highlightFirstBirthday(){
     saveDayEntryToLocalStorage (ui.firstBirthdayId, "image", "/images/birth.png")
     updateCurrentProfileInStorage("setFirstBirthdayDefaultImage", 'true');
   }
-
- 
 }
 
 //Highlight today
@@ -421,8 +428,6 @@ function highlightToday(){
   document.getElementById(todaySelector).classList.add('day');
   document.getElementById(todaySelector).classList.add('today');
 };
-
-
 
 //Mark upon app load all days that have an entry attached to them
 function highlightAllDaysWithEntry(){
@@ -469,7 +474,7 @@ ui.statsYearSelect.addEventListener('change', (e)=>{
   e.preventDefault();
   let domPositionOfSelectedYear= document.getElementById(ui.statsYearSelect.value).offsetTop;
   window.scrollTo(0, domPositionOfSelectedYear - window.innerHeight/5);
-})
+});
 
 //Click: Open day-entry modal
 function attachActionToDays(){
@@ -480,7 +485,7 @@ function attachActionToDays(){
     data.openedModalId = clickedDayId;
     })
   });
-}
+};
 
 //Click: Close day-entry modal
 ui.dayEntryModalClose.addEventListener('click',(e)=>{
@@ -523,9 +528,7 @@ ui.imageUrlSaveBtn.addEventListener('click', (e)=>{
 })
 
 
-
-
-//Click: Delete day-entry modal
+//Click: Delete day-entry
 ui.dayEntryDelete.addEventListener('click',(e)=>{
   e.preventDefault();
   let dayId = ui.dayEntryModal.getAttribute('data-day');
@@ -542,9 +545,9 @@ ui.changeAnswers.addEventListener('click', (e)=>{
 //Init the app
 (function appInit(){
   getAnswers();
+  getWhetherDefaultFirstLastDayEntriesHaveBeenOverwritten();
   getExpectancyStats();
   processExpectancyStats();
-
 })();
 
 

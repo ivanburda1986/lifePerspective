@@ -63,7 +63,6 @@ function initiateUIState(){
     ui.months.innerHTML = months;
     ui.years.innerHTML = years;
   }());
-
 }
 
 
@@ -126,6 +125,9 @@ async function showData(){
     `;
   });
   countryselect.innerHTML = htmlCountryList;
+  
+  //Set the default country as Austria
+  ui.countryselect.value = "Austria";
 };
 
 
@@ -264,9 +266,6 @@ async function getData() {
   const data = await res.json();
   return data;
 };
-
-
-
 
 //App Initialisation==========================
 (function(){
