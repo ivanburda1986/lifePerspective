@@ -1,18 +1,18 @@
 //SELECTORS==========================
 const ui = {
-  profileListContainer: document.getElementById('profileListContainer'),
-  profileList: document.querySelector('.profileList'),
-  nextBtn: document.getElementById('nextBtn'),
   questionProfileName: document.getElementById('question-profileName'),
   questionGender: document.getElementById('question-gender'),
   questionDob: document.getElementById('question-dob'),
-  questionCountry: document.getElementById('question-country'),
   countryselect: document.getElementById('countryselect'),
   name: document.getElementById('name'),
   years: document.getElementById('years'),
   months: document.getElementById('months'),
   days: document.getElementById('days'),
   dateErrorMessage: document.getElementById('dateErrorMessage'),
+  questionCountry: document.getElementById('question-country'),
+  nextBtn: document.getElementById('nextBtn'),
+  profileListContainer: document.getElementById('profileListContainer'),
+  profileList: document.querySelector('.profileList'),
 };
 
 //DATA==========================
@@ -25,112 +25,108 @@ const data = {
 
 //MANAGING THE UI
 //Upon load
-ui.nextBtn.style.visibility = 'visible';
-ui.questionProfileName.style.display = 'visible';
-ui.questionGender.style.display = 'none';
-ui.questionDob.style.display = 'none';
-ui.questionCountry.style.display = 'none';
-ui.nextBtn.style.visibility = 'hidden';
-ui.profileListContainer.style.visibility = 'visible';
+function initiateUIState(){
+  //Make sure only the first question is displayed
+  ui.nextBtn.style.visibility = 'visible';
+  ui.questionProfileName.style.display = 'visible';
+  ui.questionGender.style.display = 'none';
+  ui.questionDob.style.display = 'none';
+  ui.questionCountry.style.display = 'none';
+  ui.nextBtn.style.visibility = 'hidden';
+  ui.profileListContainer.style.visibility = 'visible';
 
-//Make sure there are no pre-filled answers
-window.addEventListener('load', ()=>{
+  //Make sure that no value is selected for the radio selection of gender
   Array.from(document.querySelectorAll('.radioOption')).forEach(radioOption =>{
     radioOption.checked = false;
     console.log('cleared');
   });
-})
 
-//Populate the DOB selector lists
-window.addEventListener('load', ()=>{
+  //Populate the date of birth dropdown selectors
+  (function(){
+    let days = "";
+    let months = [];
+    let years = [];
+  
+    for(let i = 1; i<=31; i++){
+      let day = `<option value="${i}">${i}</option>`;
+      days+=day;
+    };
+    for(let i = 1; i<=12; i++){
+      let month = `<option value="${i}">${i}</option>`;
+      months+=month;
+    };
+    for(let i = 1900; i<=new Date(data.today).getFullYear(); i++){
+      let year = `<option value="${i}">${i}</option>`;
+      years+=year;
+    };
+    ui.days.innerHTML = days;
+    ui.months.innerHTML = months;
+    ui.years.innerHTML = years;
+  }());
 
-  let days = "";
-  let months = [];
-  let years = [];
+}
 
-  for(let i = 1; i<=31; i++){
-    let day = `<option value="${i}">${i}</option>`;
-    days+=day;
-  };
-  for(let i = 1; i<=12; i++){
-    let month = `<option value="${i}">${i}</option>`;
-    months+=month;
-  };
-  for(let i = 1900; i<=new Date(data.today).getFullYear(); i++){
-    let year = `<option value="${i}">${i}</option>`;
-    years+=year;
-  };
-  ui.days.innerHTML = days;
-  ui.months.innerHTML = months;
-  ui.years.innerHTML = years;
-})
 
-//Populate the list of available profiles
+//Display the list of available profiles
 function listExistingProfiles(){
   ui.profileList.innerHTML = "";
   let profiles = getExistingProfilesListFromStorage();
   if(profiles.length === 0){
-    console.log('There are no profiles yet');
+    ui.profileListContainer.style.display = "none";
     let profileListItem = document.createElement("li");
       profileListItem.classList.add('profileListItem');
       profileListItem.classList.add('py-1');
       profileListItem.innerHTML = `<p>There are no profiles yet.</p>`;
       ui.profileList.appendChild(profileListItem);
   } else{
+    ui.profileListContainer.style.display = "flex";
     profiles.forEach(profile => {
+      //For each profile create a list item
       let profileListItem = document.createElement("li");
       profileListItem.id = profile;
       profileListItem.classList.add('profileListItem');
       profileListItem.classList.add('py-1');
       profileListItem.innerHTML = `<p>${profile}</p>`;
       ui.profileList.appendChild(profileListItem);
-  
+      //Event listener when a profile gets clicked in the list
       profileListItem.addEventListener('click', (e)=>{
         if(e.target.classList.contains('profileListItem')){
           localStorage.setItem('currentProfile', profile);
           window.open("main.html", "_self");
         }
       })
-  
+      //For each profile create a delete button
       let deleteButton = document.createElement("button");
       deleteButton.innerText = 'x';
       profileListItem.appendChild(deleteButton);
+      //Event listener for triggering the deletion
       deleteButton.addEventListener('click',(e)=>{
         e.preventDefault();
         e.target.parentNode.remove();
         updateExistingProfilesListInStorage('delete', profile);
         localStorage.removeItem(profile);
+        listExistingProfiles();
       })
     })
   }
 }
 
-
-
-//Get list of profiles from local storage
-function getExistingProfilesListFromStorage(){
-  let existingProfiles = JSON.parse(localStorage.getItem('existingProfilesList'));
-  if (existingProfiles === null){
-    return [];
-  } else{
-    return existingProfiles;
-  }
-}
-
-//Update current profile data in local storage
-function updateExistingProfilesListInStorage(action, profileName){
-  let retrievedProfileData = getExistingProfilesListFromStorage();
-  if(action === 'create'){
-    let alreadyExists = retrievedProfileData.indexOf(profileName);
-    alreadyExists !== -1 ? console.log('already exists') : retrievedProfileData.push(profileName); 
-  } else if(action === 'delete'){
-    let position = retrievedProfileData.indexOf(profileName);
-    retrievedProfileData.splice(position, 1);
-  }
-  localStorage.setItem('existingProfilesList', JSON.stringify(retrievedProfileData));
-  return getExistingProfilesListFromStorage();
-}
-
+//Populate the list of countries to select from
+async function showData(){
+  let data = await getData();
+  let countryList = [];
+  data.map(dataItem => {
+    countryList.push(dataItem.country);
+  });
+  countryList.sort();
+  let htmlCountryList = "";
+  countryList.forEach(function (country) {
+    htmlCountryList += `
+    <option value="${country}">${country}</option>
+    `;
+  });
+  countryselect.innerHTML = htmlCountryList;
+};
 
 
 //EVENT LISTENERS==========================
@@ -157,9 +153,7 @@ document.getElementById('question-dob').addEventListener('keyup', ()=>{
   }
 })
 
-
-
-//Save the value
+//Manage questions navigation and save the answers
 ui.nextBtn.addEventListener('click', (e)=>{
   e.preventDefault();
   if(data.currentQuestion === 1){
@@ -202,27 +196,7 @@ ui.nextBtn.addEventListener('click', (e)=>{
   }
 })
 
-//VALIDATIONS
-function validateDobEntry(){
-  let monthLengths={"1":31, "2":29, "3":31, "4":30, "5":31, "6": 30, "7":31, "8": 31, "9":30, "10": 31, "11":30, "12":31 };
-  //Check leap year february
-  if(parseInt(ui.years.value)%4!==0 && parseInt(ui.months.value) === 2 && parseInt(ui.days.value) >= 29 ){{
-    ui.dateErrorMessage.getElementsByTagName("p")[0].innerText = "Invalid date.";
-    console.log('nok');
-    return;
-  }};
-  //Check months and corresponding selected day
-  if(ui.days.value > monthLengths[ui.months.value]){
-    console.log('nok');
-    ui.dateErrorMessage.getElementsByTagName("p")[0].innerText = "Invalid date.";
-  }
-  else{
-    console.log('ok');
-    ui.dateErrorMessage.getElementsByTagName("p")[0].innerText = "";
-  }
-  
-}
-
+//Upon any date selection change make sure the date is valid
 ui.days.addEventListener('change', (e)=>{
   e.preventDefault();
   validateDobEntry();
@@ -239,6 +213,48 @@ ui.years.addEventListener('change', (e)=>{
 })
 
 
+//VALIDATIONS==========================
+function validateDobEntry(){
+  let monthLengths={"1":31, "2":29, "3":31, "4":30, "5":31, "6": 30, "7":31, "8": 31, "9":30, "10": 31, "11":30, "12":31 };
+  //Check leap year february
+  if(parseInt(ui.years.value)%4!==0 && parseInt(ui.months.value) === 2 && parseInt(ui.days.value) >= 29 ){{
+    ui.dateErrorMessage.getElementsByTagName("p")[0].innerText = "Invalid date.";
+    return;
+  }};
+  //Check months and corresponding selected day
+  if(ui.days.value > monthLengths[ui.months.value]){
+    ui.dateErrorMessage.getElementsByTagName("p")[0].innerText = "Invalid date.";
+  }
+  else{
+    ui.dateErrorMessage.getElementsByTagName("p")[0].innerText = "";
+  }
+  
+}
+
+//MANAGING THE DATA==========================
+//Get list of profiles from local storage
+function getExistingProfilesListFromStorage(){
+  let existingProfiles = JSON.parse(localStorage.getItem('existingProfilesList'));
+  if (existingProfiles === null){
+    return [];
+  } else{
+    return existingProfiles;
+  }
+}
+
+//Update current profile data in local storage
+function updateExistingProfilesListInStorage(action, profileName){
+  let retrievedProfileData = getExistingProfilesListFromStorage();
+  if(action === 'create'){
+    let alreadyExists = retrievedProfileData.indexOf(profileName);
+    alreadyExists !== -1 ? console.log('already exists') : retrievedProfileData.push(profileName); 
+  } else if(action === 'delete'){
+    let position = retrievedProfileData.indexOf(profileName);
+    retrievedProfileData.splice(position, 1);
+  }
+  localStorage.setItem('existingProfilesList', JSON.stringify(retrievedProfileData));
+  return getExistingProfilesListFromStorage();
+}
 
 //Get the countries and related life expectancy data
 async function getData() {
@@ -250,22 +266,10 @@ async function getData() {
 };
 
 
-//Create the selection of countries
-async function showData(){
-  let data = await getData();
-  let countryList = [];
-  data.map(dataItem => {
-    countryList.push(dataItem.country);
-  });
-  countryList.sort();
-  let htmlCountryList = "";
-  countryList.forEach(function (country) {
-    htmlCountryList += `
-    <option value="${country}">${country}</option>
-    `;
-  });
-  countryselect.innerHTML = htmlCountryList;
-};
 
-//App init
-listExistingProfiles();
+
+//App Initialisation==========================
+(function(){
+  listExistingProfiles();
+  initiateUIState();
+})();

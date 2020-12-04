@@ -7,8 +7,8 @@ DONE---4]Progressbar should be fixed to the top so that it is always visible
 DONE---6]Allow users to attachch a picture image via an URL for every day
 DONE---10]Show somewhere in the navbar the name of the currently active profile
 DONE---5]Progressbar should include a dropdown with all available years for fast-moving
-8]Validation for submitting an empty daily message
-7]Validation for entering day, month, year
+DONE---8]Validation for submitting an empty daily message == I have decided it is OK to save an empty message
+DONE--7]Validation for entering day, month, year
 REFACTORING]Improve the 
 9]Improve general styling of the solution
 
