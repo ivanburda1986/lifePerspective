@@ -248,8 +248,8 @@ function visualizeWithinExpectactionDays(){
     days.push(new Date(nextDate));
   };
 
-  //Append a label to the first year
-  if(new Date(data.answers.dob).getMonth() === 1 && new Date(data.answers.dob).getDate()===1){
+  //Make sure a year label is appended o the first year, if the DOB is not on the 1.1. which would make it get the year label automatically
+  if(new Date(data.answers.dob).getDate() !==1 ){
     let yearLabel = document.createElement("div");
     yearLabel.innerText = days[0].getFullYear();
     yearLabel.classList.add('yearLabel');

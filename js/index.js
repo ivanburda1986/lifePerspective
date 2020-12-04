@@ -9,15 +9,16 @@ const ui = {
   questionCountry: document.getElementById('question-country'),
   countryselect: document.getElementById('countryselect'),
   name: document.getElementById('name'),
-  year: document.getElementById('year'),
-  month: document.getElementById('month'),
-  day: document.getElementById('day'),
+  years: document.getElementById('years'),
+  months: document.getElementById('months'),
+  days: document.getElementById('days'),
 };
 
 //DATA==========================
 const data = {
   currentQuestion: 1,
   nameValue: null,
+  today: new Date(),
 }
 
 
@@ -37,6 +38,31 @@ window.addEventListener('load', ()=>{
     radioOption.checked = false;
     console.log('cleared');
   });
+})
+
+//Populate the DOB selector lists
+window.addEventListener('load', ()=>{
+  let monthLengths={"1":31, "2":28, "3":31, "4":30, "5":31, "6": 30, "7":31, "8": 31, "9":30, "10": 31, "11":30, "12":31 };
+  let days = "";
+  let months = [];
+  let years = [];
+
+  for(let i = 1; i<=31; i++){
+    let day = `<option value="${i}">${i}</option>`;
+    days+=day;
+  };
+  for(let i = 1; i<=12; i++){
+    let month = `<option value="${i}">${i}</option>`;
+    months+=month;
+  };
+  for(let i = 1900; i<=new Date(data.today).getFullYear(); i++){
+    let year = `<option value="${i}">${i}</option>`;
+    years+=year;
+  };
+  ui.days.innerHTML = days;
+  ui.months.innerHTML = months;
+  ui.years.innerHTML = years;
+
 })
 
 //Populate the list of available profiles
@@ -153,11 +179,11 @@ ui.nextBtn.addEventListener('click', (e)=>{
     ui.questionGender.style.display = 'none';
     ui.questionDob.style.display = 'flex';
     ui.questionCountry.style.display = 'none';
-    ui.nextBtn.style.visibility = 'hidden';
+    ui.nextBtn.style.visibility = 'visible';
     data.currentQuestion = 3;
   }
   else if(data.currentQuestion === 3){
-    let dob = new Date(ui.year.value, ui.month.value-1, ui.day.value);
+    let dob = new Date(ui.years.value, ui.months.value-1, ui.days.value);
     data[data.nameValue].dob = dob;
     ui.questionProfileName.style.display = 'none';
     ui.questionGender.style.display = 'none';
@@ -175,6 +201,21 @@ ui.nextBtn.addEventListener('click', (e)=>{
     window.open("main.html", "_self");
   }
 })
+
+//VALIDATIONS
+//On-keypress disable the submit button if there is no content
+// ui.day.addEventListener('keyup', ()=>{
+//   //If the typed in character is not a number then remove it
+  
+//   if(ui.dayEntryForm.value === ""){
+//     ui.dayEntrySubmit.disabled = true;
+//     ui.dayEntrySubmit.classList.add('disabled');
+//   } else{
+//     ui.dayEntrySubmit.disabled = false;
+//     ui.dayEntrySubmit.classList.remove('disabled');
+//   }
+// })
+
 
 //Get the countries and related life expectancy data
 async function getData() {
