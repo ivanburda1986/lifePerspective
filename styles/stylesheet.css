@@ -149,6 +149,10 @@ body{
   padding-right: 0.5rem;
 }
 
+.progressElapsedDob{
+  z-index: 2;
+}
+
 .progressExtra{
   height: 100%;
   width: 0%;

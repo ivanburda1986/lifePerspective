@@ -12,6 +12,7 @@ const ui = {
   years: document.getElementById('years'),
   months: document.getElementById('months'),
   days: document.getElementById('days'),
+  dateErrorMessage: document.getElementById('dateErrorMessage'),
 };
 
 //DATA==========================
@@ -42,7 +43,7 @@ window.addEventListener('load', ()=>{
 
 //Populate the DOB selector lists
 window.addEventListener('load', ()=>{
-  let monthLengths={"1":31, "2":28, "3":31, "4":30, "5":31, "6": 30, "7":31, "8": 31, "9":30, "10": 31, "11":30, "12":31 };
+
   let days = "";
   let months = [];
   let years = [];
@@ -62,7 +63,6 @@ window.addEventListener('load', ()=>{
   ui.days.innerHTML = days;
   ui.months.innerHTML = months;
   ui.years.innerHTML = years;
-
 })
 
 //Populate the list of available profiles
@@ -203,18 +203,41 @@ ui.nextBtn.addEventListener('click', (e)=>{
 })
 
 //VALIDATIONS
-//On-keypress disable the submit button if there is no content
-// ui.day.addEventListener('keyup', ()=>{
-//   //If the typed in character is not a number then remove it
+function validateDobEntry(){
+  let monthLengths={"1":31, "2":29, "3":31, "4":30, "5":31, "6": 30, "7":31, "8": 31, "9":30, "10": 31, "11":30, "12":31 };
+  //Check leap year february
+  if(parseInt(ui.years.value)%4!==0 && parseInt(ui.months.value) === 2 && parseInt(ui.days.value) >= 29 ){{
+    ui.dateErrorMessage.getElementsByTagName("p")[0].innerText = "Invalid date.";
+    console.log('nok');
+    return;
+  }};
+  //Check months and corresponding selected day
+  if(ui.days.value > monthLengths[ui.months.value]){
+    console.log('nok');
+    ui.dateErrorMessage.getElementsByTagName("p")[0].innerText = "Invalid date.";
+  }
+  else{
+    console.log('ok');
+    ui.dateErrorMessage.getElementsByTagName("p")[0].innerText = "";
+  }
   
-//   if(ui.dayEntryForm.value === ""){
-//     ui.dayEntrySubmit.disabled = true;
-//     ui.dayEntrySubmit.classList.add('disabled');
-//   } else{
-//     ui.dayEntrySubmit.disabled = false;
-//     ui.dayEntrySubmit.classList.remove('disabled');
-//   }
-// })
+}
+
+ui.days.addEventListener('change', (e)=>{
+  e.preventDefault();
+  validateDobEntry();
+})
+
+ui.months.addEventListener('change', (e)=>{
+  e.preventDefault();
+  validateDobEntry();
+})
+
+ui.years.addEventListener('change', (e)=>{
+  e.preventDefault();
+  validateDobEntry();
+})
+
 
 
 //Get the countries and related life expectancy data
