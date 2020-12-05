@@ -4,7 +4,7 @@ const ui = {
   questionGender: document.getElementById('question-gender'),
   questionDob: document.getElementById('question-dob'),
   countryselect: document.getElementById('countryselect'),
-  name: document.getElementById('name'),
+  name: document.getElementById('createName'),
   years: document.getElementById('years'),
   months: document.getElementById('months'),
   days: document.getElementById('days'),
@@ -27,12 +27,10 @@ const data = {
 //Upon load
 function initiateUIState(){
   //Make sure only the first question is displayed
-  ui.nextBtn.style.visibility = 'visible';
   ui.questionProfileName.style.display = 'visible';
   ui.questionGender.style.display = 'none';
   ui.questionDob.style.display = 'none';
   ui.questionCountry.style.display = 'none';
-  ui.nextBtn.style.visibility = 'hidden';
   ui.profileListContainer.style.visibility = 'visible';
 
   //Make sure that no value is selected for the radio selection of gender
@@ -96,7 +94,7 @@ function listExistingProfiles(){
       })
       //For each profile create a delete button
       let deleteButton = document.createElement("button");
-      deleteButton.innerText = 'x';
+      deleteButton.innerHTML = '&#10006;';
       profileListItem.appendChild(deleteButton);
       //Event listener for triggering the deletion
       deleteButton.addEventListener('click',(e)=>{
@@ -135,23 +133,23 @@ async function showData(){
 //Display the next button
 Array.from(document.querySelectorAll('.radioOption')).forEach(radioOption =>{
   radioOption.addEventListener('click', (e)=>{
-    ui.nextBtn.style.visibility = 'visible';
+
   })
 });
 
 document.getElementById('question-profileName').addEventListener('keyup', ()=>{
   if(ui.name.value.length !== 0){
-    ui.nextBtn.style.visibility = 'visible';
+
   } else{
-    ui.nextBtn.style.visibility = 'hidden';
+
   }
 })
 
 document.getElementById('question-dob').addEventListener('keyup', ()=>{
   if(ui.day.value !== null && ui.month.value !== null && ui.year.value.length === 4){
-    ui.nextBtn.style.visibility = 'visible';
+
   } else{
-    ui.nextBtn.style.visibility = 'hidden';
+
   }
 })
 
@@ -165,7 +163,6 @@ ui.nextBtn.addEventListener('click', (e)=>{
     ui.questionGender.style.display = 'flex';
     ui.questionDob.style.display = 'none';
     ui.questionCountry.style.display = 'none';
-    ui.nextBtn.style.visibility = 'hidden';
     ui.profileListContainer.style.visibility = 'hidden';
     data.currentQuestion = 2;
   }
@@ -175,7 +172,6 @@ ui.nextBtn.addEventListener('click', (e)=>{
     ui.questionGender.style.display = 'none';
     ui.questionDob.style.display = 'flex';
     ui.questionCountry.style.display = 'none';
-    ui.nextBtn.style.visibility = 'visible';
     data.currentQuestion = 3;
   }
   else if(data.currentQuestion === 3){
@@ -185,7 +181,6 @@ ui.nextBtn.addEventListener('click', (e)=>{
     ui.questionGender.style.display = 'none';
     ui.questionDob.style.display = 'none';
     ui.questionCountry.style.display = 'flex';
-    ui.nextBtn.style.visibility = 'flex';
     data.currentQuestion = 4;
     showData();
   }

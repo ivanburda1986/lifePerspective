@@ -16,9 +16,13 @@
     <!-- Your name -->
     <div class="questions-main" id="question-profileName">
       <form>
-        <p class="questions-question">Create a new profile</p>
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name" placeholder="Name">
+        <p class="questions-question">Create a profile</p>
+        <label for="createName"></label>
+        <input type="text" id="createName" class="inputField" name="createName" placeholder="Name">
+        <label for="createPassword"></label>
+        <input type="password" id="createPassword" class="inputField" name="createPassword" placeholder="Password">
+        <label for="createPassword"></label>
+        <input type="password" id="repeatPassword" class="inputField" name="repeatPassword" placeholder="Repeat password">
       </form>
     </div>
     <!-- Your gender -->
@@ -65,7 +69,10 @@
         </div>
       </form>
     </div>
-    <button id="nextBtn" class="questions-btn my-2">Next</button>
+    <!-- Continue button -->
+    <button id="nextBtn" class="questions-btn">Next</button>
+    <!-- Login button -->
+    <button id="loginBtn" class="login-btn">Already registered</button>
   </div>
   <!-- A list of available profiles -->
   <div id="profileListContainer">

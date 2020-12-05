@@ -1,31 +1,155 @@
+/* VARIABLES */
+:root{
+  --main-bg-color: #9899A6;
+  --secondary-bg-color: #D7D7D9;
+  --main-text-color: #736B62;
+  --secondary-text-color: #A69B92;
+  --main-contrast: #A3A653;
+
+}
+
+/* GENERAL SETTINGS */
+body{
+  box-sizing: border-box;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background: var(--main-bg-color);
+  color: #fff;
+}
+
+
+.mainContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 99vw;
+  height: 98vh;
+  margin-top: 6rem;
+}
+
+
 /* QUESTIONAIRE */
-.radioOption{
-  height: 1.5rem;
-  width: 1.5rem;
-  margin-left: 1rem;
+header{
+  margin: 0 1rem;
+}
+
+.questionsContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .questions-question{
   font-size: 1.2rem;
+  margin-bottom: 0.5rem;
 }
 
+/* Name and password */
+#question-profileName form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.inputField{
+  width: 14rem;
+  border-radius: 5px;
+  padding: 0.25em;
+  margin-bottom: 0.1em;
+}
+
+/* Gender */
 .questions-radiobuttons{
-  padding: 1.5em;
+  width: 14.6rem;
+  padding: 0.25em;
+  margin: 0.25rem;
+  border-radius: 5px;
+  border: 1px solid var(--secondary-bg-color);
   display: flex;
   justify-content: center;
   align-items: center;
   text-align: center;
 }
 
-.questions-btn{
-  background: #fff;
-  width: 6rem;
-  color: #000;
-  border: 1px solid #fff;
-  font-size: 1.5rem;
-  cursor: pointer;
-  padding: 0.25em 0.5em;
+#question-gender form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
+
+.radioOption{
+  height: 1.25rem;
+  width: 1.25rem;
+  margin-left: 1rem;
+}
+
+/* Gender */
+#question-dob{
+  width: 17rem;
+  padding: 0.25em;
+  margin: 0.25rem;
+  border-radius: 5px;
+  border: 1px solid var(--secondary-bg-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+#question-dob .dropdown{
+  font-size: 0.8rem;
+  line-height: 0.8rem;
+}
+
+/* Gender */
+#question-country{
+  width: 14.6rem;
+  padding: 0.25em;
+  margin: 0.25rem;
+  border-radius: 5px;
+  border: 1px solid var(--secondary-bg-color);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+#countryselect{
+  margin-bottom: 1rem;
+}
+
+/* Buttons */
+.questions-btn{
+  color: var(--main-text-color);
+  width: 14.6rem;
+  padding: 0.25em;
+}
+
+.questions-btn.active{
+  background: var(--main-contrast);
+  border: 2px solid var(--main-text-color);
+}
+
+.login-btn{
+  background: none;
+  border: none;
+  color: #fff;
+}
+.login-btn:hover{
+  color:var(--main-text-color);
+}
+
+
 
 /* PROFILES LIST */
 #profileListContainer{
@@ -38,6 +162,8 @@
 }
 
 .profileList{
+margin: 0;
+padding: 0;
 list-style-type: none;
 display: flex;
 flex-direction: column;
@@ -51,13 +177,28 @@ align-items: center;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  height: 2rem;
+  height: 1.5rem;
   width: 500px;
   max-width: 80vw;
   margin: 0 auto;
-  cursor: pointer;
-  background-color: rgba(10,10,10,0.5);
   margin-top: 3px;
+  padding: 0 0.5rem;
+  cursor: pointer;
+  background-color: var(--main-bg-color);
+  border: 1px solid var(--secondary-bg-color);
+  border-radius: 5px;
+}
+
+.profileListItem button{
+  cursor: pointer;
+background: none;
+border: none;
+font-weight: 100;
+color: var(--secondary-bg-color);
+}
+
+.profileListItem button:hover{
+color: var(--main-text-color);
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -73,34 +214,8 @@ input[type=number] {
 }
 
 
-/* GENERAL SETTINGS */
-body{
-  box-sizing: border-box;
-}
-
-body{
-  background: #000;
-  color: #fff;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-}
 
 
-.mainContainer{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 99vw;
-  height: 98vh;
-  margin-top: 6rem;
-}
 
 /* Overview */
 .topBar{
@@ -364,12 +479,7 @@ textarea{
 
 
 /* QUESTIONAIRE */
-.questionsContainer{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
+
 
 .questions-main{
   display: flex;

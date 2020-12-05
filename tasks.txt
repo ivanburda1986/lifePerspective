@@ -8,7 +8,7 @@ DONE---6]Allow users to attachch a picture image via an URL for every day
 DONE---10]Show somewhere in the navbar the name of the currently active profile
 DONE---5]Progressbar should include a dropdown with all available years for fast-moving
 DONE---8]Validation for submitting an empty daily message == I have decided it is OK to save an empty message
-DONE--7]Validation for entering day, month, year
-REFACTORING]Improve the 
+DONE---7]Validation for entering day, month, year
+DONE--REFACTORING]Improve the organisation of the code and improve obvious issues
 9]Improve general styling of the solution
 
