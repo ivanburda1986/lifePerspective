@@ -10,5 +10,18 @@ DONE---5]Progressbar should include a dropdown with all available years for fast
 DONE---8]Validation for submitting an empty daily message == I have decided it is OK to save an empty message
 DONE---7]Validation for entering day, month, year
 DONE--REFACTORING]Improve the organisation of the code and improve obvious issues
-9]Improve general styling of the solution
+
+
+
+
+
+
+
+1) Create a flow for profile creations including a password
+2) Create a flow for login as an alternative to creation (requires providing a username and password)
+3) Show the list of profiles only to an admin
+4) Improve general styling of the solution
+
+All in all the solution should be ready for the moment when I build the BE in node.js
+
 
