@@ -144,6 +144,7 @@ header{
   background: none;
   border: none;
   color: #fff;
+  cursor:pointer;
 }
 .login-btn:hover{
   color:var(--main-text-color);

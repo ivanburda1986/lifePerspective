@@ -1,16 +1,22 @@
 //SELECTORS==========================
 const ui = {
-  questionProfileName: document.getElementById('question-profileName'),
+  questionProfileCreation: document.getElementById('question-profileName'),
+  name: document.getElementById('createName'),
+  createPassword: document.getElementById('createPassword'),
+  repeatPassword: document.getElementById('repeatPassword'),
+
   questionGender: document.getElementById('question-gender'),
   questionDob: document.getElementById('question-dob'),
-  countryselect: document.getElementById('countryselect'),
-  name: document.getElementById('createName'),
   years: document.getElementById('years'),
   months: document.getElementById('months'),
   days: document.getElementById('days'),
   dateErrorMessage: document.getElementById('dateErrorMessage'),
+
   questionCountry: document.getElementById('question-country'),
+  countryselect: document.getElementById('countryselect'),
+  
   nextBtn: document.getElementById('nextBtn'),
+  
   profileListContainer: document.getElementById('profileListContainer'),
   profileList: document.querySelector('.profileList'),
 };
@@ -27,7 +33,7 @@ const data = {
 //Upon load
 function initiateUIState(){
   //Make sure only the first question is displayed
-  ui.questionProfileName.style.display = 'visible';
+  ui.questionProfileCreation.style.display = 'visible';
   ui.questionGender.style.display = 'none';
   ui.questionDob.style.display = 'none';
   ui.questionCountry.style.display = 'none';
@@ -36,7 +42,6 @@ function initiateUIState(){
   //Make sure that no value is selected for the radio selection of gender
   Array.from(document.querySelectorAll('.radioOption')).forEach(radioOption =>{
     radioOption.checked = false;
-    console.log('cleared');
   });
 
   //Populate the date of birth dropdown selectors
@@ -62,6 +67,26 @@ function initiateUIState(){
     ui.years.innerHTML = years;
   }());
 }
+
+//Populate the list of countries to select from
+async function showData(){
+  let data = await getData();
+  let countryList = [];
+  data.map(dataItem => {
+    countryList.push(dataItem.country);
+  });
+  countryList.sort();
+  let htmlCountryList = "";
+  countryList.forEach(function (country) {
+    htmlCountryList += `
+    <option value="${country}">${country}</option>
+    `;
+  });
+  countryselect.innerHTML = htmlCountryList;
+  
+  //Set the default country as Austria
+  ui.countryselect.value = "Austria";
+};
 
 
 //Display the list of available profiles
@@ -108,27 +133,6 @@ function listExistingProfiles(){
   }
 }
 
-//Populate the list of countries to select from
-async function showData(){
-  let data = await getData();
-  let countryList = [];
-  data.map(dataItem => {
-    countryList.push(dataItem.country);
-  });
-  countryList.sort();
-  let htmlCountryList = "";
-  countryList.forEach(function (country) {
-    htmlCountryList += `
-    <option value="${country}">${country}</option>
-    `;
-  });
-  countryselect.innerHTML = htmlCountryList;
-  
-  //Set the default country as Austria
-  ui.countryselect.value = "Austria";
-};
-
-
 //EVENT LISTENERS==========================
 //Display the next button
 Array.from(document.querySelectorAll('.radioOption')).forEach(radioOption =>{
@@ -159,7 +163,7 @@ ui.nextBtn.addEventListener('click', (e)=>{
   if(data.currentQuestion === 1){
     data[ui.name.value] = {profileName: ui.name.value};
     data.nameValue = ui.name.value;
-    ui.questionProfileName.style.display = 'none';
+    ui.questionProfileCreation.style.display = 'none';
     ui.questionGender.style.display = 'flex';
     ui.questionDob.style.display = 'none';
     ui.questionCountry.style.display = 'none';
@@ -168,7 +172,7 @@ ui.nextBtn.addEventListener('click', (e)=>{
   }
   else if(data.currentQuestion === 2){
     data[data.nameValue].gender = document.querySelector('input[name="gender"]:checked').value;
-    ui.questionProfileName.style.display = 'none';
+    ui.questionProfileCreation.style.display = 'none';
     ui.questionGender.style.display = 'none';
     ui.questionDob.style.display = 'flex';
     ui.questionCountry.style.display = 'none';
@@ -177,7 +181,7 @@ ui.nextBtn.addEventListener('click', (e)=>{
   else if(data.currentQuestion === 3){
     let dob = new Date(ui.years.value, ui.months.value-1, ui.days.value);
     data[data.nameValue].dob = dob;
-    ui.questionProfileName.style.display = 'none';
+    ui.questionProfileCreation.style.display = 'none';
     ui.questionGender.style.display = 'none';
     ui.questionDob.style.display = 'none';
     ui.questionCountry.style.display = 'flex';
@@ -192,23 +196,6 @@ ui.nextBtn.addEventListener('click', (e)=>{
     window.open("main.html", "_self");
   }
 })
-
-//Upon any date selection change make sure the date is valid
-ui.days.addEventListener('change', (e)=>{
-  e.preventDefault();
-  validateDobEntry();
-})
-
-ui.months.addEventListener('change', (e)=>{
-  e.preventDefault();
-  validateDobEntry();
-})
-
-ui.years.addEventListener('change', (e)=>{
-  e.preventDefault();
-  validateDobEntry();
-})
-
 
 //VALIDATIONS==========================
 function validateDobEntry(){
@@ -225,8 +212,29 @@ function validateDobEntry(){
   else{
     ui.dateErrorMessage.getElementsByTagName("p")[0].innerText = "";
   }
-  
 }
+
+//Upon any date selection change make sure the date is valid
+ui.days.addEventListener('change', (e)=>{
+  e.preventDefault();
+  validateDobEntry();
+});
+
+ui.months.addEventListener('change', (e)=>{
+  e.preventDefault();
+  validateDobEntry();
+});
+
+ui.years.addEventListener('change', (e)=>{
+  e.preventDefault();
+  validateDobEntry();
+});
+
+function validatePasswordEntry(){
+
+};
+
+
 
 //MANAGING THE DATA==========================
 //Get list of profiles from local storage
