@@ -31,7 +31,7 @@ function initiateUIState(){
   ui.questionGender.style.display = 'none';
   ui.questionDob.style.display = 'none';
   ui.questionCountry.style.display = 'none';
-  ui.profileListContainer.style.visibility = 'visible';
+  ui.profileListContainer.style.visibility = 'hidden';
 
   //Make sure that no value is selected for the radio selection of gender
   Array.from(document.querySelectorAll('.radioOption')).forEach(radioOption =>{
