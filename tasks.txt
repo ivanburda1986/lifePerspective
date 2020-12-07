@@ -25,3 +25,12 @@ DONE--REFACTORING]Improve the organisation of the code and improve obvious issue
 All in all the solution should be ready for the moment when I build the BE in node.js
 
 
+Name field typping
+- unique and filled -> data.nameValidation = ok
+- if data.nameValidation and data.passValidation === ok => enable the next button
+
+Password
+- filled and match -> data.passValidation = ok
+- if data.nameValidation and data.passValidation === ok => enable the next button
+
+
