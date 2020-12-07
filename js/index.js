@@ -25,6 +25,7 @@ const ui = {
 const data = {
   currentQuestion: 1,
   nameValue: null,
+  passwordValue: null,
   today: new Date(),
 }
 
@@ -135,19 +136,22 @@ function listExistingProfiles(){
 
 //EVENT LISTENERS==========================
 //Display the next button
-Array.from(document.querySelectorAll('.radioOption')).forEach(radioOption =>{
-  radioOption.addEventListener('click', (e)=>{
-
-  })
-});
-
-document.getElementById('question-profileName').addEventListener('keyup', ()=>{
+ui.name.addEventListener('keyup', ()=>{
   if(ui.name.value.length !== 0){
 
   } else{
 
   }
 })
+
+
+Array.from(document.querySelectorAll('.radioOption')).forEach(radioOption =>{
+  radioOption.addEventListener('click', (e)=>{
+
+  })
+});
+
+
 
 document.getElementById('question-dob').addEventListener('keyup', ()=>{
   if(ui.day.value !== null && ui.month.value !== null && ui.year.value.length === 4){
