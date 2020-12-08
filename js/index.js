@@ -28,6 +28,7 @@ const data = {
   nameValue: null,
   passwordValue: null,
   nameValidation: "nok",
+  nameRegistered: false,
   passwordValidation: "nok",
   dobValidation: "nok",
   today: new Date(),
@@ -141,11 +142,20 @@ function listExistingProfiles(){
 //VALIDATIONS
 //Profile creation
 ui.name.addEventListener('keyup', ()=>{
+  if(ui.name.value.length !== 0 && getExistingProfilesListFromStorage().indexOf(ui.name.value) !== -1){
+    data.nameValidation = "nok";
+    data.nameRegistered = true;
+    nextButtonState("profileCreation");
+    console.log('hi');
+    return;
+  }
   if(ui.name.value.length !== 0){
     data.nameValidation = "ok";
+    data.nameRegistered = false;
     nextButtonState("profileCreation");
   } else{
     data.nameValidation = "nok";
+    data.nameRegistered = false;
     nextButtonState("profileCreation");
   }
 })
@@ -186,6 +196,16 @@ ui.repeatPassword.addEventListener('keyup', ()=>{
 function nextButtonState(validatingQuestion){
   //Profile creation validation
   if(validatingQuestion === "profileCreation"){
+    if(data.nameRegistered === true){
+    ui.name.classList.add('alreadyRegistered');
+    ui.loginBtn.classList.add('highlight');
+    ui.loginBtn.innerText = "Already registered! Click here to login.";
+    } else if (data.nameRegistered === false){
+      ui.name.classList.remove('alreadyRegistered');
+      ui.loginBtn.classList.remove('highlight');
+      ui.loginBtn.innerText = "Already registered?";
+    }
+
     if(data.nameValidation === "ok" && data.passwordValidation === "ok"){
       ui.nextBtn.classList.add('active');
       ui.nextBtn.disabled = false;
@@ -264,6 +284,7 @@ ui.nextBtn.addEventListener('click', (e)=>{
   if(data.currentQuestion === 1){
     data[ui.name.value] = {profileName: ui.name.value};
     data.nameValue = ui.name.value;
+    data[data.nameValue].password = ui.createPassword.value;
     ui.questionProfileCreation.style.display = 'none';
     ui.questionGender.style.display = 'flex';
     ui.questionDob.style.display = 'none';

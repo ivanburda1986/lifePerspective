@@ -67,8 +67,12 @@ header{
   margin-bottom: 0.1em;
 }
 
+.createName.alreadyRegistered{
+  border: 3px solid red;
+}
+
 .repeatPassword.doesNotMatch{
-  border: 1px solid red;
+  border: 3px solid red;
 }
 
 /* Gender */
@@ -159,6 +163,11 @@ header{
 }
 .login-btn:hover{
   color:var(--main-text-color);
+}
+
+.login-btn.highlight{
+  color: orange;
+  font-weight: 700;
 }
 
 

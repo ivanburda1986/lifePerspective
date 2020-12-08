@@ -17,20 +17,11 @@ DONE--REFACTORING]Improve the organisation of the code and improve obvious issue
 
 
 
-1) Create a flow for profile creations including a password
+DONE---1) Create a flow for profile creations including a password
 2) Create a flow for login as an alternative to creation (requires providing a username and password)
 3) Show the list of profiles only to an admin
 4) Improve general styling of the solution
 
 All in all the solution should be ready for the moment when I build the BE in node.js
-
-
-Name field typping
-- unique and filled -> data.nameValidation = ok
-- if data.nameValidation and data.passValidation === ok => enable the next button
-
-Password
-- filled and match -> data.passValidation = ok
-- if data.nameValidation and data.passValidation === ok => enable the next button
 
 
