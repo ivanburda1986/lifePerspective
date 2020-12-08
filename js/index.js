@@ -1,30 +1,49 @@
 //SELECTORS==========================
 const ui = {
+  //Questions container
+  questionsContainer: document.querySelector('.questionsContainer'),
+
+  //Profile creation
   questionProfileCreation: document.getElementById('question-profileName'),
   name: document.getElementById('createName'),
   createPassword: document.getElementById('createPassword'),
   repeatPassword: document.getElementById('repeatPassword'),
 
+  //Gender
   questionGender: document.getElementById('question-gender'),
+
+  //DOB
   questionDob: document.getElementById('question-dob'),
   years: document.getElementById('years'),
   months: document.getElementById('months'),
   days: document.getElementById('days'),
   dateErrorMessage: document.getElementById('dateErrorMessage'),
 
+  //Country
   questionCountry: document.getElementById('question-country'),
   countryselect: document.getElementById('countryselect'),
   
+  //Buttons
   nextBtn: document.getElementById('nextBtn'),
   loginBtn: document.getElementById('loginBtn'),
   backToCreationBtn: document.getElementById('backToCreationBtn'),
 
+  //Existing profile login
   profileLogin: document.getElementById('profile-login'),
   loginName: document.getElementById('loginName'),
   loginPassword: document.getElementById('loginPassword'),
+
+  //Admin
+  adminLogin: document.getElementById('adminLogin'),
+  adminLoginBtn: document.getElementById('adminLoginBtn'),
+  adminPasswordInput: document.getElementById('adminPasswordInput'),
+  adminLoginForm: document.getElementById('adminLoginForm'),
+  adminPasswordSubmit: document.getElementById('adminPasswordSubmit'),
   
+  //A list of existing profiles
   profileListContainer: document.getElementById('profileListContainer'),
   profileList: document.querySelector('.profileList'),
+  profileListHidenBtn: document.getElementById('profileListHidenBtn'),
 };
 
 //DATA==========================
@@ -40,7 +59,7 @@ const data = {
 }
 
 
-//MANAGING THE UI
+//MANAGING THE UI==========================
 //Upon load
 function initiateUIState(){
   //Make sure only the first question is displayed
@@ -51,8 +70,6 @@ function initiateUIState(){
   ui.profileLogin.style.display = 'none';
   ui.backToCreationBtn.style.display = 'none';
   
-  ui.profileListContainer.style.visibility = 'hidden';
-
   //Make sure that no value is selected for the radio selection of gender
   Array.from(document.querySelectorAll('.radioOption')).forEach(radioOption =>{
     radioOption.checked = false;
@@ -80,6 +97,9 @@ function initiateUIState(){
     ui.months.innerHTML = months;
     ui.years.innerHTML = years;
   }());
+
+  //Make sure the lits of all profiles is not visible
+  ui.profileListContainer.style.visibility = 'hidden';
 }
 
 //Populate the list of countries to select from
@@ -107,7 +127,7 @@ function listExistingProfiles(){
   ui.profileList.innerHTML = "";
   let profiles = getExistingProfilesListFromStorage();
   if(profiles.length === 0){
-    ui.profileListContainer.style.display = "none";
+    //ui.profileListContainer.style.display = "none";
     let profileListItem = document.createElement("li");
       profileListItem.classList.add('profileListItem');
       profileListItem.classList.add('py-1');
@@ -134,6 +154,7 @@ function listExistingProfiles(){
       let deleteButton = document.createElement("button");
       deleteButton.innerHTML = '&#10006;';
       profileListItem.appendChild(deleteButton);
+
       //Event listener for triggering the deletion
       deleteButton.addEventListener('click',(e)=>{
         e.preventDefault();
@@ -148,7 +169,7 @@ function listExistingProfiles(){
 
 //EVENT LISTENERS==========================
 //VALIDATIONS
-//Profile creation
+//Profile creation - name
 ui.name.addEventListener('keyup', ()=>{
   if(ui.name.value.length !== 0 && getExistingProfilesListFromStorage().indexOf(ui.name.value) !== -1){
     data.nameValidation = "nok";
@@ -167,7 +188,7 @@ ui.name.addEventListener('keyup', ()=>{
     nextButtonState("profileCreation");
   }
 })
-
+//Profile creation - password
 ui.createPassword.addEventListener('keyup', ()=>{
   if(ui.createPassword.value.length >= 5 && ui.createPassword.value === ui.repeatPassword.value){
     data.passwordValidation = "ok";
@@ -184,6 +205,7 @@ ui.createPassword.addEventListener('keyup', ()=>{
   }
 })
 
+//Profile creation - password repeat
 ui.repeatPassword.addEventListener('keyup', ()=>{
   if(ui.repeatPassword.value.length >= 5 && ui.repeatPassword.value === ui.createPassword.value){
     data.passwordValidation = "ok";
@@ -201,9 +223,9 @@ ui.repeatPassword.addEventListener('keyup', ()=>{
 })
 
 //Evaluate conditions and set the state of the next button
-function nextButtonState(validatingQuestion){
+function nextButtonState(validatingAction){
   //Profile creation validation
-  if(validatingQuestion === "profileCreation"){
+  if(validatingAction === "profileCreation"){
     if(data.nameRegistered === true){
     ui.name.classList.add('alreadyRegistered');
     ui.loginBtn.classList.add('highlight');
@@ -224,12 +246,13 @@ function nextButtonState(validatingQuestion){
     }
   }
   //Profile gender selection
-  if(validatingQuestion === "genderSelection"){
+  if(validatingAction === "genderSelection"){
     ui.nextBtn.classList.add('active');
     ui.nextBtn.disabled = false;
   }
+
   //DOB selection
-  if(validatingQuestion === "dobSelection"){
+  if(validatingAction === "dobSelection"){
     if(data.dobValidation === "ok"){
       ui.nextBtn.classList.add('active');
       ui.nextBtn.disabled = false;
@@ -239,8 +262,9 @@ function nextButtonState(validatingQuestion){
       ui.nextBtn.disabled = true;
     }
   }
+
   //Login to an existing profile
-  if(validatingQuestion === "existingProfileLogin"){
+  if(validatingAction === "existingProfileLogin"){
     if(ui.loginName.value.length > 0 && ui.loginPassword.value.length >=5){
       ui.nextBtn.classList.add('active');
       ui.nextBtn.disabled = false;
@@ -298,9 +322,10 @@ function validateDobEntry(){
   }
 }
 
-//Manage questions navigation and save the answers
+//Manage navigation by using the "Next" button
 ui.nextBtn.addEventListener('click', (e)=>{
   e.preventDefault();
+  //The "Next" button was clicked at the: Name and password creation
   if(data.currentQuestion === 1){
     data[ui.name.value] = {profileName: ui.name.value};
     data.nameValue = ui.name.value;
@@ -315,6 +340,7 @@ ui.nextBtn.addEventListener('click', (e)=>{
     ui.loginBtn.style.display = "none";
     data.currentQuestion = 2;
   }
+  //The "Next" button was clicked at the: Gender selection
   else if(data.currentQuestion === 2){
     data[data.nameValue].gender = document.querySelector('input[name="gender"]:checked').value;
     ui.questionProfileCreation.style.display = 'none';
@@ -324,6 +350,7 @@ ui.nextBtn.addEventListener('click', (e)=>{
     ui.dateErrorMessage.style.visibility = "hidden";
     data.currentQuestion = 3;
   }
+  //The "Next" button was clicked at the: DOB selection
   else if(data.currentQuestion === 3){
     let dob = new Date(ui.years.value, ui.months.value-1, ui.days.value);
     data[data.nameValue].dob = dob;
@@ -334,6 +361,7 @@ ui.nextBtn.addEventListener('click', (e)=>{
     data.currentQuestion = 4;
     showData();
   }
+  //The "Next" button was clicked at the: Country selection
   else if(data.currentQuestion === 4){
     data[data.nameValue].country = ui.countryselect.value;
     localStorage.setItem(data.nameValue, JSON.stringify(data[data.nameValue]));
@@ -341,6 +369,7 @@ ui.nextBtn.addEventListener('click', (e)=>{
     updateExistingProfilesListInStorage('create', data.nameValue);
     window.open("main.html", "_self");
   }
+  //The "Next" button was clicked at the: Login with an existing profile
   else if(data.currentQuestion === "login"){
     //If the credentials are correct
     let profilePassword = JSON.parse(localStorage.getItem(ui.loginName.value)).password;
@@ -348,16 +377,16 @@ ui.nextBtn.addEventListener('click', (e)=>{
       localStorage.setItem('currentProfile', ui.loginName.value);
       window.open("main.html", "_self");
     } else{
+      //The login credentials are incorrect
       ui.loginPassword.classList.add('incorrect');
       setTimeout(function(){
         ui.loginPassword.classList.remove('incorrect');
       }, 1000);
     }
-
   }
 })
 
-//Go to the login to an existing profile
+//Go to the screen: Login to an existing profile
 ui.loginBtn.addEventListener('click', ()=>{
   ui.questionProfileCreation.style.display = 'none';
   ui.nextBtn.classList.remove('active');
@@ -366,6 +395,7 @@ ui.loginBtn.addEventListener('click', ()=>{
 
   if(data.nameRegistered === true){
     ui.loginName.value = ui.name.value;
+    ui.loginPassword.value = "";
   } else{
     ui.loginName.value = "";
   }
@@ -384,7 +414,7 @@ ui.loginPassword.addEventListener('keyup', ()=>{
   nextButtonState('existingProfileLogin');
 });
 
-//Back to profile creation
+//Go to the screen: Profile creation
 ui.backToCreationBtn.addEventListener('click', ()=>{
   ui.backToCreationBtn.style.display = 'none';
   ui.profileLogin.style.display = 'none';
@@ -393,6 +423,60 @@ ui.backToCreationBtn.addEventListener('click', ()=>{
   ui.questionProfileCreation.style.display = 'flex';
   ui.loginBtn.style.display = "flex";
 });
+
+//ADMIN
+//Show the admin-mode login form
+ui.adminLoginBtn.addEventListener('click', ()=>{
+  ui.adminLoginForm.classList.toggle('show');
+});
+
+//Submit the password
+ui.adminPasswordSubmit.addEventListener('click', (e)=>{
+  e.preventDefault();
+  if(ui.adminPasswordInput.value === localStorage.getItem('adminPass')){
+    //Hide the questions part
+    ui.questionsContainer.style.display = "none";
+    ui.adminLogin.classList.toggle('hide');
+    //Show the list
+    ui.profileListContainer.style.visibility = 'visible';
+  } else{
+    //The password is incorrect
+    ui.adminPasswordInput.classList.add('incorrect');
+    setTimeout(function(){
+      ui.adminPasswordInput.classList.remove('incorrect');
+    }, 1000);
+  }
+});
+
+//Trigger state control of the admin-mode button for submitting password
+ui.adminPasswordInput.addEventListener('keyup',()=>{
+  if(adminPasswordInput.value.length > 0){
+    ui.adminPasswordSubmit.disabled = false;
+    ui.adminPasswordSubmit.classList.add('active');
+  } else{
+    ui.adminPasswordSubmit.disabled = true;
+    ui.adminPasswordSubmit.classList.remove('active');
+  }
+});
+
+//Close the list and return to the profile creation
+ui.profileListHidenBtn.addEventListener('click', ()=>{
+    //Show the questions part
+    ui.questionsContainer.style.display = "flex";
+    ui.adminLogin.classList.toggle('hide');
+    //Hide the list
+    ui.profileListContainer.style.visibility = 'hidden';
+
+    //Hide the admin login form and empty the pass input
+    ui.adminLoginForm.classList.toggle('show');
+    ui.adminPasswordInput.value = "";
+    ui.adminPasswordSubmit.disabled = true;
+    ui.adminPasswordSubmit.classList.remove('active');
+
+})
+
+
+
 
 //MANAGING THE DATA==========================
 //Get list of profiles from local storage

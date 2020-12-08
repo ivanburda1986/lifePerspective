@@ -176,6 +176,7 @@ header{
 }
 
 .secondary-btn{
+  margin-bottom: 5px;
   background: none;
   border: none;
   color: #fff;
@@ -190,6 +191,44 @@ header{
   font-weight: 700;
 }
 
+/* ADMIN */
+
+.adminLogin{
+  margin-top: 50px;
+}
+
+.adminLogin.hide{
+  display: none;
+}
+
+.adminLoginBtn{
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--secondary-bg-color);
+  outline: none;
+}
+
+.adminLoginForm{
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.adminLoginForm.show{
+  display: flex;
+}
+
+.adminPassword.incorrect{
+  border: 3px solid red;
+}
+
+.adminPasswordSubmit.active{
+  color: black;
+  background: var(--main-contrast);
+  border: 2px solid var(--main-text-color);
+}
 
 
 /* PROFILES LIST */
@@ -200,6 +239,7 @@ header{
   align-items: center;
   text-align: center;
   min-width: 40vw;
+  max-width: 500px;
 }
 
 .profileList{
@@ -240,6 +280,14 @@ color: var(--secondary-bg-color);
 
 .profileListItem button:hover{
 color: var(--main-text-color);
+}
+
+.profileListHidenBtn{
+  margin-bottom: 5px;
+  background: none;
+  border: none;
+  color: #fff;
+  cursor:pointer;
 }
 
 /* Chrome, Safari, Edge, Opera */

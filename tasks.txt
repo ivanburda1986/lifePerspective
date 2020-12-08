@@ -18,8 +18,8 @@ DONE--REFACTORING]Improve the organisation of the code and improve obvious issue
 
 
 DONE---1) Create a flow for profile creations including a password
-2) Create a flow for login as an alternative to creation (requires providing a username and password)
-3) Show the list of profiles only to an admin
+DONE---2) Create a flow for login as an alternative to creation (requires providing a username and password)
+DONE---3) Show the list of profiles only to an admin
 4) Improve general styling of the solution
 
 All in all the solution should be ready for the moment when I build the BE in node.js
