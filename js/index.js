@@ -96,6 +96,7 @@ function initiateUIState(){
     ui.days.innerHTML = days;
     ui.months.innerHTML = months;
     ui.years.innerHTML = years;
+    ui.years.value = "2000";
   }());
 
   //Make sure the lits of all profiles is not visible
