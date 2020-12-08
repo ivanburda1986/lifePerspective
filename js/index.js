@@ -16,6 +16,7 @@ const ui = {
   countryselect: document.getElementById('countryselect'),
   
   nextBtn: document.getElementById('nextBtn'),
+  loginBtn: document.getElementById('loginBtn'),
   
   profileListContainer: document.getElementById('profileListContainer'),
   profileList: document.querySelector('.profileList'),
@@ -26,6 +27,9 @@ const data = {
   currentQuestion: 1,
   nameValue: null,
   passwordValue: null,
+  nameValidation: "nok",
+  passwordValidation: "nok",
+  dobValidation: "nok",
   today: new Date(),
 }
 
@@ -89,7 +93,6 @@ async function showData(){
   ui.countryselect.value = "Austria";
 };
 
-
 //Display the list of available profiles
 function listExistingProfiles(){
   ui.profileList.innerHTML = "";
@@ -135,31 +138,125 @@ function listExistingProfiles(){
 }
 
 //EVENT LISTENERS==========================
-//Display the next button
+//VALIDATIONS
+//Profile creation
 ui.name.addEventListener('keyup', ()=>{
   if(ui.name.value.length !== 0){
-
+    data.nameValidation = "ok";
+    nextButtonState("profileCreation");
   } else{
-
+    data.nameValidation = "nok";
+    nextButtonState("profileCreation");
   }
 })
 
+ui.createPassword.addEventListener('keyup', ()=>{
+  if(ui.createPassword.value.length >= 5 && ui.createPassword.value === ui.repeatPassword.value){
+    data.passwordValidation = "ok";
+    nextButtonState("profileCreation");
+  } else{
+    data.passwordValidation = "nok";
+    nextButtonState("profileCreation");
+  }
+  //Highlighlights the pass-repeat field if the passwords do not match
+  if(ui.repeatPassword.value === ui.createPassword.value){
+    ui.repeatPassword.classList.remove('doesNotMatch');
+  } else{
+    ui.repeatPassword.classList.add('doesNotMatch');
+  }
+})
 
+ui.repeatPassword.addEventListener('keyup', ()=>{
+  if(ui.repeatPassword.value.length >= 5 && ui.repeatPassword.value === ui.createPassword.value){
+    data.passwordValidation = "ok";
+    nextButtonState("profileCreation");
+  } else{
+    data.passwordValidation = "nok";
+    nextButtonState("profileCreation");
+  }
+  //Highlighlights the pass-repeat field if the passwords do not match
+  if(ui.repeatPassword.value === ui.createPassword.value){
+    ui.repeatPassword.classList.remove('doesNotMatch');
+  } else{
+    ui.repeatPassword.classList.add('doesNotMatch');
+  }
+})
+
+//Evaluate conditions and set the state of the next button
+function nextButtonState(validatingQuestion){
+  //Profile creation validation
+  if(validatingQuestion === "profileCreation"){
+    if(data.nameValidation === "ok" && data.passwordValidation === "ok"){
+      ui.nextBtn.classList.add('active');
+      ui.nextBtn.disabled = false;
+  
+    } else{
+      ui.nextBtn.classList.remove('active');
+      ui.nextBtn.disabled = true;
+    }
+  }
+  //Profile gender selection
+  if(validatingQuestion === "genderSelection"){
+    ui.nextBtn.classList.add('active');
+    ui.nextBtn.disabled = false;
+  }
+  //DOB selection
+  if(validatingQuestion === "dobSelection"){
+    if(data.dobValidation === "ok"){
+      ui.nextBtn.classList.add('active');
+      ui.nextBtn.disabled = false;
+    }
+    else{
+      ui.nextBtn.classList.remove('active');
+      ui.nextBtn.disabled = true;
+    }
+  }
+}
+
+//Gender selection
 Array.from(document.querySelectorAll('.radioOption')).forEach(radioOption =>{
   radioOption.addEventListener('click', (e)=>{
-
+    nextButtonState("genderSelection");
   })
 });
 
+//DOB selection - Upon any date selection change make sure the date is valid
+ui.days.addEventListener('change', (e)=>{
+  e.preventDefault();
+  validateDobEntry();
+  nextButtonState("dobSelection");
+});
 
+ui.months.addEventListener('change', (e)=>{
+  e.preventDefault();
+  validateDobEntry();
+  nextButtonState("dobSelection");
+});
 
-document.getElementById('question-dob').addEventListener('keyup', ()=>{
-  if(ui.day.value !== null && ui.month.value !== null && ui.year.value.length === 4){
+ui.years.addEventListener('change', (e)=>{
+  e.preventDefault();
+  validateDobEntry();
+  nextButtonState("dobSelection");
+});
 
-  } else{
-
+function validateDobEntry(){
+  let monthLengths={"1":31, "2":29, "3":31, "4":30, "5":31, "6": 30, "7":31, "8": 31, "9":30, "10": 31, "11":30, "12":31 };
+  //Check leap year february
+  if(parseInt(ui.years.value)%4!==0 && parseInt(ui.months.value) === 2 && parseInt(ui.days.value) >= 29 ){{
+    ui.dateErrorMessage.style.visibility = "visible";
+    data.dobValidation = "nok";
+    return;
+  }};
+  //Check months and corresponding selected day
+  if(ui.days.value > monthLengths[ui.months.value]){
+    ui.dateErrorMessage.style.visibility = "visible";
+    data.dobValidation = "nok";
   }
-})
+  else{
+    ui.dateErrorMessage.style.visibility = "hidden";
+    data.dobValidation = "ok";
+  }
+}
 
 //Manage questions navigation and save the answers
 ui.nextBtn.addEventListener('click', (e)=>{
@@ -172,6 +269,9 @@ ui.nextBtn.addEventListener('click', (e)=>{
     ui.questionDob.style.display = 'none';
     ui.questionCountry.style.display = 'none';
     ui.profileListContainer.style.visibility = 'hidden';
+    ui.nextBtn.classList.remove('active');
+    ui.nextBtn.disabled = true;
+    ui.loginBtn.style.display = "none";
     data.currentQuestion = 2;
   }
   else if(data.currentQuestion === 2){
@@ -180,6 +280,7 @@ ui.nextBtn.addEventListener('click', (e)=>{
     ui.questionGender.style.display = 'none';
     ui.questionDob.style.display = 'flex';
     ui.questionCountry.style.display = 'none';
+    ui.dateErrorMessage.style.visibility = "hidden";
     data.currentQuestion = 3;
   }
   else if(data.currentQuestion === 3){
@@ -200,45 +301,6 @@ ui.nextBtn.addEventListener('click', (e)=>{
     window.open("main.html", "_self");
   }
 })
-
-//VALIDATIONS==========================
-function validateDobEntry(){
-  let monthLengths={"1":31, "2":29, "3":31, "4":30, "5":31, "6": 30, "7":31, "8": 31, "9":30, "10": 31, "11":30, "12":31 };
-  //Check leap year february
-  if(parseInt(ui.years.value)%4!==0 && parseInt(ui.months.value) === 2 && parseInt(ui.days.value) >= 29 ){{
-    ui.dateErrorMessage.getElementsByTagName("p")[0].innerText = "Invalid date.";
-    return;
-  }};
-  //Check months and corresponding selected day
-  if(ui.days.value > monthLengths[ui.months.value]){
-    ui.dateErrorMessage.getElementsByTagName("p")[0].innerText = "Invalid date.";
-  }
-  else{
-    ui.dateErrorMessage.getElementsByTagName("p")[0].innerText = "";
-  }
-}
-
-//Upon any date selection change make sure the date is valid
-ui.days.addEventListener('change', (e)=>{
-  e.preventDefault();
-  validateDobEntry();
-});
-
-ui.months.addEventListener('change', (e)=>{
-  e.preventDefault();
-  validateDobEntry();
-});
-
-ui.years.addEventListener('change', (e)=>{
-  e.preventDefault();
-  validateDobEntry();
-});
-
-function validatePasswordEntry(){
-
-};
-
-
 
 //MANAGING THE DATA==========================
 //Get list of profiles from local storage

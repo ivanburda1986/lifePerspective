@@ -13,16 +13,16 @@
     <header class="questions-header">
       <h1>Get a perspective on your life</h1>
     </header>
-    <!-- Your name -->
+    <!-- Profile creation -->
     <div class="questions-main" id="question-profileName">
       <form>
         <p class="questions-question">Create a profile</p>
         <label for="createName"></label>
         <input type="text" id="createName" class="inputField" name="createName" placeholder="Name" >
         <label for="createPassword"></label>
-        <input type="password" id="createPassword" class="inputField" name="createPassword" placeholder="Password">
+        <input type="password" id="createPassword" class="inputField createPassword" name="createPassword" placeholder="Password (min 5 chars)">
         <label for="createPassword"></label>
-        <input type="password" id="repeatPassword" class="inputField" name="repeatPassword" placeholder="Repeat password">
+        <input type="password" id="repeatPassword" class="inputField repeatPassword" name="repeatPassword" placeholder="Repeat password">
       </form>
     </div>
     <!-- Your gender -->
@@ -57,7 +57,7 @@
         </select>
       </form>
       <div id="dateErrorMessage" class="dateErrorMessage">
-        <p></p>
+        <p>Invalid date.</p>
       </div>
     </div>
     <!-- Your origin -->

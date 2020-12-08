@@ -67,6 +67,10 @@ header{
   margin-bottom: 0.1em;
 }
 
+.repeatPassword.doesNotMatch{
+  border: 1px solid red;
+}
+
 /* Gender */
 .questions-radiobuttons{
   width: 14.6rem;
@@ -93,7 +97,7 @@ header{
   margin-left: 1rem;
 }
 
-/* Gender */
+/* DOB */
 #question-dob{
   width: 17rem;
   padding: 0.25em;
@@ -111,7 +115,12 @@ header{
   line-height: 0.8rem;
 }
 
-/* Gender */
+.dateErrorMessage p{
+  margin: 0.5em;
+  font-size: 0.8rem;
+}
+
+/* Country */
 #question-country{
   width: 14.6rem;
   padding: 0.25em;
@@ -130,12 +139,14 @@ header{
 
 /* Buttons */
 .questions-btn{
+  cursor: pointer;
   color: var(--main-text-color);
   width: 14.6rem;
   padding: 0.25em;
 }
 
 .questions-btn.active{
+  color: black;
   background: var(--main-contrast);
   border: 2px solid var(--main-text-color);
 }
