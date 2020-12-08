@@ -75,6 +75,10 @@ header{
   border: 3px solid red;
 }
 
+.loginPassword.incorrect{
+  border: 3px solid red;
+}
+
 /* Gender */
 .questions-radiobuttons{
   width: 14.6rem;
@@ -141,6 +145,22 @@ header{
   margin-bottom: 1rem;
 }
 
+/* Profile login */
+#profile-login{
+  width: 14.6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+#profile-login form{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 /* Buttons */
 .questions-btn{
   cursor: pointer;
@@ -155,18 +175,18 @@ header{
   border: 2px solid var(--main-text-color);
 }
 
-.login-btn{
+.secondary-btn{
   background: none;
   border: none;
   color: #fff;
   cursor:pointer;
 }
-.login-btn:hover{
+.secondary-btn:hover{
   color:var(--main-text-color);
 }
 
-.login-btn.highlight{
-  color: orange;
+.secondary-btn.highlight{
+  color: black;
   font-weight: 700;
 }
 

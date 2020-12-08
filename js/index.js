@@ -17,6 +17,11 @@ const ui = {
   
   nextBtn: document.getElementById('nextBtn'),
   loginBtn: document.getElementById('loginBtn'),
+  backToCreationBtn: document.getElementById('backToCreationBtn'),
+
+  profileLogin: document.getElementById('profile-login'),
+  loginName: document.getElementById('loginName'),
+  loginPassword: document.getElementById('loginPassword'),
   
   profileListContainer: document.getElementById('profileListContainer'),
   profileList: document.querySelector('.profileList'),
@@ -43,6 +48,9 @@ function initiateUIState(){
   ui.questionGender.style.display = 'none';
   ui.questionDob.style.display = 'none';
   ui.questionCountry.style.display = 'none';
+  ui.profileLogin.style.display = 'none';
+  ui.backToCreationBtn.style.display = 'none';
+  
   ui.profileListContainer.style.visibility = 'hidden';
 
   //Make sure that no value is selected for the radio selection of gender
@@ -199,7 +207,7 @@ function nextButtonState(validatingQuestion){
     if(data.nameRegistered === true){
     ui.name.classList.add('alreadyRegistered');
     ui.loginBtn.classList.add('highlight');
-    ui.loginBtn.innerText = "Already registered! Click here to login.";
+    ui.loginBtn.innerText = "Already registered! Login here!";
     } else if (data.nameRegistered === false){
       ui.name.classList.remove('alreadyRegistered');
       ui.loginBtn.classList.remove('highlight');
@@ -227,6 +235,18 @@ function nextButtonState(validatingQuestion){
       ui.nextBtn.disabled = false;
     }
     else{
+      ui.nextBtn.classList.remove('active');
+      ui.nextBtn.disabled = true;
+    }
+  }
+  //Login to an existing profile
+  if(validatingQuestion === "existingProfileLogin"){
+    if(ui.loginName.value.length > 0 && ui.loginPassword.value.length >=5){
+      ui.nextBtn.classList.add('active');
+      ui.nextBtn.disabled = false;
+      console.log('ok');
+    } else{
+      console.log('nok');
       ui.nextBtn.classList.remove('active');
       ui.nextBtn.disabled = true;
     }
@@ -321,7 +341,58 @@ ui.nextBtn.addEventListener('click', (e)=>{
     updateExistingProfilesListInStorage('create', data.nameValue);
     window.open("main.html", "_self");
   }
+  else if(data.currentQuestion === "login"){
+    //If the credentials are correct
+    let profilePassword = JSON.parse(localStorage.getItem(ui.loginName.value)).password;
+    if(ui.loginPassword.value === profilePassword){
+      localStorage.setItem('currentProfile', ui.loginName.value);
+      window.open("main.html", "_self");
+    } else{
+      ui.loginPassword.classList.add('incorrect');
+      setTimeout(function(){
+        ui.loginPassword.classList.remove('incorrect');
+      }, 1000);
+    }
+
+  }
 })
+
+//Go to the login to an existing profile
+ui.loginBtn.addEventListener('click', ()=>{
+  ui.questionProfileCreation.style.display = 'none';
+  ui.nextBtn.classList.remove('active');
+  ui.nextBtn.disabled = true;
+  ui.loginBtn.style.display = "none";
+
+  if(data.nameRegistered === true){
+    ui.loginName.value = ui.name.value;
+  } else{
+    ui.loginName.value = "";
+  }
+
+  data.currentQuestion = "login";
+  ui.backToCreationBtn.style.display = 'flex';
+  ui.profileLogin.style.display = 'flex';
+})
+
+//Submit credentials to login to an existing profile
+ui.loginName.addEventListener('keyup', ()=>{
+  nextButtonState('existingProfileLogin');
+});
+
+ui.loginPassword.addEventListener('keyup', ()=>{
+  nextButtonState('existingProfileLogin');
+});
+
+//Back to profile creation
+ui.backToCreationBtn.addEventListener('click', ()=>{
+  ui.backToCreationBtn.style.display = 'none';
+  ui.profileLogin.style.display = 'none';
+  
+  data.currentQuestion = "1";
+  ui.questionProfileCreation.style.display = 'flex';
+  ui.loginBtn.style.display = "flex";
+});
 
 //MANAGING THE DATA==========================
 //Get list of profiles from local storage

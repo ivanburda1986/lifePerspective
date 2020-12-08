@@ -25,6 +25,16 @@
         <input type="password" id="repeatPassword" class="inputField repeatPassword" name="repeatPassword" placeholder="Repeat password">
       </form>
     </div>
+    <!-- Existing profile login -->
+    <div class="questions-main" id="profile-login">
+      <form>
+        <p class="questions-question">Login</p>
+        <label for="loginName"></label>
+        <input type="text" id="loginName" class="inputField loginName" name="loginName" placeholder="Name" >
+        <label for="loginPassword"></label>
+        <input type="password" id="loginPassword" class="inputField loginPassword" name="loginPassword" placeholder="Password">
+      </form>
+    </div>
     <!-- Your gender -->
     <div class="questions-main" id="question-gender">
       <form>
@@ -69,10 +79,12 @@
         </div>
       </form>
     </div>
+
     <!-- Continue button -->
     <button id="nextBtn" class="questions-btn">Next</button>
     <!-- Login button -->
-    <button id="loginBtn" class="login-btn">Already registered?</button>
+    <button id="loginBtn" class="secondary-btn">Already registered?</button>
+    <button id="backToCreationBtn" class="back-to-creation-btn secondary-btn">Create a profile</button>
   </div>
   <!-- A list of available profiles -->
   <div id="profileListContainer">
