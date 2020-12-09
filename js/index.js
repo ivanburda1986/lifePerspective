@@ -33,13 +33,6 @@ const ui = {
   loginName: document.getElementById('loginName'),
   loginPassword: document.getElementById('loginPassword'),
 
-  //Admin
-  adminLogin: document.getElementById('adminLogin'),
-  adminLoginBtn: document.getElementById('adminLoginBtn'),
-  adminPasswordInput: document.getElementById('adminPasswordInput'),
-  adminLoginForm: document.getElementById('adminLoginForm'),
-  adminPasswordSubmit: document.getElementById('adminPasswordSubmit'),
-  
   //A list of existing profiles
   profileListContainer: document.getElementById('profileListContainer'),
   profileList: document.querySelector('.profileList'),
@@ -64,11 +57,26 @@ const data = {
 function initiateUIState(){
   //Make sure only the first question is displayed
   ui.questionProfileCreation.style.display = 'visible';
+  ui.questionProfileCreation.style.display = 'flex';
   ui.questionGender.style.display = 'none';
   ui.questionDob.style.display = 'none';
   ui.questionCountry.style.display = 'none';
   ui.profileLogin.style.display = 'none';
   ui.backToCreationBtn.style.display = 'none';
+  ui.nextBtn.disabled = true;
+  ui.nextBtn.classList = "questions-btn";
+  ui.loginBtn.style.display = "flex";
+  data.currentQuestion = 1;
+  ui.name.value = "";
+  ui.name.classList = "inputField createName";
+  ui.createPassword.value = "";
+  ui.createPassword.classList = "inputField createPassword";
+  ui.repeatPassword.value = "";
+  ui.repeatPassword.classList = "inputField repeatPassword";
+
+  ui.name.classList.remove('alreadyRegistered');
+  ui.loginBtn.classList.remove('highlight');
+  ui.loginBtn.innerText = "Already registered?";
   
   //Make sure that no value is selected for the radio selection of gender
   Array.from(document.querySelectorAll('.radioOption')).forEach(radioOption =>{
@@ -172,11 +180,18 @@ function listExistingProfiles(){
 //VALIDATIONS
 //Profile creation - name
 ui.name.addEventListener('keyup', ()=>{
+  if(ui.name.value === "admin"){
+    setTimeout(function(){
+      ui.name.value = null;
+    }, 1000);
+    data.nameValidation = "nok";
+    nextButtonState("profileCreation");
+    return;
+  }
   if(ui.name.value.length !== 0 && getExistingProfilesListFromStorage().indexOf(ui.name.value) !== -1){
     data.nameValidation = "nok";
     data.nameRegistered = true;
     nextButtonState("profileCreation");
-    console.log('hi');
     return;
   }
   if(ui.name.value.length !== 0){
@@ -325,21 +340,27 @@ function validateDobEntry(){
 
 //Manage navigation by using the "Next" button
 ui.nextBtn.addEventListener('click', (e)=>{
-  e.preventDefault();
+  //e.preventDefault();
   //The "Next" button was clicked at the: Name and password creation
   if(data.currentQuestion === 1){
-    data[ui.name.value] = {profileName: ui.name.value};
-    data.nameValue = ui.name.value;
-    data[data.nameValue].password = ui.createPassword.value;
-    ui.questionProfileCreation.style.display = 'none';
-    ui.questionGender.style.display = 'flex';
-    ui.questionDob.style.display = 'none';
-    ui.questionCountry.style.display = 'none';
-    ui.profileListContainer.style.visibility = 'hidden';
-    ui.nextBtn.classList.remove('active');
-    ui.nextBtn.disabled = true;
-    ui.loginBtn.style.display = "none";
-    data.currentQuestion = 2;
+    //Prevent an attempt to create an admin account
+    if(ui.name.value === "admin"){
+      ui.name.value = "";
+      return;
+    } else{
+      data[ui.name.value] = {profileName: ui.name.value};
+      data.nameValue = ui.name.value;
+      data[data.nameValue].password = ui.createPassword.value;
+      ui.questionProfileCreation.style.display = 'none';
+      ui.questionGender.style.display = 'flex';
+      ui.questionDob.style.display = 'none';
+      ui.questionCountry.style.display = 'none';
+      ui.profileListContainer.style.visibility = 'hidden';
+      ui.nextBtn.classList.remove('active');
+      ui.nextBtn.disabled = true;
+      ui.loginBtn.style.display = "none";
+      data.currentQuestion = 2;
+    }
   }
   //The "Next" button was clicked at the: Gender selection
   else if(data.currentQuestion === 2){
@@ -372,15 +393,36 @@ ui.nextBtn.addEventListener('click', (e)=>{
   }
   //The "Next" button was clicked at the: Login with an existing profile
   else if(data.currentQuestion === "login"){
-    //If the credentials are correct
-    let profilePassword = JSON.parse(localStorage.getItem(ui.loginName.value)).password;
-    if(ui.loginPassword.value === profilePassword){
-      localStorage.setItem('currentProfile', ui.loginName.value);
-      window.open("main.html", "_self");
+    //Admin user:
+    if(ui.loginName.value === "admin" && ui.loginPassword.value === "winettou"){
+      //Hide the questions part
+      ui.questionsContainer.style.display = "none";
+      //Show the list
+      ui.profileListContainer.style.visibility = 'visible';
+      return;
+    }
+
+    let userDataInLs = localStorage.getItem(ui.loginName.value);
+    //A regular login: The user exists
+    if(userDataInLs !== null){
+      let profilePassword = JSON.parse(localStorage.getItem(ui.loginName.value)).password;
+      //The login credentials are correct
+      if(ui.loginPassword.value === profilePassword){
+        localStorage.setItem('currentProfile', ui.loginName.value);
+        window.open("main.html", "_self");
+      } else{
+        //The login credentials are incorrect
+        ui.loginPassword.classList.add('incorrect');
+        setTimeout(function(){
+          ui.loginPassword.classList.remove('incorrect');
+        }, 1000);
+      }
     } else{
-      //The login credentials are incorrect
+      //A regular login: The user does not exists
+      ui.loginName.classList.add('incorrect');
       ui.loginPassword.classList.add('incorrect');
       setTimeout(function(){
+        ui.loginName.classList.remove('incorrect');
         ui.loginPassword.classList.remove('incorrect');
       }, 1000);
     }
@@ -393,6 +435,8 @@ ui.loginBtn.addEventListener('click', ()=>{
   ui.nextBtn.classList.remove('active');
   ui.nextBtn.disabled = true;
   ui.loginBtn.style.display = "none";
+  ui.loginName.value = "";
+  ui.loginPassword.value = "";
 
   if(data.nameRegistered === true){
     ui.loginName.value = ui.name.value;
@@ -417,66 +461,21 @@ ui.loginPassword.addEventListener('keyup', ()=>{
 
 //Go to the screen: Profile creation
 ui.backToCreationBtn.addEventListener('click', ()=>{
+  initiateUIState();
   ui.backToCreationBtn.style.display = 'none';
   ui.profileLogin.style.display = 'none';
-  
-  data.currentQuestion = "1";
-  ui.questionProfileCreation.style.display = 'flex';
-  ui.loginBtn.style.display = "flex";
 });
 
-//ADMIN
-//Show the admin-mode login form
-ui.adminLoginBtn.addEventListener('click', ()=>{
-  ui.adminLoginForm.classList.toggle('show');
-});
-
-//Submit the password
-ui.adminPasswordSubmit.addEventListener('click', (e)=>{
-  e.preventDefault();
-  if(ui.adminPasswordInput.value === localStorage.getItem('adminPass')){
-    //Hide the questions part
-    ui.questionsContainer.style.display = "none";
-    ui.adminLogin.classList.toggle('hide');
-    //Show the list
-    ui.profileListContainer.style.visibility = 'visible';
-  } else{
-    //The password is incorrect
-    ui.adminPasswordInput.classList.add('incorrect');
-    setTimeout(function(){
-      ui.adminPasswordInput.classList.remove('incorrect');
-    }, 1000);
-  }
-});
-
-//Trigger state control of the admin-mode button for submitting password
-ui.adminPasswordInput.addEventListener('keyup',()=>{
-  if(adminPasswordInput.value.length > 0){
-    ui.adminPasswordSubmit.disabled = false;
-    ui.adminPasswordSubmit.classList.add('active');
-  } else{
-    ui.adminPasswordSubmit.disabled = true;
-    ui.adminPasswordSubmit.classList.remove('active');
-  }
-});
-
-//Close the list and return to the profile creation
+//Profile list: Close the list and return to the profile creation
 ui.profileListHidenBtn.addEventListener('click', ()=>{
-    //Show the questions part
-    ui.questionsContainer.style.display = "flex";
-    ui.adminLogin.classList.toggle('hide');
-    //Hide the list
-    ui.profileListContainer.style.visibility = 'hidden';
-
-    //Hide the admin login form and empty the pass input
-    ui.adminLoginForm.classList.toggle('show');
-    ui.adminPasswordInput.value = "";
-    ui.adminPasswordSubmit.disabled = true;
-    ui.adminPasswordSubmit.classList.remove('active');
-
-})
-
-
+  //Show the questions part
+  ui.questionsContainer.style.display = "flex";
+  ui.loginName.value = "";
+  ui.loginPassword.value = "";
+  ui.nextBtn.classList = "questions-btn";
+  //Hide the list
+  ui.profileListContainer.style.visibility = 'hidden';
+});
 
 
 //MANAGING THE DATA==========================

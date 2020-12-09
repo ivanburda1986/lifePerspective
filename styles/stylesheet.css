@@ -75,6 +75,18 @@ header{
   border: 3px solid red;
 }
 
+.loginName{
+  border: 3px solid var(--main-bg-color);
+}
+
+.loginName.incorrect{
+  border: 3px solid red;
+}
+
+.loginPassword{
+  border: 3px solid var(--main-bg-color);
+}
+
 .loginPassword.incorrect{
   border: 3px solid red;
 }
@@ -176,7 +188,7 @@ header{
 }
 
 .secondary-btn{
-  margin-bottom: 5px;
+  margin-top: 5px;
   background: none;
   border: none;
   color: #fff;
@@ -190,46 +202,6 @@ header{
   color: black;
   font-weight: 700;
 }
-
-/* ADMIN */
-
-.adminLogin{
-  margin-top: 50px;
-}
-
-.adminLogin.hide{
-  display: none;
-}
-
-.adminLoginBtn{
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--secondary-bg-color);
-  outline: none;
-}
-
-.adminLoginForm{
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.adminLoginForm.show{
-  display: flex;
-}
-
-.adminPassword.incorrect{
-  border: 3px solid red;
-}
-
-.adminPasswordSubmit.active{
-  color: black;
-  background: var(--main-contrast);
-  border: 2px solid var(--main-text-color);
-}
-
 
 /* PROFILES LIST */
 #profileListContainer{
