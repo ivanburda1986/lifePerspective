@@ -21,7 +21,8 @@ DONE---1) Create a flow for profile creations including a password
 DONE---2) Create a flow for login as an alternative to creation (requires providing a username and password)
 DONE---3) Show the list of profiles only to an admin
 DONE---4] Improve, simplify the admin login and increase the pseudosecurity, so that the password is not obvious from LS
-5) Improve general styling of the solution
+5) Add a validation that it is possible to create strictly a user that has already been born, rather than from the future
+6) Improve general styling of the solution
 
 All in all the solution should be ready for the moment when I build the BE in node.js
 
