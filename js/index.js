@@ -322,6 +322,17 @@ ui.years.addEventListener('change', (e)=>{
 function validateDobEntry(){
   let monthLengths={"1":31, "2":29, "3":31, "4":30, "5":31, "6": 30, "7":31, "8": 31, "9":30, "10": 31, "11":30, "12":31 };
   //Make sure the date is not in the future
+  let todayInMsSince1970 = newdata.today.getTime();
+  let selectedDateInMsSince1970 = new Date();
+  selectedDateInMsSince1970.setFullYear(parseInt(ui.years.value),(parseInt(ui.months.value)-1),parseInt(ui.days.value));
+  selectedDateInMsSince1970 = selectedDateInMsSince1970.getTime();
+  console.log(selectedDateInMsSince1970);
+  console.log(todayInMsSince1970);
+  if(selectedDateInMsSince1970 > todayInMsSince1970){{
+    ui.dateErrorMessage.style.visibility = "visible";
+    data.dobValidation = "nok";
+    return;
+  }};
 
   //Make sure the leap year works correctly
   if(parseInt(ui.years.value)%4!==0 && parseInt(ui.months.value) === 2 && parseInt(ui.days.value) >= 29 ){{
