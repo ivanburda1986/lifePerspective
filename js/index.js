@@ -321,21 +321,26 @@ ui.years.addEventListener('change', (e)=>{
 
 function validateDobEntry(){
   let monthLengths={"1":31, "2":29, "3":31, "4":30, "5":31, "6": 30, "7":31, "8": 31, "9":30, "10": 31, "11":30, "12":31 };
-  //Check leap year february
+  //Make sure the date is not in the future
+
+  //Make sure the leap year works correctly
   if(parseInt(ui.years.value)%4!==0 && parseInt(ui.months.value) === 2 && parseInt(ui.days.value) >= 29 ){{
     ui.dateErrorMessage.style.visibility = "visible";
     data.dobValidation = "nok";
     return;
   }};
-  //Check months and corresponding selected day
+  //Make sure months and corresponding day number within them is correct
   if(ui.days.value > monthLengths[ui.months.value]){
     ui.dateErrorMessage.style.visibility = "visible";
     data.dobValidation = "nok";
   }
+  //If everything above is ok, confirm the DOB selection
   else{
     ui.dateErrorMessage.style.visibility = "hidden";
     data.dobValidation = "ok";
   }
+  
+
 }
 
 //Manage navigation by using the "Next" button
