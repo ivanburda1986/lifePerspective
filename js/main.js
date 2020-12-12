@@ -15,14 +15,14 @@ const ui = {
   statsName: document.getElementById('statsName'),
   statsExpectancy: document.getElementById('statsExpectancy'),
   statsLifespan: document.getElementById('statsLifespan'),
-  statsYearSelect: document.getElementById('statsYearSelect'),
+  controllersYearSelect: document.getElementById('controllersYearSelect'),
   progressDob: document.getElementById('progressElapsedDob'),
   progressExpirationOutlivedView: document.getElementById('progressElapsedExpiration'),
   progressExpiration: document.getElementById('progressRemainingExpiration'),
   progressElapsed: document.getElementById('progressElapsed'),
   progressRemaining: document.getElementById('progressRemaining'),
   progressExtra: document.getElementById('progressExtra'),
-  changeAnswers: document.getElementById('changeAnswers'),
+  backToLoginBtn: document.getElementById('backToLoginBtn'),
   firstBirthday: null,
   lastExpectedDay: null,
   firstBirthdayId: null,
@@ -245,8 +245,8 @@ function populateYearSelector(){
     <option value="${i}">${i}</option>
     `;
   };
-  ui.statsYearSelect.innerHTML = yearsList;
-  ui.statsYearSelect.value = currentYear;
+  ui.controllersYearSelect.innerHTML = yearsList;
+  ui.controllersYearSelect.value = currentYear;
 }
 
 //Visualize all individual days within the user's life expectancy
@@ -470,9 +470,9 @@ function hideModal(){
 
 //EVENT TRIGGERS=============================
 //Click: Move to a selecter year
-ui.statsYearSelect.addEventListener('change', (e)=>{
+ui.controllersYearSelect.addEventListener('change', (e)=>{
   e.preventDefault();
-  let domPositionOfSelectedYear= document.getElementById(ui.statsYearSelect.value).offsetTop;
+  let domPositionOfSelectedYear= document.getElementById(ui.controllersYearSelect.value).offsetTop;
   window.scrollTo(0, domPositionOfSelectedYear - window.innerHeight/5);
 });
 
@@ -537,7 +537,7 @@ ui.dayEntryDelete.addEventListener('click',(e)=>{
 });
 
 //Click: Go back to the answers
-ui.changeAnswers.addEventListener('click', (e)=>{
+ui.backToLoginBtn.addEventListener('click', (e)=>{
   window.open('index.html', "_self");
 });
 

@@ -12,7 +12,7 @@
   <main class="mainContainer">
     <div class="topBar">
       <!-- Progress -->
-      <section id="mainProgress" class="mainProgress mx-1">
+      <section id="mainProgress" class="mainProgress">
         <div id="progressElapsed" class="progressElapsed">
           <p id="progressElapsedDob" class="progressElapsedDob"></p>
           <p id="progressElapsedExpiration" class="progressElapsedExpiration"></p>
@@ -23,26 +23,23 @@
         <div id="progressExtra" class="progressExtra"></div>
       </section>
       <!-- Stats  -->
-      <section id="mainStats" class="mainStats mx-1">
-        <div id="changeAnswersContainer">
-          <button id="changeAnswers" class=""><i class="fas fa-arrow-left"></i> Back</button>
-        </div>
-        <div id="statsContainer">
+      <section id="mainStats" class="mainStats">
           <form>
             <label for="statsName"></label>
             <output name=statsName id="statsName"></output>
-            <label for="statsExpectancy">Expectancy: </label>
+            <label for="statsExpectancy">Exp: </label>
             <output name=statsExpectancy id="statsExpectancy"></output>
             <label for="statsLifespan"></label>
             <output name=statsLifespan id="statsLifespan"></output>
           </form>
-          <form>
-            <div class="statsYearSelect">
-              <select name="statsYearSelect" id="statsYearSelect" class="dropdown">
-                
-              </select>
-            </div>
-          </form>
+      </section>
+      <!-- Controllerss -->
+      <section id="mainControllers" class="mainControllers">
+        <div id="backToLoginContainer">
+          <button id="backToLoginBtn" class=""><i class="fas fa-arrow-left"></i></button>
+        </div>
+        <div id="controllersYearSelectContainer" class="controllersYearSelectContainer">
+          <form><select name="controllersYearSelect" id="controllersYearSelect" class="dropdown"></select></form>
         </div>
       </section>
     </div>

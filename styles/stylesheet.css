@@ -23,14 +23,13 @@ body{
   color: #fff;
 }
 
-
 .mainContainer{
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 99vw;
-  height: 98vh;
+  width: 100vw;
+  height: 100vh;
   margin-top: 6rem;
 }
 
@@ -276,24 +275,21 @@ input[type=number] {
 }
 
 
-
-
-
-/* Overview */
+/* MAIN PAGE OF THE APPLICATION */
 .topBar{
   position: fixed;
   top: -1vh;
-  width: 99vw;
+  width: 100%;
   background-color: black;
 }
 
+/* Progress bar */
 .mainProgress{
-  padding-top: 0.5rem;
   display: flex;
   flex-direction: row;
-  justify-content: center;
-  height: 3rem;
-  width: auto;
+  justify-content: space-between;
+  height: 2.5rem;
+  width: 100vw;
   background-color: inherit;
 }
 
@@ -303,11 +299,10 @@ input[type=number] {
   justify-content: flex-end;
   align-items: center;
   height: 100%;
-  width: 57%;
   background: mediumseagreen;
   text-align: end;
-  line-height: 3rem;
-  font-size: 2rem;
+  line-height: 2.5rem;
+  font-size: 1.75rem;
   padding-right: 0.5rem;
 }
 
@@ -317,11 +312,10 @@ input[type=number] {
   justify-content: space-between;
   align-items: center;
   height: 100%;
-  width: 42%;
   background: magenta;
   text-align: start;
-  line-height: 3rem;
-  font-size: 2rem;
+  line-height: 2.5rem;
+  font-size: 1.75rem;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
 }
@@ -335,11 +329,12 @@ input[type=number] {
   width: 0%;
   background: cyan;
   text-align: end;
-  line-height: 3rem;
-  font-size: 2rem;
+  line-height: 2.5rem;
+  font-size: 1.75rem;
   padding-right: 0.5rem;
 }
 
+/* Stats: Name, expectancy, dob, last day */
 .mainStats{
   display: flex;
   flex-direction: row;
@@ -351,32 +346,33 @@ input[type=number] {
   width: auto;
 }
 
-.statsYearSelect{
-  margin: 0 20px;
+/* Controllers: Back to the login screen, go to a year */
+.mainControllers{
+display: flex;
+flex-direction: column;
 }
 
-#changeAnswersContainer{
+#backToLoginContainer{
   position: relative;
 display: flex;
 flex-direction: row;
-padding-right: 3rem;
+width: 40%;
 }
 
-#statsContainer{
-  display: flex;
-  flex-direction: row;
-}
-
-
-#changeAnswers{
-  background: none;
+#backToLoginBtn{
+  background: pink;
   color: #fff;
   border: none;
   font-size: 1rem;
   cursor: pointer;
-  padding: 0.25em 0.5em;
+  width: 100%;
 }
 
+.controllersYearSelectContainer{
+  display: flex;
+width: 60%;
+}
+/* Main visualization of life */
 .mainVisualization{
   display: flex;
   flex-direction: row;
