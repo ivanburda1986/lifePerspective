@@ -338,13 +338,19 @@ function visualizeWithinExpectactionDays(){
 
 //Visualize all individual days above the expectation
 function visualizeAboveExpectactionDays(){
-  let years = [];
-
-
   let days = [];
 
   //Get an array with all days after the expiration until today
-  let numberOfDays = ((data.today - data.expiration)/1000/3600/24)+1;
+  let numberOfDays;
+    //For leap years
+  if((data.today).getFullYear()%4 === 0){
+    numberOfDays = ((data.today - data.expiration)/1000/3600/24)+1;
+  } 
+    //For non-leap years
+  else{
+    numberOfDays = ((data.today - data.expiration)/1000/3600/24);
+  }
+  
   let nextDate = new Date(data.expiration);
   for(let i = 1; i < numberOfDays; i++){
     nextDate.setDate(nextDate.getDate() + 1);
@@ -356,26 +362,17 @@ function visualizeAboveExpectactionDays(){
       //Create a day DOM element
       let domDay = document.createElement("div");
 
-      //If this is the first day of the year add a year label before it
-      if (day.getMonth() === 0 && day.getDate() === 1){
-        let yearLabel = document.createElement("div");
-        yearLabel.innerText = day.getFullYear();
-        yearLabel.classList.add('yearLabel');
-        yearLabel.id = day.getFullYear();
-        ui.mainVisualization.appendChild(yearLabel);
-      }
-
       //If this is the first day of a month add a month label before it
       if (day.getDate() === 1){
         let monthLabel = document.createElement("div");
         monthLabel.innerText = day.getMonth()+1;
         monthLabel.classList.add('monthLabel');
-        ui.mainVisualization.appendChild(monthLabel);
+        document.getElementById("year-body"+day.getFullYear()).appendChild(monthLabel);
       }
 
       //Appened the day to DOM and give it a unique ID
       domDay.id = `${day.getFullYear()}-${day.getMonth()+1}-${day.getDate()}`;
-      ui.mainVisualization.appendChild(domDay);
+      document.getElementById("year-body"+day.getFullYear()).appendChild(domDay);
       domDay.classList.add('day');
       domDay.innerText = day.getDate();
 

@@ -30,7 +30,7 @@ body{
   align-items: center;
   width: 100vw;
   height: 100vh;
-  margin-top: 5.5rem;
+  margin-top: 6rem;
 }
 
 
@@ -49,6 +49,39 @@ header{
 .questions-question{
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
+}
+
+.questions-main{
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}
+
+.questions-progress{
+  margin: 0;
+  display: flex;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+}
+
+.questions-question{
+  display: flex;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+}
+
+#day{
+  width: 1.5rem;
+}
+
+#month{
+  width: 1.5rem;
+}
+
+#year{
+  width: 3rem;
 }
 
 /* Name and password */
@@ -288,7 +321,9 @@ input[type=number] {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  height: 2.5rem;
+  align-items: center;
+  height: 3rem;
+  line-height: 3rem;
   width: 100vw;
   background-color: inherit;
 }
@@ -299,10 +334,11 @@ input[type=number] {
   justify-content: flex-end;
   align-items: center;
   height: 100%;
-  background: mediumseagreen;
+  background:mediumseagreen;
   text-align: end;
-  line-height: 2.5rem;
+  line-height: 3rem;
   font-size: 1.75rem;
+  padding-top: 0.5rem;
   padding-right: 1.5rem;
 }
 
@@ -312,10 +348,11 @@ input[type=number] {
   justify-content: space-between;
   align-items: center;
   height: 100%;
-  background: magenta;
+  background: crimson;
   text-align: start;
-  line-height: 2.5rem;
+  line-height: 3rem;
   font-size: 1.75rem;
+  padding-top: 0.5rem;
   padding-left: 0.5rem;
   padding-right: 0.5rem;
 }
@@ -327,10 +364,11 @@ input[type=number] {
 .progressExtra{
   height: 100%;
   width: 0%;
-  background: cyan;
+  background: gold;
   text-align: end;
-  line-height: 2.5rem;
+  line-height: 3rem;
   font-size: 1.75rem;
+  padding-top: 0.5rem;
   padding-right: 0.5rem;
 }
 
@@ -341,9 +379,12 @@ input[type=number] {
   justify-content: center;
   align-items: center;
   text-align: center;
-  border: 1px solid #fff;
+  background-color: rgba(255,255,255,0.1);
+  font-size: 1.1rem;
+  line-height: 1.1rem;
   height: 2rem;
   width: auto;
+  padding-top: 4px;
 }
 
 /* Controllers: Back to the login screen, go to a year */
@@ -353,6 +394,8 @@ height: 1.75rem;
 flex-direction: row;
 align-items: center;
 justify-content: center;
+background-color: rgba(255,255,255,0.3);
+border-bottom: 2px solid black;
 }
 
 #backToLoginContainer{
@@ -361,7 +404,7 @@ display: flex;
 flex-direction: row;
 justify-content: flex-end;
 align-items: flex-end;
-width: 50%;
+width: 40%;
 }
 
 #backToLoginBtn{
@@ -370,30 +413,59 @@ width: 50%;
   border: none;
   font-size: 1rem;
   cursor: pointer;
-  width: 50%;
+  width: 60%;
 }
 
 .controllersYearSelectContainer{
   display: flex;
   flex-direction: row;
-justify-content: flex-start;
-align-items: flex-start;
+  justify-content: flex-start;
+  align-items: flex-start;
   width: 50%;
 }
 
 .controllersYearSelectContainer form{
   display: flex;
   flex-direction: row;
-justify-content: flex-start;
-align-items: flex-start;
-width: 100%;
+  justify-content: flex-start;
+  align-items: flex-start;
+  width: 100%;
 }
 
 #controllersYearSelect{
-  width: 250px;
-  background-color: black;
+  width: 200px;
+  background-color: rgba(255,255,255,0.1);
   color: white;
+  background-color: #4e4e4e;
+  font-size: 1rem;
+  text-align: center;
 }
+
+/* Scrollbar */
+body{
+  overflow-x: hidden; /* Hide horizontal scrollbar */
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: white; 
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #4e4e4e; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #4e4e4e;; 
+}
+
 
 /* Main visualization of life */
 .mainVisualization{
@@ -408,10 +480,15 @@ width: 100%;
 .yearLabel{
   border-top: 1px solid #fff;
   border-bottom: 1px solid #fff;
-  height: 1.5rem;
-  width: 99vw;
-  line-height: 1.5rem;
+  background: var(--secondary-bg-color);
+  color: #4e4e4e;
+  height: 1.25rem;
+  width: 100vw;
+  line-height: 1.25rem;
+  font-size: 1.25rem;
+  font-weight: 600;
   margin-top: 0.25em;
+  padding: 0.25em 0;
 }
 
 .domYear{
@@ -437,7 +514,7 @@ width: 100%;
   align-items: center;
   text-align: center;
   line-height: 0.7rem;
-  border: 1px solid #fff;
+  border: 1.5px solid #4e4e4e;
   height: 1.5rem;
   width: 1.5rem;
   margin: 3px;
@@ -446,16 +523,21 @@ width: 100%;
 }
 
 .firstBirthday{
-  background: cyan;
+  background: mediumseagreen;;
+  font-size: 0.9rem;
+  font-weight: 800;
   color: black;
 }
 
 .today{
-  background: red;
+  background: crimson;
+  color: #fff;
+  font-size: 0.9rem;
+  font-weight: 800;
 }
 
 .hasEntry{
-  border: 1px solid red;
+  border: 1.5px solid crimson;
 }
 
 .regularDay{
@@ -463,11 +545,16 @@ width: 100%;
 }
 
 .lastExpectedDay{
-  background: purple;
+  background: crimson;
+  font-size: 0.9rem;
+  font-weight: 800;
 }
 
 .extraDay{
-  background: darkslategray;
+  background: #996600;
+  color: #fff;
+  font-weight: 700;
+
 }
 
 .monthLabel{
@@ -476,12 +563,13 @@ width: 100%;
   align-items: center;
   text-align: center;
   line-height: 0.7rem;
-  border: 1px solid #fff;
+  border: 1.5px solid #fff;
   height: 1.5rem;
   width: 1.5rem;
   margin: 2px;
-  font-size: 0.7rem;
-  background: orange;
+  font-size: 0.8rem;
+  font-weight: 700;
+  background: #fff;
   color: black;
 }
 
@@ -509,11 +597,11 @@ width: 100%;
   align-items: center;
   text-align: center;
   width: 100vw;
-  height: 20vh;
+  height: 12vh;
 }
 
 .dayEntryModal h1{
-font-size: 2.5rem;
+font-size: 2rem;
 }
 
 .dayEntryModal main{
@@ -526,7 +614,7 @@ font-size: 2.5rem;
 .btn-close{
   position: absolute;
   display: block;
-  right: 4rem;
+  right: 2rem;
   top: 2rem;
   background: none;
   color: #fff;
@@ -535,20 +623,43 @@ font-size: 2.5rem;
   cursor: pointer;
 }
 
+.btn-close:hover{
+  color: gold;
+}
+
 .dayEntryImage{
   width: 120px;
   height: auto;
+
 }
 
 .dayEntryImageBtn{
   background: none;
-  border: none;
   cursor: pointer;
   outline: none;
+  border: 1px solid black;
+}
+
+.dayEntryImageBtn:hover{
+  border: 1px solid gold;
 }
 
 .imageUrlInsertForm{
+  margin-top: 1rem;
   display: none;
+}
+
+#imageUrlSaveBtn{
+  background: none;
+  color: #fff;
+  border: 1px solid #fff;
+  font-size: 0.8rem;
+  cursor: pointer;
+  padding: 0.25em 0.5em;
+}
+
+#imageUrlSaveBtn:hover{
+  border: 1px solid gold;
 }
 
 textarea{
@@ -570,69 +681,20 @@ textarea{
   padding: 0.25em 0.5em;
 }
 
+.dayEntryModal .btn:hover{
+  border: 1px solid gold;
+}
+
 .dayEntryModal .btn.disabled{
   color: #444;
   border: 1px solid #444;
 }
 
 
-
-/* QUESTIONAIRE */
-
-
-.questions-main{
-  display: flex;
-  flex-direction: column;
-  margin: 0;
-}
-
-.questions-progress{
-  margin: 0;
-  display: flex;
-  width: 100vw;
-  justify-content: center;
-  align-items: center;
-}
-
-.questions-question{
-  display: flex;
-  width: 100vw;
-  justify-content: center;
-  align-items: center;
-}
-
-.progress-dot{
-  margin: 0;
-  margin-left: 5px;
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: rgba(255,255,255,0.2);
-}
-
-.progress-dot.active{
-  background-color: rgba(255,255,255,1);
-}
-
-#question-dob input{
-  font-size: 1.2rem;
-}
-
-#day{
-  width: 1.5rem;
-}
-
-#month{
-  width: 1.5rem;
-}
-
-#year{
-  width: 3rem;
-}
+/* MEDIAQUERY */
 
 @media(max-width: 500px){
   textarea{
     width: 90vw;
   }
 }
-
