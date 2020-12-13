@@ -380,8 +380,8 @@ input[type=number] {
   align-items: center;
   text-align: center;
   background-color: rgba(255,255,255,0.1);
-  font-size: 1.1rem;
-  line-height: 1.1rem;
+  font-size: 1rem;
+  line-height: 1rem;
   height: 2rem;
   width: auto;
   padding-top: 4px;

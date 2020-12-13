@@ -207,7 +207,7 @@ function showStatsProgressNumbers(){
   //Stats under the progress bar
   ui.statsName.innerText = data.answers.name + ", ";
   ui.statsExpectancy.innerText = Math.round(data.expectancy) + ": ";
-  ui.statsLifespan.innerText = `${new Date(data.answers.dob).getDate()}.${new Date(data.answers.dob).getMonth()+1}. ${new Date(data.answers.dob).getFullYear()} - ${data.expiration.getDate()}.${data.expiration.getMonth()+1}. ${data.expiration.getFullYear()}`;
+  ui.statsLifespan.innerText = `${new Date(data.answers.dob).getDate()}.${new Date(data.answers.dob).getMonth()+1}.${new Date(data.answers.dob).getFullYear()} - ${data.expiration.getDate()}.${data.expiration.getMonth()+1}.${data.expiration.getFullYear()}`;
   
   //The visual progress bar of life
   ui.progressDob.innerText = new Date(data.answers.dob).getFullYear();
