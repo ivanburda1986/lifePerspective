@@ -690,6 +690,10 @@ textarea{
   border: 1px solid #444;
 }
 
+.modalFooter{
+width: 20px;
+height: 100px;
+}
 
 /* MEDIAQUERY */
 
@@ -697,4 +701,15 @@ textarea{
   textarea{
     width: 90vw;
   }
+
+  .btn-close{
+    right: 1rem;
+    top: 1rem;
+    font-size: 1.5rem;
+  }
+
+  .questions-radiobuttons{
+    width: 100vw;
+  }
+
 }
