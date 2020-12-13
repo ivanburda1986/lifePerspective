@@ -251,6 +251,42 @@ function populateYearSelector(){
 
 //Visualize all individual days within the user's life expectancy
 function visualizeWithinExpectactionDays(){
+  let years = [];
+
+  //Get an array with all years from the DOB until the life termination
+  let startingYear = new Date(data.answers.dob).getFullYear();
+  let lastExpectedYear = new Date(data.expiration).getFullYear();
+  let currentYear = new Date(data.today).getFullYear();
+  let listUntilYear;
+  data.outlivedExpectancy === true ? listUntilYear = currentYear : listUntilYear =lastExpectedYear;
+
+  for(let i = startingYear; i <= listUntilYear; i++){
+    years.push(i);
+  };
+
+  //Create a year DOM element
+  years.forEach(year=>{
+    //Create a year container
+    let domYear = document.createElement("div");
+    domYear.id = "dom-year" + year;
+    domYear.classList.add('domYear');
+    
+    //Create a year label
+    let yearLabel = document.createElement("div");
+    yearLabel.innerText = year;
+    yearLabel.classList.add('yearLabel');
+    yearLabel.id = "year-label" + year;
+    domYear.appendChild(yearLabel);
+
+    //Create a year body
+    let yearBody = document.createElement("div");
+    yearBody.classList.add('yearBody');
+    yearBody.id = "year-body" + year;
+    domYear.appendChild(yearBody);
+    //Append the year to the body
+    ui.mainVisualization.appendChild(domYear);
+  });
+
   let days = [];
 
   //Get an array with all days from the DOB until the life termination
@@ -262,19 +298,12 @@ function visualizeWithinExpectactionDays(){
     days.push(new Date(nextDate));
   };
 
-  //Make sure a year label is appended to the first year, if the DOB is not on the 1.1., which would make it get the year label automatically
-  if(new Date(data.answers.dob).getDate() !==1 ){
-    let yearLabel = document.createElement("div");
-    yearLabel.innerText = days[0].getFullYear();
-    yearLabel.classList.add('yearLabel');
-    yearLabel.id = days[0].getFullYear();
-    ui.mainVisualization.appendChild(yearLabel);
-
   //Make sure there is a month indication for the days of the first month, if the DOB is not on the first day of the month, which would make it get the month label automatically
+  if(new Date(data.answers.dob).getDate() !==1 ){
     let monthLabel = document.createElement("div");
       monthLabel.innerText = days[0].getMonth()+1;
       monthLabel.classList.add('monthLabel');
-      ui.mainVisualization.appendChild(monthLabel);
+      document.getElementById("year-body"+days[0].getFullYear()).appendChild(monthLabel);
   }
 
   //Append all days of the user's life
@@ -282,26 +311,17 @@ function visualizeWithinExpectactionDays(){
     //Create a day DOM element
     let domDay = document.createElement("div");
 
-    //If this is the first day of the year add a year label before it
-    if (day.getMonth() === 0 && day.getDate() === 1){
-      let yearLabel = document.createElement("div");
-      yearLabel.innerText = day.getFullYear();
-      yearLabel.classList.add('yearLabel');
-      yearLabel.id = day.getFullYear();
-      ui.mainVisualization.appendChild(yearLabel);
-    }
-
     //If this is the first day of a month add a month label before it
     if (day.getDate() === 1){
       let monthLabel = document.createElement("div");
       monthLabel.innerText = day.getMonth()+1;
       monthLabel.classList.add('monthLabel');
-      ui.mainVisualization.appendChild(monthLabel);
+      document.getElementById("year-body"+day.getFullYear()).appendChild(monthLabel);
     }
 
     //Appened the day to DOM and give it a unique ID
     domDay.id = `${day.getFullYear()}-${day.getMonth()+1}-${day.getDate()}`;
-    ui.mainVisualization.appendChild(domDay);
+    document.getElementById("year-body"+day.getFullYear()).appendChild(domDay);
     domDay.classList.add('day');
     domDay.innerText = day.getDate();
 
@@ -318,6 +338,9 @@ function visualizeWithinExpectactionDays(){
 
 //Visualize all individual days above the expectation
 function visualizeAboveExpectactionDays(){
+  let years = [];
+
+
   let days = [];
 
   //Get an array with all days after the expiration until today
@@ -472,7 +495,7 @@ function hideModal(){
 //Click: Move to a selecter year
 ui.controllersYearSelect.addEventListener('change', (e)=>{
   e.preventDefault();
-  let domPositionOfSelectedYear= document.getElementById(ui.controllersYearSelect.value).offsetTop;
+  let domPositionOfSelectedYear= document.getElementById("dom-year"+ui.controllersYearSelect.value).offsetTop;
   window.scrollTo(0, domPositionOfSelectedYear - window.innerHeight/5);
 });
 
