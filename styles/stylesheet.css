@@ -687,9 +687,10 @@ textarea{
 }
 
 .modalFooter{
-width: 20px;
-height: 100px;
-background: pink;
+  display: block;
+  width: 50vw;
+  height: 200px;
+
 }
 
 /* MEDIAQUERY */
