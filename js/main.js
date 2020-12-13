@@ -503,6 +503,7 @@ function attachActionToDays(){
     let clickedDayId = `${item.getAttribute('data-year')}-${item.getAttribute('data-month')}-${item.getAttribute('data-day')}`;
     displayModal({clickedDayId:clickedDayId, year:item.getAttribute('data-year'), month: item.getAttribute('data-month'), day: item.getAttribute('data-day')});
     data.openedModalId = clickedDayId;
+    document.querySelector('.imageUrlInsertForm').style.display = "none";
     })
   });
 };
@@ -524,8 +525,8 @@ ui.dayEntrySubmit.addEventListener('click', (e)=>{
 //Click: Trigger adding image to a day entry
 ui.dayEntryImage.addEventListener('click', (e)=>{
   e.preventDefault();
-  if(ui.imageUrlInsertForm.style.visibility === "" || ui.imageUrlInsertForm.style.visibility === "hidden"){
-    ui.imageUrlInsertForm.style.visibility = "visible";
+  if(ui.imageUrlInsertForm.style.display === "" || ui.imageUrlInsertForm.style.display === "none"){
+    ui.imageUrlInsertForm.style.display = "flex";
     if(getDayEntryFromLocalStorage (data.openedModalId).image === undefined){
       ui.imageUrlInsertField.placeholder = "Insert some image URL";
     } else{
@@ -533,7 +534,7 @@ ui.dayEntryImage.addEventListener('click', (e)=>{
     }
   }
   else{
-    ui.imageUrlInsertForm.style.visibility = "hidden";
+    ui.imageUrlInsertForm.style.display = "none";
   }
 });
 
@@ -542,7 +543,7 @@ ui.imageUrlSaveBtn.addEventListener('click', (e)=>{
   e.preventDefault();
   if(ui.imageUrlInsertField.value !== ""){
     saveDayEntryToLocalStorage(data.openedModalId, "image", ui.imageUrlInsertField.value);
-    ui.imageUrlInsertForm.style.visibility = "hidden";
+    ui.imageUrlInsertForm.style.display = "none";
     ui.dayEntryImage.src = ui.imageUrlInsertField.value;
   }
 })
