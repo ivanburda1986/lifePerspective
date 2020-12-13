@@ -709,7 +709,11 @@ height: 100px;
   }
 
   .questions-radiobuttons{
-    width: 100vw;
+    width: 99vw;
+  }
+
+  .question-dob{
+    width: 99vw;
   }
 
 }
