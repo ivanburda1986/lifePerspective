@@ -11,6 +11,7 @@ const ui = {
   dayEntrySubmit: document.getElementById('dayEntrySubmit'),
   dayEntryDelete: document.getElementById('dayEntryDelete'),
   dayEntryModalClose: document.getElementById('dayEntryModalClose'),
+  imageUrlCloseBtn: document.getElementById('imageUrlCloseBtn'),
   mainVisualization: document.getElementById('mainVisualization'),
   statsName: document.getElementById('statsName'),
   statsExpectancy: document.getElementById('statsExpectancy'),
@@ -546,8 +547,13 @@ ui.imageUrlSaveBtn.addEventListener('click', (e)=>{
     ui.imageUrlInsertForm.style.display = "none";
     ui.dayEntryImage.src = ui.imageUrlInsertField.value;
   }
-})
+});
 
+//Click: Close Image URL
+ui.imageUrlCloseBtn.addEventListener('click', (e)=>{
+  e.preventDefault();
+  ui.imageUrlInsertForm.style.display = "none";
+});
 
 //Click: Delete day-entry
 ui.dayEntryDelete.addEventListener('click',(e)=>{
