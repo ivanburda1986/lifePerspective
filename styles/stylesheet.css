@@ -644,11 +644,6 @@ font-size: 2rem;
   border: 1px solid gold;
 }
 
-.imageUrlInsertForm{
-  margin-top: 1rem;
-  display: none;
-}
-
 #imageUrlSaveBtn{
   background: none;
   color: #fff;
@@ -693,6 +688,7 @@ textarea{
 .modalFooter{
 width: 20px;
 height: 100px;
+background: pink;
 }
 
 /* MEDIAQUERY */
@@ -703,7 +699,7 @@ height: 100px;
   }
 
   .btn-close{
-    right: 1rem;
+    right: 0.5rem;
     top: 1rem;
     font-size: 1.5rem;
   }

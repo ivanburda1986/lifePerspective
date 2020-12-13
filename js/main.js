@@ -524,8 +524,8 @@ ui.dayEntrySubmit.addEventListener('click', (e)=>{
 //Click: Trigger adding image to a day entry
 ui.dayEntryImage.addEventListener('click', (e)=>{
   e.preventDefault();
-  if(ui.imageUrlInsertForm.style.display === "" || ui.imageUrlInsertForm.style.display === "none"){
-    ui.imageUrlInsertForm.style.display = "block";
+  if(ui.imageUrlInsertForm.style.visibility === "" || ui.imageUrlInsertForm.style.visibility === "hidden"){
+    ui.imageUrlInsertForm.style.visibility = "visible";
     if(getDayEntryFromLocalStorage (data.openedModalId).image === undefined){
       ui.imageUrlInsertField.placeholder = "Insert some image URL";
     } else{
@@ -533,7 +533,7 @@ ui.dayEntryImage.addEventListener('click', (e)=>{
     }
   }
   else{
-    ui.imageUrlInsertForm.style.display = "none";
+    ui.imageUrlInsertForm.style.visibility = "hidden";
   }
 });
 
@@ -542,7 +542,7 @@ ui.imageUrlSaveBtn.addEventListener('click', (e)=>{
   e.preventDefault();
   if(ui.imageUrlInsertField.value !== ""){
     saveDayEntryToLocalStorage(data.openedModalId, "image", ui.imageUrlInsertField.value);
-    ui.imageUrlInsertForm.style.display = "none";
+    ui.imageUrlInsertForm.style.visibility = "hidden";
     ui.dayEntryImage.src = ui.imageUrlInsertField.value;
   }
 })
