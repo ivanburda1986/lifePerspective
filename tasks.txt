@@ -25,3 +25,4 @@ Add progressive loading
 - generate year-containers for all years
 - fill in only the days for the current year, and before/after if possible
 - when the user scrolls up or down, fill in days for the years in the direction of the scrolling and remove days outside of this scope
+- lets ask on stack overflow first
