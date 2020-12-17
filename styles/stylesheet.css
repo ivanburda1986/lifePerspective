@@ -1,15 +1,14 @@
 /* VARIABLES */
-:root{
-  --main-bg-color: #9899A6;
-  --secondary-bg-color: #D7D7D9;
-  --main-text-color: #736B62;
-  --secondary-text-color: #A69B92;
-  --main-contrast: #A3A653;
-
+:root {
+  --main-bg-color: #9899a6;
+  --secondary-bg-color: #d7d7d9;
+  --main-text-color: #736b62;
+  --secondary-text-color: #a69b92;
+  --main-contrast: #a3a653;
 }
 
 /* GENERAL SETTINGS */
-body{
+body {
   box-sizing: border-box;
   display: flex;
   min-height: 100vh;
@@ -23,41 +22,40 @@ body{
   color: #fff;
 }
 
-.mainContainer{
+.mainContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   width: 100vw;
-  height: 100vh;
+  min-height: 100vh;
   margin-top: 6rem;
 }
 
-
 /* QUESTIONAIRE */
-header{
+header {
   margin: 0 1rem;
 }
 
-.questionsContainer{
+.questionsContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.questions-question{
+.questions-question {
   font-size: 1.2rem;
   margin-bottom: 0.5rem;
 }
 
-.questions-main{
+.questions-main {
   display: flex;
   flex-direction: column;
   margin: 0;
 }
 
-.questions-progress{
+.questions-progress {
   margin: 0;
   display: flex;
   width: 100vw;
@@ -65,66 +63,66 @@ header{
   align-items: center;
 }
 
-.questions-question{
+.questions-question {
   display: flex;
   width: 100vw;
   justify-content: center;
   align-items: center;
 }
 
-#day{
+#day {
   width: 1.5rem;
 }
 
-#month{
+#month {
   width: 1.5rem;
 }
 
-#year{
+#year {
   width: 3rem;
 }
 
 /* Name and password */
-#question-profileName form{
+#question-profileName form {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.inputField{
+.inputField {
   width: 14rem;
   border-radius: 5px;
   padding: 0.25em;
   margin-bottom: 0.1em;
 }
 
-.createName.alreadyRegistered{
+.createName.alreadyRegistered {
   border: 3px solid red;
 }
 
-.repeatPassword.doesNotMatch{
+.repeatPassword.doesNotMatch {
   border: 3px solid red;
 }
 
-.loginName{
+.loginName {
   border: 3px solid var(--main-bg-color);
 }
 
-.loginName.incorrect{
+.loginName.incorrect {
   border: 3px solid red;
 }
 
-.loginPassword{
+.loginPassword {
   border: 3px solid var(--main-bg-color);
 }
 
-.loginPassword.incorrect{
+.loginPassword.incorrect {
   border: 3px solid red;
 }
 
 /* Gender */
-.questions-radiobuttons{
+.questions-radiobuttons {
   width: 14.6rem;
   padding: 0.25em;
   margin: 0.25rem;
@@ -136,21 +134,21 @@ header{
   text-align: center;
 }
 
-#question-gender form{
+#question-gender form {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.radioOption{
+.radioOption {
   height: 1.25rem;
   width: 1.25rem;
   margin-left: 1rem;
 }
 
 /* DOB */
-#question-dob{
+#question-dob {
   width: 17rem;
   padding: 0.25em;
   margin: 0.25rem;
@@ -162,19 +160,19 @@ header{
   text-align: center;
 }
 
-#question-dob .dropdown{
+#question-dob .dropdown {
   font-size: 0.8rem;
   line-height: 0.8rem;
 }
 
-.dateErrorMessage p{
+.dateErrorMessage p {
   margin: 0.5em;
   font-size: 0.8rem;
   font-weight: 600;
 }
 
 /* Country */
-#question-country{
+#question-country {
   width: 14.6rem;
   padding: 0.25em;
   margin: 0.25rem;
@@ -186,12 +184,12 @@ header{
   text-align: center;
 }
 
-#countryselect{
+#countryselect {
   margin-bottom: 1rem;
 }
 
 /* Profile login */
-#profile-login{
+#profile-login {
   width: 14.6rem;
   display: flex;
   flex-direction: column;
@@ -199,7 +197,7 @@ header{
   text-align: center;
 }
 
-#profile-login form{
+#profile-login form {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -207,37 +205,37 @@ header{
 }
 
 /* Buttons */
-.questions-btn{
+.questions-btn {
   cursor: pointer;
   color: var(--main-text-color);
   width: 14.6rem;
   padding: 0.25em;
 }
 
-.questions-btn.active{
+.questions-btn.active {
   color: black;
   background: var(--main-contrast);
   border: 2px solid var(--main-text-color);
 }
 
-.secondary-btn{
+.secondary-btn {
   margin-top: 5px;
   background: none;
   border: none;
   color: #fff;
-  cursor:pointer;
+  cursor: pointer;
 }
-.secondary-btn:hover{
-  color:var(--main-text-color);
+.secondary-btn:hover {
+  color: var(--main-text-color);
 }
 
-.secondary-btn.highlight{
+.secondary-btn.highlight {
   color: black;
   font-weight: 700;
 }
 
 /* PROFILES LIST */
-#profileListContainer{
+#profileListContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -247,18 +245,17 @@ header{
   max-width: 500px;
 }
 
-.profileList{
-margin: 0;
-padding: 0;
-list-style-type: none;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-
+.profileList {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
-.profileListItem{
+.profileListItem {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -275,24 +272,24 @@ align-items: center;
   border-radius: 5px;
 }
 
-.profileListItem button{
+.profileListItem button {
   cursor: pointer;
-background: none;
-border: none;
-font-weight: 100;
-color: var(--secondary-bg-color);
+  background: none;
+  border: none;
+  font-weight: 100;
+  color: var(--secondary-bg-color);
 }
 
-.profileListItem button:hover{
-color: var(--main-text-color);
+.profileListItem button:hover {
+  color: var(--main-text-color);
 }
 
-.profileListHidenBtn{
+.profileListHidenBtn {
   margin-bottom: 5px;
   background: none;
   border: none;
   color: #fff;
-  cursor:pointer;
+  cursor: pointer;
 }
 
 /* Chrome, Safari, Edge, Opera */
@@ -303,13 +300,12 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type=number] {
+input[type="number"] {
   -moz-appearance: textfield;
 }
 
-
 /* MAIN PAGE OF THE APPLICATION */
-.topBar{
+.topBar {
   position: fixed;
   top: -1vh;
   width: 100%;
@@ -317,7 +313,7 @@ input[type=number] {
 }
 
 /* Progress bar */
-.mainProgress{
+.mainProgress {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -328,13 +324,13 @@ input[type=number] {
   background-color: inherit;
 }
 
-.progressRemaining{
+.progressRemaining {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
   height: 100%;
-  background:mediumseagreen;
+  background: mediumseagreen;
   text-align: end;
   line-height: 3rem;
   font-size: 1.75rem;
@@ -342,7 +338,7 @@ input[type=number] {
   padding-right: 1.5rem;
 }
 
-.progressElapsed{
+.progressElapsed {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -357,11 +353,11 @@ input[type=number] {
   padding-right: 0.5rem;
 }
 
-.progressElapsedDob{
+.progressElapsedDob {
   z-index: 2;
 }
 
-.progressExtra{
+.progressExtra {
   height: 100%;
   width: 0%;
   background: gold;
@@ -373,13 +369,13 @@ input[type=number] {
 }
 
 /* Stats: Name, expectancy, dob, last day */
-.mainStats{
+.mainStats {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   text-align: center;
-  background-color: rgba(255,255,255,0.1);
+  background-color: rgba(255, 255, 255, 0.1);
   font-size: 1rem;
   line-height: 1rem;
   height: 2rem;
@@ -388,26 +384,26 @@ input[type=number] {
 }
 
 /* Controllers: Back to the login screen, go to a year */
-.mainControllers{
-display: flex;
-height: 1.75rem;
-flex-direction: row;
-align-items: center;
-justify-content: center;
-background-color: rgba(255,255,255,0.3);
-border-bottom: 2px solid black;
+.mainControllers {
+  display: flex;
+  height: 1.75rem;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.3);
+  border-bottom: 2px solid black;
 }
 
-#backToLoginContainer{
-position: relative;
-display: flex;
-flex-direction: row;
-justify-content: flex-end;
-align-items: flex-end;
-width: 40%;
+#backToLoginContainer {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: flex-end;
+  width: 40%;
 }
 
-#backToLoginBtn{
+#backToLoginBtn {
   background: none;
   color: #fff;
   border: none;
@@ -416,7 +412,7 @@ width: 40%;
   width: 60%;
 }
 
-.controllersYearSelectContainer{
+.controllersYearSelectContainer {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -424,7 +420,7 @@ width: 40%;
   width: 50%;
 }
 
-.controllersYearSelectContainer form{
+.controllersYearSelectContainer form {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -432,9 +428,9 @@ width: 40%;
   width: 100%;
 }
 
-#controllersYearSelect{
+#controllersYearSelect {
   width: 200px;
-  background-color: rgba(255,255,255,0.1);
+  background-color: rgba(255, 255, 255, 0.1);
   color: white;
   background-color: #4e4e4e;
   font-size: 1rem;
@@ -442,7 +438,7 @@ width: 40%;
 }
 
 /* Scrollbar */
-body{
+body {
   overflow-x: hidden; /* Hide horizontal scrollbar */
 }
 
@@ -453,22 +449,21 @@ body{
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: white; 
+  background: white;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #4e4e4e; 
+  background: #4e4e4e;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #4e4e4e;; 
+  background: #4e4e4e;
 }
 
-
 /* Main visualization of life */
-.mainVisualization{
+.mainVisualization {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -477,7 +472,7 @@ body{
   width: 100vw;
 }
 
-.yearLabel{
+.yearLabel {
   border-top: 1px solid #fff;
   border-bottom: 1px solid #fff;
   background: var(--secondary-bg-color);
@@ -491,14 +486,14 @@ body{
   padding: 0.25em 0;
 }
 
-.domYear{
+.domYear {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 }
 
-.yearBody{
+.yearBody {
   margin: 0 auto;
   width: 98%;
   display: flex;
@@ -508,7 +503,7 @@ body{
   flex-wrap: wrap;
 }
 
-.day{
+.day {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -522,42 +517,41 @@ body{
   cursor: pointer;
 }
 
-.firstBirthday{
-  background: mediumseagreen;;
+.firstBirthday {
+  background: mediumseagreen;
   font-size: 0.9rem;
   font-weight: 800;
   color: black;
 }
 
-.today{
+.today {
   background: crimson;
   color: #fff;
   font-size: 0.9rem;
   font-weight: 800;
 }
 
-.hasEntry{
+.hasEntry {
   border: 1.5px solid crimson;
 }
 
-.regularDay{
+.regularDay {
   background: #333;
 }
 
-.lastExpectedDay{
+.lastExpectedDay {
   background: crimson;
   font-size: 0.9rem;
   font-weight: 800;
 }
 
-.extraDay{
+.extraDay {
   background: #996600;
   color: #fff;
   font-weight: 700;
-
 }
 
-.monthLabel{
+.monthLabel {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -575,23 +569,23 @@ body{
 
 /* Day-entry modal */
 
-.dayEntryModal{
+.dayEntryModal {
   position: fixed;
   width: 100vw;
   height: 100%;
   margin: 0;
-  background: rgba(0,0,0,1);
+  background: rgba(0, 0, 0, 1);
   z-index: 3;
   top: 0;
   left: 0;
   display: none;
 }
 
-#dayEntryModal.visible{
+#dayEntryModal.visible {
   display: block;
 }
 
-.dayEntryModal header{
+.dayEntryModal header {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -600,18 +594,18 @@ body{
   height: 12vh;
 }
 
-.dayEntryModal h1{
-font-size: 2rem;
+.dayEntryModal h1 {
+  font-size: 2rem;
 }
 
-.dayEntryModal main{
+.dayEntryModal main {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  }
+}
 
-.btn-close{
+.btn-close {
   position: absolute;
   display: block;
   right: 2rem;
@@ -623,29 +617,27 @@ font-size: 2rem;
   cursor: pointer;
 }
 
-.btn-close:hover{
+.btn-close:hover {
   color: gold;
 }
 
-.dayEntryImage{
+.dayEntryImage {
   width: 120px;
   height: auto;
-
 }
 
-.dayEntryImageBtn{
+.dayEntryImageBtn {
   background: none;
   cursor: pointer;
   outline: none;
   border: 1px solid black;
 }
 
-.dayEntryImageBtn:hover{
+.dayEntryImageBtn:hover {
   border: 1px solid gold;
 }
 
-
-#imageUrlSaveBtn{
+#imageUrlSaveBtn {
   background: none;
   color: #fff;
   border: 1px solid #fff;
@@ -654,11 +646,11 @@ font-size: 2rem;
   padding: 0.25em 0.5em;
 }
 
-#imageUrlSaveBtn:hover{
+#imageUrlSaveBtn:hover {
   border: 1px solid gold;
 }
 
-.btn-img-close{
+.btn-img-close {
   background: none;
   color: #fff;
   border: 1px solid #fff;
@@ -667,7 +659,7 @@ font-size: 2rem;
   padding: 0.25em 0.5em;
 }
 
-textarea{
+textarea {
   background: #000;
   color: #fff;
   border: 1px solid #fff;
@@ -677,7 +669,7 @@ textarea{
   margin: 1.5rem 0;
 }
 
-.dayEntryModal .btn{
+.dayEntryModal .btn {
   background: none;
   color: #fff;
   border: 1px solid #fff;
@@ -686,41 +678,39 @@ textarea{
   padding: 0.25em 0.5em;
 }
 
-.dayEntryModal .btn:hover{
+.dayEntryModal .btn:hover {
   border: 1px solid gold;
 }
 
-.dayEntryModal .btn.disabled{
+.dayEntryModal .btn.disabled {
   color: #444;
   border: 1px solid #444;
 }
 
-.modalFooter{
+.modalFooter {
   display: block;
   width: 50vw;
   height: 200px;
-
 }
 
 /* MEDIAQUERY */
 
-@media(max-width: 500px){
-  textarea{
+@media (max-width: 500px) {
+  textarea {
     width: 90vw;
   }
 
-  .btn-close{
+  .btn-close {
     right: 0.5rem;
     top: 1rem;
     font-size: 1.5rem;
   }
 
-  .questions-radiobuttons{
+  .questions-radiobuttons {
     width: 99vw;
   }
 
-  #question-dob{
+  #question-dob {
     width: 99vw;
   }
-
 }
